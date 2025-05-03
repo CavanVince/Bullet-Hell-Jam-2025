@@ -142,17 +142,11 @@ public class Pathfinding : MonoBehaviour
             if (endNode.cameFromNodeIndex == -1)
             {
                 // Didn't find a path
-                Debug.Log("Didn't find a path");
             }
             else
             {
                 // Found a path
                 NativeList<int2> path = CalculatePath(pathNodeArray, endNode);
-
-                foreach (int2 pathPosition in path)
-                {
-                    Debug.Log(pathPosition);
-                }
 
                 path.Dispose();
             }
