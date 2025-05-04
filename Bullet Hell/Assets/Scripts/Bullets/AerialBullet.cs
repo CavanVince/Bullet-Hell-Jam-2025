@@ -116,5 +116,9 @@ public class AerialBullet : BaseBullet
                 yield return null;
             }
         }
+        
+        telegraphObject.SetActive(true);
+        bulletObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

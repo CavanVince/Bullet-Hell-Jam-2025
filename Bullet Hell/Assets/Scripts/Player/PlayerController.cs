@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
     public float hitICooldown;
     public bool isHittable;
     public float hitPower;
-    
-
 
     private enum MoveStates
     {
@@ -70,6 +68,11 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             StartCoroutine(SwingBat());
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            BulletManager.instance.FireAerialBullet(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
     private IEnumerator SwingBat()
