@@ -6,7 +6,7 @@ public class TestLauncher : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             BulletManager.instance.FireBullet(Vector2.zero, Vector2.right, x => Mathf.Sin(x * 8f) * 0.1f);
             BulletManager.instance.FireBullet(Vector2.zero, Vector2.up, x => Mathf.Sin(x * 8f) * 0.1f);
