@@ -6,7 +6,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 moveDir;
+    public Vector2 moveDir;
     private Vector2 perpDir;
     private float timeAlive;
     private Func<float, float> moveFunc;
