@@ -64,7 +64,7 @@ public class BaseEnemy : MonoBehaviour
         {
             enemyHealth--;
             Debug.Log(transform.name + " Hit by reflected bullet: " + collision.name);
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            BaseBullet bullet = collision.gameObject.GetComponent<BaseBullet>();
             bullet.gameObject.layer = 6; // Mean bullet layer
             collision.gameObject.SetActive(false);
             if (enemyHealth <= 0)

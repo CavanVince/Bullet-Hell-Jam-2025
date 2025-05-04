@@ -4,14 +4,22 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
+
+public enum BulletType
+{
+    STANDARD,
+    AERIAL
+}
 public class BulletManager : MonoBehaviour
 {
     public static BulletManager instance;
 
-    private List<Bullet> spawnedBullets;
+    private Dictionary<BulletType, List<BaseBullet>> spawnedBulletPools;
 
     [SerializeField]
-    private GameObject bulletPrefab;
+    private GameObject standardBulletPrefab, aerialBulletPrefab;
+
+    public Camera camera;
 
     private void Awake()
     {
@@ -21,10 +29,15 @@ public class BulletManager : MonoBehaviour
             instance = this;
 
             // Pool 20 initial bullets
-            spawnedBullets = new List<Bullet>();
-            for (int i = 0; i < 20; i++)
+            spawnedBulletPools = new Dictionary<BulletType, List<BaseBullet>>()
             {
-                SpawnBullet();
+                {BulletType.STANDARD, new List<BaseBullet>() },
+                {BulletType.AERIAL, new List<BaseBullet>() }
+            };
+
+            foreach(KeyValuePair<BulletType, List<BaseBullet>> kv in spawnedBulletPools)
+            {
+                SpawnBullet(kv.Key);
             }
         }
         else
@@ -41,7 +54,7 @@ public class BulletManager : MonoBehaviour
     public void FireBullet(Vector2 startPos, Vector2 direction, Func<float, float> movementFunc)
     {
         // Iterate through the pooled bullets and determine if one can be fired
-        foreach (Bullet bullet in spawnedBullets)
+        foreach (StandardBullet bullet in spawnedBulletPools[BulletType.STANDARD])
         {
             if (!bullet.gameObject.activeInHierarchy)
             {
@@ -51,7 +64,21 @@ public class BulletManager : MonoBehaviour
         }
 
         // Spawn a new bullet if an available one can't be found in the pool
-        LaunchBullet(SpawnBullet(), startPos, direction.normalized, movementFunc);
+        LaunchBullet((StandardBullet) SpawnBullet(BulletType.STANDARD), startPos, direction.normalized, movementFunc);
+    }
+
+    public void FireAerialBullet(Vector2 destination)
+    {
+        foreach (AerialBullet bullet in spawnedBulletPools[BulletType.AERIAL])
+        {
+            if (!bullet.gameObject.activeInHierarchy)
+            {
+                LaunchAerialBullet(bullet, destination);
+                return;
+            }
+        }
+
+        LaunchAerialBullet((AerialBullet)SpawnBullet(BulletType.AERIAL), destination);
     }
 
     /// <summary>
@@ -67,12 +94,26 @@ public class BulletManager : MonoBehaviour
     /// <summary>
     /// Instantiate a bullet in the world to be pooled
     /// </summary>
-    private Bullet SpawnBullet()
+    private BaseBullet SpawnBullet(BulletType bulletType)
     {
+        GameObject bulletPrefab;
+        switch(bulletType)
+        {
+            case BulletType.AERIAL:
+                bulletPrefab = aerialBulletPrefab;
+                break;
+            case BulletType.STANDARD:
+            default:
+                bulletPrefab = standardBulletPrefab;
+                break;
+        }
+
         GameObject spawnedBullet = Instantiate(bulletPrefab, transform);
         spawnedBullet.SetActive(false);
-        Bullet bullet = spawnedBullet.GetComponent<Bullet>();
-        spawnedBullets.Add(bullet);
+        BaseBullet bullet = spawnedBullet.GetComponent<BaseBullet>();
+
+        spawnedBulletPools[bulletType].Add(bullet);
+
         return bullet;
     }
 
@@ -84,10 +125,18 @@ public class BulletManager : MonoBehaviour
     /// <param name="startPos">The starting position of the bullet</param>
     /// <param name="direction">The direction of the bullet</param>
     /// <param name="movementFunc">The function that the bullet should follow while moving</param>
-    private void LaunchBullet(Bullet bullet, Vector2 startPos, Vector2 direction, Func<float, float> movementFunc)
+    private void LaunchBullet(StandardBullet bullet, Vector2 startPos, Vector2 direction, Func<float, float> movementFunc)
     {
         bullet.transform.position = startPos;
         bullet.gameObject.SetActive(true);
         bullet.Fire(direction, movementFunc);
+    }
+
+    private void LaunchAerialBullet(AerialBullet bullet, Vector2 destination)
+    {
+        Debug.Log($"Aerial Destination: {destination}");
+        bullet.transform.position = destination;
+        bullet.gameObject.SetActive(true);
+        bullet.Fire(destination);
     }
 }
