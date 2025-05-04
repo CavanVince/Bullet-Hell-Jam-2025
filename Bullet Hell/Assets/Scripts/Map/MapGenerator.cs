@@ -26,10 +26,6 @@ public class MapGenerator : MonoBehaviour
     private GameObject
         _1x1_roomPrefab,
         _2x2_roomPrefab,
-        _2x2_TL_roomPrefab,
-        _2x2_TR_roomPrefab,
-        _2x2_BL_roomPrefab,
-        _2x2_BR_roomPrefab,
         _2x1_horizontal_roomPrefab,
         _1x2_vertical_roomPrefab;
 
@@ -130,60 +126,6 @@ public class MapGenerator : MonoBehaviour
         if (CanPlaceRoomConfiguration(square2x2))
         {
             validConfigurations.Add(_2x2_roomPrefab, square2x2);
-        }
-
-        //// L-shaped Rooms
-
-        
-        // TL
-        List<Vector2Int> tl_corner = new List<Vector2Int>
-        {
-            pos,
-            new Vector2Int(pos.x, pos.y + 1),
-            new Vector2Int(pos.x + 1, pos.y + 1)
-        };
-        if (CanPlaceRoomConfiguration(tl_corner))
-        {
-            validConfigurations.Add(_2x2_TL_roomPrefab, tl_corner);
-        }
-
-        
-        // TR
-        List<Vector2Int> tr_corner = new List<Vector2Int>
-        {
-            pos,
-            new Vector2Int(pos.x, pos.y+1),
-            new Vector2Int(pos.x+1, pos.y)
-        };
-        if (CanPlaceRoomConfiguration(tr_corner))
-        {
-            validConfigurations.Add(_2x2_TR_roomPrefab, tr_corner);
-        }
-
-        
-        // BL
-        List<Vector2Int> bl_corner = new List<Vector2Int>
-        {
-            pos,
-            new Vector2Int(pos.x+1, pos.y-1),
-            new Vector2Int(pos.x+1, pos.y)
-        };
-        if (CanPlaceRoomConfiguration(bl_corner))
-        {
-            validConfigurations.Add(_2x2_BL_roomPrefab, bl_corner);
-        }
-
-        
-        // BR
-        List<Vector2Int> br_corner = new List<Vector2Int>
-        {
-            pos,
-            new Vector2Int(pos.x+1, pos.y),
-            new Vector2Int(pos.x + 1, pos.y + 1)
-        };
-        if (CanPlaceRoomConfiguration(br_corner))
-        {
-            validConfigurations.Add(_2x2_BR_roomPrefab, br_corner);
         }
 
         return validConfigurations;
@@ -406,6 +348,7 @@ public class MapGenerator : MonoBehaviour
                 mapTiles.Add(roomInstance);
             }
         }
+
     }
 
     private void Update()
