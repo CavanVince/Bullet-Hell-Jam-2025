@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
-    PlayerController player;
-    private float shotTimerTracker = 0;
+    protected PlayerController player;
+    protected float shotTimerTracker = 0;
 
     [SerializeField]
-    private float shotTimer; // How long between shots
+    protected float shotTimer; // How long between shots
 
     [SerializeField]
-    private float shotDistance; // How far the enemy can be before it shoots
+    protected float shotDistance; // How far the enemy can be before it shoots
 
     void Start()
     {
