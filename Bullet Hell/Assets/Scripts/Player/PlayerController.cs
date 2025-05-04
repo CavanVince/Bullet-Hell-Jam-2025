@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
             }
             StartCoroutine(SwingBat());
         }
+
+        DebugCommands();
     }
     private IEnumerator SwingBat()
     {
@@ -130,10 +132,10 @@ public class PlayerController : MonoBehaviour
 
                 if (layer == 6) // bullet layer
                 {
-                    Bullet bullet = hit.transform.GetComponent<Bullet>();
+                    BaseBullet bullet = hit.transform.GetComponent<BaseBullet>();
                     hit.transform.gameObject.layer = 8; // Player Projectile layer
                     Vector2 reflectDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
-                    hit.transform.GetComponent<Bullet>().Fire(reflectDir * hitPower);
+                    hit.transform.GetComponent<BaseBullet>().Fire(reflectDir * hitPower);
                     
                 }
                 if (layer == 7) // enemy layer
@@ -192,6 +194,16 @@ public class PlayerController : MonoBehaviour
         moveDir = Vector2.zero;
         moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveDir.normalized;
+    }
+
+
+    void DebugCommands()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log($"Spawning Aerial at mouse {Input.mousePosition}");
+            BaseBulletManager.instance.FireAerialBullet(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        }
     }
 
     
