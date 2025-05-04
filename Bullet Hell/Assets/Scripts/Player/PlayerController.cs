@@ -130,10 +130,10 @@ public class PlayerController : MonoBehaviour
 
                 if (layer == 6) // bullet layer
                 {
-                    Bullet bullet = hit.transform.GetComponent<Bullet>();
+                    StandardBullet bullet = hit.transform.GetComponent<StandardBullet>();
                     hit.transform.gameObject.layer = 8; // Player Projectile layer
                     Vector2 reflectDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
-                    hit.transform.GetComponent<Bullet>().Fire(reflectDir * hitPower);
+                    hit.transform.GetComponent<StandardBullet>().Fire(reflectDir * hitPower);
                     
                 }
                 if (layer == 7) // enemy layer
@@ -193,7 +193,6 @@ public class PlayerController : MonoBehaviour
         moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveDir.normalized;
     }
-
     
     private IEnumerator Dash()
     
