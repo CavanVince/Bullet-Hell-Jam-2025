@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4593920046464087667}
   - component: {fileID: -6524295189881257408}
   - component: {fileID: -3478476148869050184}
+  - component: {fileID: 5944700728213652858}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -74,18 +75,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  playerHealth: 0
+  dashMultiplier: 1
+  dashLength: 0.25
+  dashCooldown: 0.25
   batStartAngle: -30
   batEndAngle: 125
   batLength: 2
   swingTime: 0.25
-  dashMultiplier: 1
   batCooldown: 1
-  hitICooldown: 0.75
-  isHittable: 0
   hitPower: 5
-  dashLength: 0.25
-  dashCooldown: 0.25
+--- !u!114 &5944700728213652858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871131887525918465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1054173c66420a94d96a03207a236507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
 --- !u!1 &4688455116785875450
 GameObject:
   m_ObjectHideFlags: 0

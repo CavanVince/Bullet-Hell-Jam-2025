@@ -161,6 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef36e9af64e0c44c97e05e559ba7be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHittable: 1
   moveDir: {x: 0, y: 0}
   moveSpeed: 6

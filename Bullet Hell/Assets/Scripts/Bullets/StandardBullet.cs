@@ -12,12 +12,12 @@ public class StandardBullet : BaseBullet
 
     [SerializeField]
     private float moveSpeed;
-    private bool isHittable = true;
 
     private void FixedUpdate()
     {
         // Update the bullet's position
-        rb.MovePosition((Vector2)transform.position + (moveDir * moveSpeed * Time.deltaTime) + perpDir * moveFunc(Time.time - timeAlive));
+        rb.MovePosition(
+            (Vector2) transform.position + (moveDir * moveSpeed * Time.deltaTime) + perpDir * moveFunc(Time.time - timeAlive));
     }
 
     /// <summary>
