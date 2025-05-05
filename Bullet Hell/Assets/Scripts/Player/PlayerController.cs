@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour
     public float hitICooldown;
     public bool isHittable;
     public float hitPower;
-
+    public float dashLength;
+    public float dashCooldown;
     private enum MoveStates
     {
         Moving,
@@ -202,11 +203,11 @@ public class PlayerController : MonoBehaviour
         dashMultiplier = 2f;
 
 
-        yield return new WaitForSeconds(batCooldown);
+        yield return new WaitForSeconds(dashLength);
         dashMultiplier = 1f;
         dashing = false;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(dashCooldown);
         dashAvailable = true;
 
     }
