@@ -27,6 +27,7 @@ public class BaseEnemy : MonoBehaviour
             Debug.Log("Enemy not launchable");
             return;
         }
+        isLaunched = true;
         Debug.Log("Enemy launched");
         moveDir = direction;
     }
@@ -56,7 +57,12 @@ public class BaseEnemy : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rb.MovePosition((Vector2)transform.position + (moveDir * moveSpeed * Time.deltaTime));
+        if (!isLaunched)
+        {
+            rb.MovePosition((Vector2)transform.position + (moveDir * moveSpeed * Time.deltaTime));
+            return;
+        }
+        rb.MovePosition((Vector2)transform.position + (moveDir * 1 * Time.deltaTime));
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -64,18 +70,12 @@ public class BaseEnemy : MonoBehaviour
         {
             enemyHealth--;
             Debug.Log(transform.name + " Hit by reflected bullet: " + collision.name);
-            BaseBullet bullet = collision.gameObject.GetComponent<BaseBullet>();
-            bullet.gameObject.layer = 6; // Mean bullet layer
-            collision.gameObject.SetActive(false);
             if (enemyHealth <= 0)
             {
                 Destroy(gameObject);
             }
         }
-        if (collision.gameObject.layer == 9) // Player layer
-        {
-            
-        }
+
     }
 
     /// <summary>
