@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
+
+    public int maxHealth;
+
     [SerializeField]
     protected int health;
 
@@ -14,11 +17,28 @@ public class HealthComponent : MonoBehaviour
 
     void Start()
     {
+        if (maxHealth == 0)
+        {
+            maxHealth = 5;
+        }
         if (health == 0)
         {
             health = 5;
         }
         invulnerable = false;
+    }
+
+
+    public void Heal()
+    {
+        Heal(1);
+    }
+    public void Heal(int amount)
+    {
+        if (health + amount > maxHealth)
+            return;
+
+        health += amount;
     }
 
     public void TakeDamage()
