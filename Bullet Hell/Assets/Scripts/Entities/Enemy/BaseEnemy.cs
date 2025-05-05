@@ -75,10 +75,10 @@ public class BaseEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log($"{transform.name} collided with {collision.name}");
-        HealthComponent health = transform.GetComponent<HealthComponent>();
+        HealthComponent health = GetComponent<HealthComponent>();
         if (health == null)
         {
-            Debug.Log("No health attached to Enemy");
+            Debug.Log("WARNING: NO HEALTH ATTACHED TO ENEMY.");
             return;
         }
 

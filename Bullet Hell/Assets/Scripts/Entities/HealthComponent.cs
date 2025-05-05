@@ -47,6 +47,7 @@ public class HealthComponent : MonoBehaviour
             else
             {
                 Destroy(gameObject);
+                return;
             }
         }
         StartCoroutine(StartInvulnerability());
