@@ -64,15 +64,14 @@ public class BaseEnemy : MonoBehaviour
         }
         rb.MovePosition((Vector2)transform.position + (moveDir * 1 * Time.deltaTime));
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        HealthComponent health = GetComponent<HealthComponent>();
         if (collision.gameObject.layer == 8) // Player Projectile layer
         {
-            enemyHealth--;
-            Debug.Log(transform.name + " Hit by reflected bullet: " + collision.name);
-            if (enemyHealth <= 0)
+            if (health != null)
             {
-                Destroy(gameObject);
+                health.TakeDamage();
             }
         }
 

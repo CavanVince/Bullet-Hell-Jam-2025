@@ -7,16 +7,16 @@ public abstract class BaseBullet : MonoBehaviour
 {
     protected Rigidbody2D rb;
     protected Func<float, float> moveFunc;
-    public bool isHittable;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        bool hitPlayer = collision.transform.GetComponent<PlayerController>() != null && isHittable && transform.gameObject.layer == 6;
-        bool hitEnemy = collision.transform.GetComponent<BaseEnemy>() != null && transform.gameObject.layer == 8;
+        bool hitPlayer = collision.transform.GetComponent<PlayerController>() != null && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
+        bool hitEnemy = collision.transform.GetComponent<BaseEnemy>() != null && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
        if (hitEnemy || hitPlayer)
        {
            OnHit();

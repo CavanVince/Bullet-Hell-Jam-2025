@@ -8,46 +8,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    private CircleCollider2D circleCollider;
+    private Vector2 moveDir;
+    
     [SerializeField]
     private float moveSpeed;
 
-
     private bool dashAvailable = true;
-
     private bool dashing = false;
-   
+    public float dashMultiplier;
+    public float dashLength;
+    public float dashCooldown;
+    
     private bool canSwing = true;
-
-    private Vector2 moveDir;
-    private Rigidbody2D rb;
-    private CircleCollider2D circleCollider;
-    public int playerHealth;
     public float batStartAngle;
     public float batEndAngle;
     public float batLength;
     public float swingTime;
-    public float dashMultiplier;
     public float batCooldown;
-    public float hitICooldown;
-    public bool isHittable;
     public float hitPower;
-    public float dashLength;
-    public float dashCooldown;
-    private enum MoveStates
-    {
-        Moving,
-        Dashing,
-    }
-
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        dashMultiplier = 1f;
-        playerHealth = 5;
-        isHittable = true;
+        dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
     }
-
 
     void Update()
     {
@@ -129,21 +115,19 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(hit.transform.name);
                 Vector3 camMousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 camMousePos2D = new Vector2(camMousePos3D.x, camMousePos3D.y);
-                
-            
 
-                if (layer == 6 && hit.transform.GetComponent<BaseBullet>().isHittable) // bullet layer
+                if (layer == BulletHellCommon.BULLET_LAYER && hit.transform.GetComponent<BaseBullet>().GetType() == typeof(StandardBullet))
                 {
+                    Debug.Log($"Hit Bullet {hit.transform.name} with bat");
                     StandardBullet bullet = hit.transform.GetComponent<StandardBullet>();
-                    hit.transform.gameObject.layer = 8; // Player Projectile layer
+                    hit.transform.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
                     Vector2 reflectDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
                     hit.transform.GetComponent<StandardBullet>().Fire(reflectDir * hitPower);
-                    
                 }
-                if (layer == 7) // enemy layer
+                if (layer == BulletHellCommon.ENEMY_LAYER)
                 {
                     Vector2 enemyDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
-                    Debug.Log("enemy hit " + hit.transform.name);
+                    Debug.Log($"Hit enemy {hit.transform.name} with bat");
                     hit.transform.GetComponent<BaseEnemy>().Launch(enemyDir * hitPower);
                 }
                 hits.Add(hit.transform.gameObject);
@@ -158,27 +142,23 @@ public class PlayerController : MonoBehaviour
         dashAvailable = true;
         canSwing = true;
     }
-    void OnTriggerEnter2D(Collider2D collision)
+
+    void OnCollisionEnter2D(Collision2D collision)
     {
         int layer = collision.gameObject.layer;
-        if (isHittable && (layer == 6 || layer == 7)) // bullet or enemy layer (layer is 6 or 7) 
+        Debug.Log($"{transform.name} collided with {collision.transform.name}");
+        HealthComponent health = GetComponent<HealthComponent>();
+
+        if (layer == BulletHellCommon.BULLET_LAYER || layer == BulletHellCommon.ENEMY_LAYER)  
         {
-            isHittable = false;
-            Debug.Log(transform.name + " Hit by: " + collision.name);
-            playerHealth--;
-            if (playerHealth <= 0)
-            {
-                Debug.Log("Game Over!!!!!!!!!!!! STOP PLAYING!!!!!!!!STOP MOVING AROUND YOU DUMBASS");
-            }
-            StartCoroutine(PlayerHit());
+            if (health != null)
+                health.TakeDamage();
         }
     }
-    private IEnumerator PlayerHit()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        transform.GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(hitICooldown);
-        isHittable = true;
-        transform.GetComponent<SpriteRenderer>().color = Color.white;
+        Debug.Log("Triggered from bullet");
     }
 
     private void FixedUpdate()
@@ -197,13 +177,12 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Dash()
     
     {
-        dashAvailable = false;
         dashing = true;
-
+        dashAvailable = false;
         dashMultiplier = 2f;
 
-
         yield return new WaitForSeconds(dashLength);
+
         dashMultiplier = 1f;
         dashing = false;
 

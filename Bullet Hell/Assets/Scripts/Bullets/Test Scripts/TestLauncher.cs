@@ -11,7 +11,6 @@ public class TestLauncher : MonoBehaviour
         {
             Vector2 origin = gameObject.transform.position;
             int numPoints = 5;
-            float radius = 5f;
 
             for (int i = 0; i < numPoints; i++){
 

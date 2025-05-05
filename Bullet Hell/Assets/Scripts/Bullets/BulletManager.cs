@@ -19,8 +19,6 @@ public class BulletManager : MonoBehaviour
     [SerializeField]
     private GameObject standardBulletPrefab, aerialBulletPrefab;
 
-    public Camera camera;
-
     private void Awake()
     {
         // Singleton pattern
@@ -128,8 +126,8 @@ public class BulletManager : MonoBehaviour
     private void LaunchBullet(StandardBullet bullet, Vector2 startPos, Vector2 direction, Func<float, float> movementFunc)
     {
         bullet.transform.position = startPos;
-        bullet.gameObject.SetActive(true);
         bullet.Fire(direction, movementFunc);
+        bullet.gameObject.SetActive(true);
     }
 
     private void LaunchAerialBullet(AerialBullet bullet, Vector2 destination)
