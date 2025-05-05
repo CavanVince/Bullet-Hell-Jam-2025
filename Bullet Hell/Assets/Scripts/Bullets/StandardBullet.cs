@@ -12,6 +12,7 @@ public class StandardBullet : BaseBullet
 
     [SerializeField]
     private float moveSpeed;
+    private bool isHittable = true;
 
     private void FixedUpdate()
     {

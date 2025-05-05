@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 
             
 
-                if (layer == 6) // bullet layer
+                if (layer == 6 && hit.transform.GetComponent<BaseBullet>().isHittable) // bullet layer
                 {
                     StandardBullet bullet = hit.transform.GetComponent<StandardBullet>();
                     hit.transform.gameObject.layer = 8; // Player Projectile layer
@@ -162,10 +162,6 @@ public class PlayerController : MonoBehaviour
         int layer = collision.gameObject.layer;
         if (isHittable && (layer == 6 || layer == 7)) // bullet or enemy layer (layer is 6 or 7) 
         {
-            if (layer == 6)
-            {
-                collision.gameObject.SetActive(false);
-            }
             isHittable = false;
             Debug.Log(transform.name + " Hit by: " + collision.name);
             playerHealth--;
