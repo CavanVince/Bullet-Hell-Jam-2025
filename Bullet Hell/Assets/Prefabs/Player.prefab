@@ -172,3 +172,5 @@ MonoBehaviour:
   hitICooldown: 0.75
   isHittable: 0
   hitPower: 5
+  dashLength: 0.25
+  dashCooldown: 1
