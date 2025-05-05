@@ -163,12 +163,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerHealth: 0
-  batStartAngle: 0
-  batEndAngle: 0
-  batLength: 0
-  swingTime: 0
-  dashMultiplier: 0
-  batCooldown: 0
-  hitICooldown: 0
+  batStartAngle: -30
+  batEndAngle: 125
+  batLength: 2
+  swingTime: 0.25
+  dashMultiplier: 1
+  batCooldown: 1
+  hitICooldown: 0.75
   isHittable: 0
-  hitPower: 0
+  hitPower: 5
