@@ -8,7 +8,9 @@ public class HealthComponent : MonoBehaviour
     protected int health;
 
     protected bool invulnerable;
-    protected float invulnerabilityDurationOnHit;
+    
+    [SerializeField]
+    private float invulnerabilityDurationOnHit;
 
     void Start()
     {
@@ -27,9 +29,14 @@ public class HealthComponent : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (invulnerable)
+        {
+            Debug.Log($"{transform.name} is Invulnerable. No Damage taken.");
             return;
+        }
 
         health -= damage;
+        Debug.Log($"{transform.name} took {damage} damage");
+
         if (health <= 0) 
         {
             Debug.Log($"{transform.name} took lethal damage!");
@@ -42,22 +49,32 @@ public class HealthComponent : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
-        if (invulnerabilityDurationOnHit > 0) {
-            StartCoroutine(StartInvulnerability());
-        }
+        StartCoroutine(StartInvulnerability());
     }
 
-    protected virtual IEnumerator StartInvulnerability()
+    IEnumerator StartInvulnerability()
     {
-        SpriteRenderer spr = transform.GetComponent<SpriteRenderer>();
+        //Debug.Log($"Setting {transform.name} invulnerable for {invulnerabilityDurationOnHit}s");
+        SpriteRenderer spr = GetComponentInChildren<SpriteRenderer>();
         Color originalColor = spr.color;
+        Color invulnColor = Color.cyan;
 
+        if (invulnerabilityDurationOnHit > 0)
+        {
+            invulnerable = true;
+        }
+
+        // flicker 'hit' color
         spr.color = Color.red;
-        invulnerable = true;
+        yield return new WaitForSeconds(0.1f);
 
-        yield return new WaitForSeconds(invulnerabilityDurationOnHit);
-        
+        if (invulnerabilityDurationOnHit > 0)
+        {
+            spr.color = invulnColor;
+
+            // show invuln color until no longer invulnerable
+            yield return new WaitForSeconds(invulnerabilityDurationOnHit);
+        }
         spr.color = originalColor;
         invulnerable = false;
     }

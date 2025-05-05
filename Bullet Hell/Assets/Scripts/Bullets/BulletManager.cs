@@ -125,6 +125,7 @@ public class BulletManager : MonoBehaviour
     /// <param name="movementFunc">The function that the bullet should follow while moving</param>
     private void LaunchBullet(StandardBullet bullet, Vector2 startPos, Vector2 direction, Func<float, float> movementFunc)
     {
+        bullet.gameObject.layer = BulletHellCommon.BULLET_LAYER;
         bullet.transform.position = startPos;
         bullet.Fire(direction, movementFunc);
         bullet.gameObject.SetActive(true);
@@ -136,5 +137,10 @@ public class BulletManager : MonoBehaviour
         bullet.transform.position = destination;
         bullet.gameObject.SetActive(true);
         bullet.Fire(destination);
+    }
+
+    public void RepoolBullet(GameObject bullet)
+    {
+        bullet.gameObject.SetActive(false);
     }
 }

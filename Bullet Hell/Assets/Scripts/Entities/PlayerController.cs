@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,7 +46,6 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && dashAvailable)
         {
-
             StartCoroutine(Dash());
         }
         if (Input.GetMouseButtonDown(0))
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
             BulletManager.instance.FireAerialBullet(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
+
     private IEnumerator SwingBat()
     {
         canSwing = false;
@@ -145,20 +146,20 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        int layer = collision.gameObject.layer;
-        Debug.Log($"{transform.name} collided with {collision.transform.name}");
-        HealthComponent health = GetComponent<HealthComponent>();
-
-        if (layer == BulletHellCommon.BULLET_LAYER || layer == BulletHellCommon.ENEMY_LAYER)  
-        {
-            if (health != null)
-                health.TakeDamage();
-        }
+        Collider2D coll = collision.collider;
+        OnTriggerEnter2D(coll);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered from bullet");
+        int layer = collision.gameObject.layer;
+        Debug.Log($"{transform.name} collided with {collision.name}");
+        HealthComponent health = GetComponent<HealthComponent>();
+        if (layer == BulletHellCommon.BULLET_LAYER || layer == BulletHellCommon.ENEMY_LAYER)
+        {
+            if (health != null)
+                health.TakeDamage();
+        }
     }
 
     private void FixedUpdate()

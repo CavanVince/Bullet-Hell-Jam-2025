@@ -8,6 +8,8 @@ public class BaseEnemy : MonoBehaviour
     protected float shotTimerTracker = 0;
     protected int enemyHealth;
 
+    public bool takesFriendlyFireAerialBulletDamage;
+
     [SerializeField]
     protected float shotTimer; // How long between shots
 
@@ -66,15 +68,26 @@ public class BaseEnemy : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        Collider2D coll = collision.collider;
+        OnTriggerEnter2D(coll);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log($"{transform.name} collided with {collision.name}");
         HealthComponent health = GetComponent<HealthComponent>();
-        if (collision.gameObject.layer == 8) // Player Projectile layer
+        if (health != null)
         {
-            if (health != null)
-            {
-                health.TakeDamage();
-            }
+            Debug.Log("No health attached to Enemy");
+            return;
         }
 
+        bool isHostileBullet = collision.transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
+        bool isAerialBullet = collision.GetComponentInParent<BaseBullet>() && collision.GetComponentInParent<BaseBullet>().GetType() == typeof(AerialBullet);
+        if (isHostileBullet || (takesFriendlyFireAerialBulletDamage && isAerialBullet))
+        {
+            health.TakeDamage();
+        }
     }
 
     /// <summary>
