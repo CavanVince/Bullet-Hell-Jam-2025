@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
+        transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = false; // hide Charge Bar
     }
 
     void Update()
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
             {
                 return;
             }
-            StartCoroutine(SwingBat());
+            StartCoroutine(ChargeSwing());
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -63,6 +64,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator ChargeSwing()
+    {
+        GameObject chargeBar = transform.GetChild(1).gameObject;
+        ChargeBarController controller = chargeBar.GetComponent<ChargeBarController>();
+        chargeBar.SetActive(true);
+        controller.StartChargeBarLevel();
+        yield return SwingBat();
+        chargeBar.SetActive(false);
+    }
     private IEnumerator SwingBat()
     {
         canSwing = false;
@@ -96,14 +106,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 adjCenter = directions[directionIndex];  
 
-        Vector3 origin = transform.position;
+        Vector3 origin = transform.GetChild(0).position;
         Vector3 dir = Quaternion.Euler(0f, 0f, batStartAngle) * Vector3.right;
 
         List<GameObject> hits = new List<GameObject>();
 
         while (elapsed < duration)
         {
-            origin = transform.position;
+            origin = transform.GetChild(0).position;
             float t = elapsed / duration;
             float currentAngle = Mathf.Lerp(batStartAngle, batEndAngle, t);
             dir = Quaternion.Euler(0f, 0f, currentAngle) * adjCenter;
@@ -116,20 +126,24 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(hit.transform.name);
                 Vector3 camMousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 camMousePos2D = new Vector2(camMousePos3D.x, camMousePos3D.y);
-
+                Vector2 reflectDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
+                if (reflectDir.magnitude < batLength)
+                {
+                    reflectDir = (camMousePos2D - new Vector2(transform.GetChild(0).position.x, transform.GetChild(0).position.y)).normalized;
+                }
+                
                 if (layer == BulletHellCommon.BULLET_LAYER && hit.transform.GetComponent<BaseBullet>().GetType() == typeof(StandardBullet))
                 {
                     Debug.Log($"Hit Bullet {hit.transform.name} with bat");
                     StandardBullet bullet = hit.transform.GetComponent<StandardBullet>();
                     hit.transform.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
-                    Vector2 reflectDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
+                    
                     hit.transform.GetComponent<StandardBullet>().Fire(reflectDir * hitPower);
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {
-                    Vector2 enemyDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
                     Debug.Log($"Hit enemy {hit.transform.name} with bat");
-                    hit.transform.GetComponent<BaseEnemy>().Launch(enemyDir * hitPower);
+                    hit.transform.GetComponent<BaseEnemy>().Launch(reflectDir * hitPower);
                 }
                 hits.Add(hit.transform.gameObject);
             }
