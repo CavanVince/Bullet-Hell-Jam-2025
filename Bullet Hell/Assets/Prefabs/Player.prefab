@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -6524295189881257408}
   - component: {fileID: -3478476148869050184}
   - component: {fileID: 5944700728213652858}
+  - component: {fileID: 7558736749234336095}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -76,15 +77,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  dashAvailable: 1
   dashMultiplier: 1
   dashLength: 0.25
   dashCooldown: 0.25
-  batStartAngle: -30
-  batEndAngle: 125
-  batLength: 2
-  swingTime: 0.25
-  batCooldown: 1
-  hitPower: 5
+  hasBossroomKey: 0
 --- !u!114 &5944700728213652858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,8 +94,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1054173c66420a94d96a03207a236507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 5
   health: 5
   invulnerabilityDurationOnHit: 0.5
+--- !u!114 &7558736749234336095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871131887525918465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da32027181900fd4f8950182de71309d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeBarSpeed: 0.025
+  batStartAngle: -25
+  batEndAngle: 125
+  batLength: 2
+  maxBallReturnSpeed: 2
+  minBallReturnSpeed: 1
+  swingTime: 0.25
+  chargeBar: {fileID: 1166300213705320722}
 --- !u!1 &4688455116785875450
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +249,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BatChargeBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4229916686873092496, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6896073769848158211, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -276,6 +298,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
+--- !u!1 &1166300213705320722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4229916686873092496, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
+  m_PrefabInstance: {fileID: 3070374184955627650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8444231173227376769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6896073769848158211, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}

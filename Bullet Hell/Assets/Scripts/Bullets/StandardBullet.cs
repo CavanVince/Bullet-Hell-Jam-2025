@@ -46,7 +46,6 @@ public class StandardBullet : BaseBullet
     {
         bool hitPlayer = collision.gameObject.tag == "Player" && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
         bool hitEnemy = collision.gameObject.tag == "Enemy" && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
-        Debug.Log($"{hitPlayer}, {hitEnemy}");
         if (hitEnemy || hitPlayer)
         {
             BulletManager.instance.RepoolBullet(gameObject);

@@ -74,7 +74,7 @@ public class BaseEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"{transform.name} collided with {collision.name}");
+        //Debug.Log($"{transform.name} collided with {collision.name}");
         HealthComponent health = GetComponent<HealthComponent>();
         if (health == null)
         {

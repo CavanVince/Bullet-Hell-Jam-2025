@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6896073769848158211}
   - component: {fileID: 2349702927169021720}
-  - component: {fileID: 8516920400883532559}
   m_Layer: 0
   m_Name: BatChargeBar
   m_TagString: Untagged
@@ -85,15 +84,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8516920400883532559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4229916686873092496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39b3cb086b81c464d83c955475d17e81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

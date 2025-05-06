@@ -220,6 +220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6562345963098122877, guid: 642768d490021df4298e5afb2df128b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -317,7 +321,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1423246009
+--- !u!1001 &1583012807
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -331,11 +335,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4593920046464087667, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.007285297
+      value: -0.10470816
       objectReference: {fileID: 0}
     - target: {fileID: 4593920046464087667, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1763492
+      value: -2.7672758
       objectReference: {fileID: 0}
     - target: {fileID: 4593920046464087667, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: m_LocalPosition.z
@@ -438,5 +442,5 @@ SceneRoots:
   - {fileID: 1316070741}
   - {fileID: 218178496}
   - {fileID: 1202749597}
-  - {fileID: 1423246009}
   - {fileID: 2708796612277525384}
+  - {fileID: 1583012807}
