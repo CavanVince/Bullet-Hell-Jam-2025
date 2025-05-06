@@ -29,16 +29,17 @@ public class HealthComponent : MonoBehaviour
     }
 
 
-    public void Heal()
+    public bool Heal()
     {
-        Heal(1);
+        return Heal(1);
     }
-    public void Heal(int amount)
+    public bool Heal(int amount)
     {
         if (health + amount > maxHealth)
-            return;
+            return false;
 
         health += amount;
+        return true;
     }
 
     public void TakeDamage()

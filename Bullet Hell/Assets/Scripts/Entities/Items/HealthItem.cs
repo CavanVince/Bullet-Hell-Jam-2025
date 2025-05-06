@@ -2,39 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
+public class HealthItem : MonoBehaviour
 {
-    HEALTH_PICKUP
-}
-public class ItemComponent : MonoBehaviour
-{
-    public ItemType itemType;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag != "Player")
             return;
         
-        switch(itemType)
+        if (PickupHealth(collision))
         {
-            case ItemType.HEALTH_PICKUP:
-                PickupHealth(collision);
-                break;
-
-            default: break;
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
     }
 
-    void PickupHealth(Collider2D collision)
+    bool PickupHealth(Collider2D collision)
     {
         HealthComponent healthComponent = collision.gameObject.GetComponentInParent<HealthComponent>();
         if (healthComponent == null) {
             Debug.Log("WARNING: NO HEALTH COMPONENT WAS FOUND FOR PLAYER. FAILED TO PICK UP HEALTH");
-            return;
+            return false;
         }
         Debug.Log("Healed player for 1 health");
-        healthComponent.Heal(1);
+        if (healthComponent.Heal(1))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
