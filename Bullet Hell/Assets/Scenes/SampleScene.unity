@@ -465,6 +465,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7558736749234336095, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: swingTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558736749234336095, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: chargeBarSpeed
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558736749234336095, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: critTimePlusMinus
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558736749234336095, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: maxBallReturnSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

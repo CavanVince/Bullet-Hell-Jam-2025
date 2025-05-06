@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 public enum SwingState
 {
     CHARGING,
     SWINGING,
+    CRITICAL,
     NONE
 }
 public class BatSwingController : MonoBehaviour
 {
-    public float chargeBarSpeed = 0.1f;
+    private float totalChargeTime;
+    private float timeAfterFullChargeStart;
+    private float timeAfterFullChargeEnd;
+    public float chargeBarSpeed = 0.5f;
 
     private SwingState swingState;
 
@@ -28,8 +34,11 @@ public class BatSwingController : MonoBehaviour
 
     Sprite[] allChargeBarSprites;
 
-    Sprite[] chargeBarSprites;
-    Sprite criticalChargeSprite;
+    public Sprite[] chargeBarSprites;
+    public Sprite criticalChargeSprite;
+    
+    [SerializeField]
+    private float critTimePlusMinus;
 
     [SerializeField]
     private GameObject chargeBar;
@@ -56,6 +65,7 @@ public class BatSwingController : MonoBehaviour
         { 
             maxBallReturnSpeed= 1;
         }
+        
     }
 
     public void StartSwingWindup()
@@ -70,10 +80,22 @@ public class BatSwingController : MonoBehaviour
     public void StopSwingWindup()
     {
         if (swingState != SwingState.CHARGING) return;
-        
+        timeAfterFullChargeEnd = Time.time;
+        totalChargeTime = timeAfterFullChargeEnd - timeAfterFullChargeStart;
+        Debug.Log($"Total Charge Time: {totalChargeTime}");
+        if ((totalChargeTime <= critTimePlusMinus))
+        {
+            StartCoroutine(CriticalSwing());
+        }
         swingState = SwingState.SWINGING;
         Debug.Log($"Swing power: {currentSwingPower}");
         StartCoroutine(SwingBat(currentSwingPower));
+    }
+    IEnumerator CriticalSwing()
+    {
+        chargeBar.GetComponent<SpriteRenderer>().sprite = criticalChargeSprite;
+        currentSwingPower = chargeBarSprites.Length * 5;
+        yield return null;
     }
 
     IEnumerator ShowChargeBarAnimation()
@@ -89,7 +111,11 @@ public class BatSwingController : MonoBehaviour
                 // set next sprite
                 currentSwingPower++;
                 chargeBar.GetComponent<SpriteRenderer>().sprite = chargeBarSprites[currentSwingPower-1];
-
+                if (chargeBar.GetComponent<SpriteRenderer>().sprite == chargeBarSprites[chargeBarSprites.Length - 1])
+                {
+                    timeAfterFullChargeStart = Time.time;
+                }
+                
                
             }
         }
@@ -100,11 +126,12 @@ public class BatSwingController : MonoBehaviour
     private IEnumerator SwingBat(int swingPower)
     {
 
-        int maxSwingPower = chargeBarSprites.Length;
+        int maxSwingPower = chargeBarSprites.Length * 5;
         int minSwingPower = 1;
         float normalizedSwingPower = (float) (swingPower - minSwingPower) / (float) (maxSwingPower - minSwingPower);
         float ballReturnSpeedModifier = Mathf.Lerp(minBallReturnSpeed, maxBallReturnSpeed, normalizedSwingPower);
         Debug.Log($"normalized swing power: {normalizedSwingPower}");
+        Debug.Log($"ballReturnSpeedModifier: {ballReturnSpeedModifier}");
         GetComponent<PlayerController>().dashAvailable = false;
 
         float elapsed = 0f;
