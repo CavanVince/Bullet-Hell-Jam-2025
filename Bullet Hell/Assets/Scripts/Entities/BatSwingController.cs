@@ -94,7 +94,7 @@ public class BatSwingController : MonoBehaviour
     IEnumerator CriticalSwing()
     {
         chargeBar.GetComponent<SpriteRenderer>().sprite = criticalChargeSprite;
-        currentSwingPower = chargeBarSprites.Length * 5;
+        currentSwingPower = chargeBarSprites.Length * 3;
         yield return null;
     }
 
@@ -126,7 +126,7 @@ public class BatSwingController : MonoBehaviour
     private IEnumerator SwingBat(int swingPower)
     {
 
-        int maxSwingPower = chargeBarSprites.Length * 5;
+        int maxSwingPower = chargeBarSprites.Length * 3;
         int minSwingPower = 1;
         float normalizedSwingPower = (float) (swingPower - minSwingPower) / (float) (maxSwingPower - minSwingPower);
         float ballReturnSpeedModifier = Mathf.Lerp(minBallReturnSpeed, maxBallReturnSpeed, normalizedSwingPower);
@@ -198,7 +198,7 @@ public class BatSwingController : MonoBehaviour
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {
                     Debug.Log($"Hit enemy {hit.transform.name} with bat");
-                    hit.transform.GetComponent<BaseEnemy>().Launch(reflectDir * ballReturnSpeedModifier);
+                    hit.transform.GetComponent<BaseEnemy>().Launch(reflectDir * ballReturnSpeedModifier* 5f);
                 }
                 hits.Add(hit.transform.gameObject);
             }

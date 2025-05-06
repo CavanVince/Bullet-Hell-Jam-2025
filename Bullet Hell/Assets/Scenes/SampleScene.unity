@@ -479,7 +479,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7558736749234336095, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: maxBallReturnSpeed
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444231173227376769, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.393188
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444231173227376769, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.6944032
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444231173227376769, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.393188
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
