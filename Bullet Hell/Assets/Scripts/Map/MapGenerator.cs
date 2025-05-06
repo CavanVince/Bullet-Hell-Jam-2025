@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
     private int WIDTH = 30, HEIGHT = 30;
 
     [SerializeField]
-    private float room_size = 10f;
+    private float room_size = 30f;
 
     [Range(0, 50)]
     public int MINROOMS = 15;
@@ -23,11 +23,7 @@ public class MapGenerator : MonoBehaviour
     private Room[,] board;
 
     [SerializeField]
-    private GameObject
-        _1x1_roomPrefab,
-        _2x2_roomPrefab,
-        _2x1_horizontal_roomPrefab,
-        _1x2_vertical_roomPrefab;
+    private List<GameObject> rooms;
 
     [SerializeField]
     private GameObject bossPrefab;
@@ -40,6 +36,7 @@ public class MapGenerator : MonoBehaviour
 
     private List<GameObject> mapTiles = new List<GameObject>();
     private List<Room> allRooms = new List<Room>();
+    private Vector3 spawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +58,7 @@ public class MapGenerator : MonoBehaviour
 
         BuildTileMap();
         AssignSpecialRooms();
+        MovePlayer();
     }
 
     void ClearMap()
@@ -98,34 +96,7 @@ public class MapGenerator : MonoBehaviour
         List<Vector2Int> singleTile = new List<Vector2Int> { pos };
         if (CanPlaceRoomConfiguration(singleTile))
         {
-            validConfigurations.Add(_1x1_roomPrefab, singleTile);
-        }
-
-        // 1x2 Room (vertical)
-        List<Vector2Int> vertical1x2 = new List<Vector2Int> { pos, new Vector2Int(pos.x, pos.y + 1) };
-        if (CanPlaceRoomConfiguration(vertical1x2))
-        {
-            validConfigurations.Add(_1x2_vertical_roomPrefab, vertical1x2);
-        }
-
-        // 2x1 Room (horizontal)
-        List<Vector2Int> horizontall2x1 = new List<Vector2Int> { pos, new Vector2Int(pos.x + 1, pos.y) };
-        if (CanPlaceRoomConfiguration(horizontall2x1))
-        {
-            validConfigurations.Add(_2x1_horizontal_roomPrefab, horizontall2x1);
-        }
-
-        // 2x2 Room (square)
-        List<Vector2Int> square2x2 = new List<Vector2Int>
-        {
-            pos,
-            new Vector2Int(pos.x + 1, pos.y),
-            new Vector2Int(pos.x, pos.y + 1),
-            new Vector2Int(pos.x + 1, pos.y + 1)
-        };
-        if (CanPlaceRoomConfiguration(square2x2))
-        {
-            validConfigurations.Add(_2x2_roomPrefab, square2x2);
+            validConfigurations.Add(rooms[Random.Range(0, rooms.Count)], singleTile);
         }
 
         return validConfigurations;
@@ -164,7 +135,7 @@ public class MapGenerator : MonoBehaviour
     void CreateMap(Vector2Int startPos, Room[,] board)
     {
         // Create spawn room (1x1)
-        Room spawnRoom = new Room(new List<Vector2Int> { startPos }, RoomPrerequisite.NONE, RoomType.SPAWN, _1x1_roomPrefab);
+        Room spawnRoom = new Room(new List<Vector2Int> { startPos }, RoomPrerequisite.NONE, RoomType.SPAWN, rooms[0]);
         allRooms.Add(spawnRoom);
         PopulatePositionsForRoom(spawnRoom);
 
@@ -331,19 +302,21 @@ public class MapGenerator : MonoBehaviour
 
                 seenRooms.Add(currentRoom);
 
+                Vector3 roomPos = new Vector3(x * -room_size + y * room_size, y * -(room_size / 2) - x * (room_size / 2), 0);
                 GameObject roomInstance = Instantiate(
                     currentRoom.prefab,
-                    new Vector3(x * -room_size + y * room_size, y * -(room_size / 2) - x * (room_size / 2), 0),
+                    roomPos,
                     transform.rotation
                 );
 
                 if (currentRoom.roomType == RoomType.SPAWN)
                 {
-                    roomInstance.GetComponentInChildren<Tilemap>().color = Color.yellow;
+                    //roomInstance.GetComponentInChildren<Tilemap>().color = Color.yellow;
+                    spawnPoint = roomPos;
                 }
                 else if (currentRoom.roomType == RoomType.BOSS)
                 {
-                    roomInstance.GetComponentInChildren<Tilemap>().color = Color.red;
+                    //roomInstance.GetComponentInChildren<Tilemap>().color = Color.red;
                 }
                 mapTiles.Add(roomInstance);
             }
@@ -500,5 +473,14 @@ public class MapGenerator : MonoBehaviour
 
         // Calculate the average position (center point)
         return new Vector2(sumX / tilePositions.Count, sumY / tilePositions.Count);
+    }
+
+    /// <summary>
+    /// Move the player to the spawn room
+    /// </summary>
+    private void MovePlayer()
+    {
+        Transform player = FindObjectOfType<PlayerController>().transform;
+        player.position = spawnPoint;
     }
 }
