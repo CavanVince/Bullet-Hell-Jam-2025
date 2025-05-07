@@ -7,5 +7,6 @@ public static class BulletHellCommon
     public const int 
         BULLET_LAYER = 6, 
         ENEMY_LAYER = 7, 
-        PLAYER_PROJECTILE_LAYER = 8;
+        PLAYER_PROJECTILE_LAYER = 8,
+        BOMBBAT_LAYER = 9;
 }

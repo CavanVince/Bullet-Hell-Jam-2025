@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public float dashLength;
     public float dashCooldown;
 
+    public HealthComponent health;
+
     public bool hasBossroomKey;
 
     private BatSwingController batSwingController;
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         batSwingController = GetComponent<BatSwingController>();
+        HealthComponent health = GetComponent<HealthComponent>();
         rb = GetComponent<Rigidbody2D>();
         dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
     }
@@ -70,7 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         int layer = collision.gameObject.layer;
         Debug.Log($"{transform.name} collided with {collision.name}");
-        HealthComponent health = GetComponent<HealthComponent>();
+        
         if (layer == BulletHellCommon.BULLET_LAYER || layer == BulletHellCommon.ENEMY_LAYER)
         {
             if (health != null)

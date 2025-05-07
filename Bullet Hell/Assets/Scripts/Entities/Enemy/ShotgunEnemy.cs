@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShotgunEnemy : BaseEnemy
 {
+    //makes shotgun shoot like shotgun!
     override
     protected void ShootPlayer()
     {
