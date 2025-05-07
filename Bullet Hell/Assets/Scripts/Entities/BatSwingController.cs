@@ -28,6 +28,7 @@ public class BatSwingController : MonoBehaviour
     public float swingTime;
 
     private int currentSwingPower;
+    private bool isCrit;
 
     Sprite[] allChargeBarSprites;
 
@@ -82,7 +83,7 @@ public class BatSwingController : MonoBehaviour
         if ((totalChargeTime <= critTimePlusMinus))
         {
             chargeBar.GetComponent<SpriteRenderer>().sprite = criticalChargeSprite;
-            currentSwingPower = chargeBarSprites.Length * 3;
+            isCrit = true;
         }
         swingState = SwingState.SWINGING;
         Debug.Log($"Swing power: {currentSwingPower}");
@@ -120,7 +121,11 @@ public class BatSwingController : MonoBehaviour
         Debug.Log($"normalized swing power: {normalizedSwingPower}");
         Debug.Log($"ballReturnSpeedModifier: {ballReturnSpeedModifier}");
         GetComponent<PlayerController>().dashAvailable = false;
-
+         if (isCrit)
+        {
+            ballReturnSpeedModifier *= 2f;
+            isCrit = false;
+        }
         float elapsed = 0f;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

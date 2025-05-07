@@ -115,7 +115,8 @@ MonoBehaviour:
   batLength: 2
   maxBallReturnSpeed: 2
   minBallReturnSpeed: 1
-  swingTime: 0.25
+  swingTime: 0.05
+  critTimePlusMinus: 0
   chargeBar: {fileID: 1166300213705320722}
 --- !u!1 &4688455116785875450
 GameObject:
