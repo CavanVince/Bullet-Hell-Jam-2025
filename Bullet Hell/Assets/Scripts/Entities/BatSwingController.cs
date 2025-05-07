@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 
 public enum SwingState
 {
     CHARGING,
     SWINGING,
-    CRITICAL,
     NONE
 }
 public class BatSwingController : MonoBehaviour
@@ -34,8 +31,8 @@ public class BatSwingController : MonoBehaviour
 
     Sprite[] allChargeBarSprites;
 
-    public Sprite[] chargeBarSprites;
-    public Sprite criticalChargeSprite;
+    Sprite[] chargeBarSprites;
+    Sprite criticalChargeSprite;
     
     [SerializeField]
     private float critTimePlusMinus;
@@ -46,7 +43,6 @@ public class BatSwingController : MonoBehaviour
     private void Start()
     {
         allChargeBarSprites = Resources.LoadAll<Sprite>("Power-Bar");
-        Debug.Log($"{allChargeBarSprites.Length} Charge Bar Sprites");
         
         chargeBarSprites = allChargeBarSprites.Take(allChargeBarSprites.Length - 1).ToArray();
         criticalChargeSprite = allChargeBarSprites[allChargeBarSprites.Length - 1];
@@ -85,17 +81,12 @@ public class BatSwingController : MonoBehaviour
         Debug.Log($"Total Charge Time: {totalChargeTime}");
         if ((totalChargeTime <= critTimePlusMinus))
         {
-            StartCoroutine(CriticalSwing());
+            chargeBar.GetComponent<SpriteRenderer>().sprite = criticalChargeSprite;
+            currentSwingPower = chargeBarSprites.Length * 3;
         }
         swingState = SwingState.SWINGING;
         Debug.Log($"Swing power: {currentSwingPower}");
         StartCoroutine(SwingBat(currentSwingPower));
-    }
-    IEnumerator CriticalSwing()
-    {
-        chargeBar.GetComponent<SpriteRenderer>().sprite = criticalChargeSprite;
-        currentSwingPower = chargeBarSprites.Length * 3;
-        yield return null;
     }
 
     IEnumerator ShowChargeBarAnimation()
@@ -115,18 +106,14 @@ public class BatSwingController : MonoBehaviour
                 {
                     timeAfterFullChargeStart = Time.time;
                 }
-                
-               
             }
         }
-
         chargeBar.SetActive(false);
     }
 
     private IEnumerator SwingBat(int swingPower)
     {
-
-        int maxSwingPower = chargeBarSprites.Length * 3;
+        int maxSwingPower = chargeBarSprites.Length;
         int minSwingPower = 1;
         float normalizedSwingPower = (float) (swingPower - minSwingPower) / (float) (maxSwingPower - minSwingPower);
         float ballReturnSpeedModifier = Mathf.Lerp(minBallReturnSpeed, maxBallReturnSpeed, normalizedSwingPower);
@@ -140,7 +127,6 @@ public class BatSwingController : MonoBehaviour
         Vector3 aimVector = (mousePosition - transform.position).normalized;
         Vector3 centerPerpend = new Vector3(-aimVector.y, aimVector.x, 0);
         float angle = Mathf.Atan2(centerPerpend.y, centerPerpend.x) * Mathf.Rad2Deg;
-
 
         if (angle < 0)
         {
