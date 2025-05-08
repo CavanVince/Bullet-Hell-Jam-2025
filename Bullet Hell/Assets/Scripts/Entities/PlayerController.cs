@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         int layer = collision.gameObject.layer;
         Debug.Log($"{transform.name} collided with {collision.name}");
         
-        if (layer == BulletHellCommon.BULLET_LAYER || layer == BulletHellCommon.ENEMY_LAYER)
+        if (layer != BulletHellCommon.PLAYER_PROJECTILE_LAYER)
         {
             if (health != null)
                 health.TakeDamage();

@@ -17,7 +17,7 @@ public class BaseEnemy : MonoBehaviour
     protected float shotDistance; // How far the enemy can be before it shoots
     public bool isLaunchable;
     private bool isLaunched;
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     private float timeAlive;
     private Vector2 moveDir;
     public float moveSpeed;
