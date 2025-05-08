@@ -4,59 +4,49 @@ using UnityEngine;
 
 public class TestLauncher : MonoBehaviour
 {
+    AttackPatterns ap;
+    private bool shooting;
+    private void Start()
+    {
+        ap = GetComponent<AttackPatterns>();
+    }
 
     private void Update()
     {
+        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Vector2 origin = gameObject.transform.position;
-            int numPoints = 5;
-
-            for (int i = 0; i < numPoints; i++){
-
-                float angle = 360f / numPoints * i;
-                float rads = angle * Mathf.Deg2Rad;
-                Vector2 v = new Vector2(
-                    origin.x + Mathf.Sin(rads) * 5,
-                    origin.y + Mathf.Cos(rads) * 5
-                );
-                BulletManager.instance.FireAerialBullet(v);
-            };
+            Debug.Log("Running DaOctopus");
+            StartCoroutine(ap.DaOctopus(() => enemy.transform.position, 5, 5, 1f, null, 0, null));
         }
 
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            gameObject.GetComponent<AttackPatterns>().Pulse(() => {
-                BulletManager.instance.FireBullet(Vector2.zero, Vector2.right, x => Mathf.Sin(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, Vector2.up, x => Mathf.Sin(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, -Vector2.right, x => Mathf.Cos(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, -Vector2.up, x => Mathf.Cos(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, Vector2.one, x => Mathf.Sin(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, -Vector2.one, x => Mathf.Cos(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, new Vector2(1, -1), x => Mathf.Cos(x * 8f) * 0.1f);
-                BulletManager.instance.FireBullet(Vector2.zero, new Vector2(-1, 1), x => Mathf.Sin(x * 8f) * 0.1f);
+            Debug.Log("Running Diverging Radial");
+            if (!shooting)
+            {
+                shooting = true;
+                StartCoroutine(ap.DivergingRadial(() => enemy.transform.position, 8, 5, 1f, null, null, 0, () => shooting = false));
             }
-            , .5f, 5f);
+        }
+        else if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Debug.Log("Running Shoot at Vector2.zero");
+            StartCoroutine(ap.Shoot(() => enemy.transform.position, () => Vector2.zero));
+        }
+        else if (Input.GetKeyDown(KeyCode.U))
+        {
+            Debug.Log("Running Shotgun shot");
+            StartCoroutine(ap.RadialAerialAroundPlayer(() => transform.position, 5, 1, 0, null));
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            gameObject.GetComponent<AttackPatterns>().Pulse(() =>
+            Vector2 start = transform.position;
+            StartCoroutine(ap.WalkDaLineAerial(() => start, () => start + new Vector2(0, 10), 1, .05f, 0, () =>
             {
-                Vector2 origin = gameObject.transform.position;
-                int numPoints = 8;
-                float radius = 5;
-                for (int i = 0; i < numPoints; i++)
-                {
-
-                    float angle = 360f / numPoints * i;
-                    float rads = angle * Mathf.Deg2Rad;
-                    Vector2 v = new Vector2(
-                        origin.x + Mathf.Sin(rads) * radius,
-                        origin.y + Mathf.Cos(rads) * radius
-                    );
-                    BulletManager.instance.FireAerialBullet(v);
-                };
-            }, .25f, 2f);
+                start = start + new Vector2(1, 10);
+                StartCoroutine(ap.WalkDaLineAerial(() => start, () => start - new Vector2(0, -10), 1, .05f));
+            }));
         }
     }
 }

@@ -7,7 +7,7 @@ public class StandardBullet : BaseBullet
 {
     public Vector2 moveDir;
 
-    private Vector2 perpDir;
+    private Vector2 perpendicularDirection;
     private float timeAlive;
 
     [SerializeField]
@@ -15,9 +15,21 @@ public class StandardBullet : BaseBullet
 
     private void FixedUpdate()
     {
+        Vector2 velocityVector = moveDir * moveSpeed * Time.deltaTime;
+
+        Vector2 moveFuncResult;
+        if (moveFunc!= null )
+        {
+            moveFuncResult = moveFunc(Time.time - timeAlive) * perpendicularDirection;
+        }
+        else
+        {
+            moveFuncResult = Vector2.zero;
+        }
+
         // Update the bullet's position
-        rb.MovePosition(
-            (Vector2) transform.position + (moveDir * moveSpeed * Time.deltaTime) + perpDir * moveFunc(Time.time - timeAlive));
+        Vector2 newPosition = (Vector2) transform.position + velocityVector + moveFuncResult;
+        rb.MovePosition(newPosition);
     }
 
     /// <summary>
@@ -28,7 +40,7 @@ public class StandardBullet : BaseBullet
     public void Fire(Vector2 direction, Func<float, float> movementFunc)
     {
         moveDir = direction;
-        perpDir = new Vector2(-direction.y, direction.x);
+        perpendicularDirection = new Vector2(-direction.y, direction.x);
         timeAlive = Time.time;
         moveFunc = movementFunc;
     }
