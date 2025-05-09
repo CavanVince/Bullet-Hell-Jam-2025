@@ -67,6 +67,7 @@ public class BatSwingController : MonoBehaviour
 
     public void StartSwingWindup()
     {
+        isCrit = false;
         if (swingState != SwingState.NONE) return;
         chargeBar.GetComponent<SpriteRenderer>().sprite = chargeBarSprites[0];
 
@@ -121,11 +122,6 @@ public class BatSwingController : MonoBehaviour
         Debug.Log($"normalized swing power: {normalizedSwingPower}");
         Debug.Log($"ballReturnSpeedModifier: {ballReturnSpeedModifier}");
         GetComponent<PlayerController>().dashAvailable = false;
-         if (isCrit)
-        {
-            ballReturnSpeedModifier *= 2f;
-            isCrit = false;
-        }
         float elapsed = 0f;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -178,13 +174,20 @@ public class BatSwingController : MonoBehaviour
                     reflectDir = (camMousePos2D - new Vector2(transform.GetChild(0).position.x, transform.GetChild(0).position.y)).normalized;
                 }
 
-                if (layer == BulletHellCommon.BULLET_LAYER && hit.transform.GetComponent<BaseBullet>().GetType() == typeof(StandardBullet))
+                BaseBullet bullet = hit.transform.GetComponent<BaseBullet>();
+                if (layer == BulletHellCommon.BULLET_LAYER && bullet != null && bullet.GetType() == typeof(StandardBullet))
                 {
                     Debug.Log($"Hit Bullet {hit.transform.name} with bat");
-                    StandardBullet bullet = hit.transform.GetComponent<StandardBullet>();
                     hit.transform.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
-
-                    hit.transform.GetComponent<StandardBullet>().Fire(reflectDir * ballReturnSpeedModifier);
+                    if (isCrit)
+                    {
+                        ballReturnSpeedModifier *= 2;
+                        bullet.damage *= 2;
+                        Debug.Log($"Crit! Dealing {bullet.damage} damage");
+                        isCrit = false;
+                    }
+                    StandardBullet standard_bullet = (StandardBullet) bullet;
+                    standard_bullet.Fire(reflectDir * ballReturnSpeedModifier);
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {

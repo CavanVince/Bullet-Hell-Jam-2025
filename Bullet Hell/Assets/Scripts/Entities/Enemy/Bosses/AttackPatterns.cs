@@ -1,26 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 
-public class AttackPatterns : MonoBehaviour
-{    
-    public void Pulse(Action shootFunction, float interval, float duration)
+public class AttackPatterns
+{
+    BulletManager bulletManager;
+    public AttackPatterns(BulletManager bulletManager)
     {
-        IEnumerator PulseEvery(Action shootFunction, float interval, float duration)
-        {
-            float elapsedTime = 0f;
-            while (elapsedTime < duration)
-            {
-                shootFunction();
-                yield return new WaitForSeconds(interval);
-                elapsedTime += interval;
-            }
-        }
-        StartCoroutine(PulseEvery(shootFunction, interval, duration));
+        this.bulletManager = bulletManager;
     }
 
     private List<Vector2> GetNRadialPointsAroundOrigin(Vector2 origin, int n, float radius)
@@ -38,10 +27,10 @@ public class AttackPatterns : MonoBehaviour
         return points;
     }
 
-    public IEnumerator ShotgunShot(Func<Vector3> target, int numBullets = 5, float spreadAngle = 30f, float cooldown=0f, Action onCompletion = null)
+    public IEnumerator ShotgunShot(Func<Vector2> calcOrigin, Func<Vector2> target, int numBullets = 5, float spreadAngle = 30f, float cooldown=0f, Action onCompletion = null)
     {
-        Vector3 directionToPlayer = (target() - transform.position).normalized;
-        float baseAngle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+        Vector3 directionToTarget = (target() - calcOrigin()).normalized;
+        float baseAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
         for (int i = 0; i < numBullets; i++)
         {
@@ -49,7 +38,7 @@ public class AttackPatterns : MonoBehaviour
             float bulletAngle = baseAngle + angleOffset;
             Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
 
-            BulletManager.instance.FireBullet(transform.position, bulletDir.normalized);
+            bulletManager.FireBullet(calcOrigin(), bulletDir.normalized);
         }
         yield return new WaitForSeconds(cooldown);
         if (onCompletion != null)
@@ -58,12 +47,12 @@ public class AttackPatterns : MonoBehaviour
         }
     }
 
-    public IEnumerator Shoot(Func<Vector2> origin, Func<Vector2> target, int numBullets = 5, float intervalBetweenShots = .5f, float cooldown=0f, Action onCompletion = null)
+    public IEnumerator Shoot(Func<Vector2> calcOrigin, Func<Vector2> calcTarget, int numBullets = 5, float intervalBetweenShots = .5f, float cooldown=0f, Action onCompletion = null)
     {
         for (int i = 0; i < numBullets; i++)
         {
-            Vector3 directionToPlayer = (target() - origin()).normalized;
-            BulletManager.instance.FireBullet(origin(), directionToPlayer);
+            Vector3 directionToPlayer = (calcTarget() - calcOrigin()).normalized;
+            bulletManager.FireBullet(calcOrigin(), directionToPlayer);
 
             yield return new WaitForSeconds(intervalBetweenShots);
         }
@@ -77,14 +66,13 @@ public class AttackPatterns : MonoBehaviour
     public IEnumerator DivergingRadial(Func<Vector2> calcOrigin, int numBullets, int pulseCount, float pulseInterval, Func<float, float> movementFunc, Func<float, float> angleOffset, float cooldown=0f, Action onComplete = null)
     {
         Vector2 origin = calcOrigin();
-        Debug.Log($"Calculated origin: {calcOrigin}");
 
         List<Vector2> points = GetNRadialPointsAroundOrigin(origin, numBullets, 1);
         for (int i = 0; i < pulseCount; i++)
         {
             foreach(Vector2 point in points)
             {
-                BulletManager.instance.FireBullet(origin, (point - origin).normalized, movementFunc);
+                bulletManager.FireBullet(origin, (point - origin).normalized, movementFunc);
             }
             yield return new WaitForSeconds(pulseInterval);
         }
@@ -111,7 +99,7 @@ public class AttackPatterns : MonoBehaviour
 
             foreach(Vector2 point in points)
             {
-                BulletManager.instance.FireAerialBullet(point);
+                bulletManager.FireAerialBullet(point);
             }
 
             yield return new WaitForSeconds(pulseInterval);
@@ -135,7 +123,7 @@ public class AttackPatterns : MonoBehaviour
 
         while (Vector2.Distance(current, target) > spacing)
         {
-            BulletManager.instance.FireAerialBullet(current);
+            bulletManager.FireAerialBullet(current);
             current = current + (dir * spacing);
 
             yield return new WaitForSeconds(pulseInterval);
@@ -147,5 +135,4 @@ public class AttackPatterns : MonoBehaviour
             onComplete();
         }
     }
-
 }
