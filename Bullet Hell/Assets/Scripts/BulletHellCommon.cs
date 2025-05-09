@@ -7,7 +7,11 @@ public static class BulletHellCommon
     public const int
         BULLET_LAYER = 6,
         ENEMY_LAYER = 7,
-        PLAYER_PROJECTILE_LAYER = 8;
+        PLAYER_PROJECTILE_LAYER = 8,
+        BAT_LAYER = 9,
+        WALL_LAYER = 10,
+        BREAKABLE_LAYER = 11;
+        
 
     public const float
         BASE_ENEMY_LAUNCH_SPEED = 5f;

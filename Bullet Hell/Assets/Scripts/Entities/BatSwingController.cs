@@ -152,7 +152,7 @@ public class BatSwingController : MonoBehaviour
             Vector3 dir = Quaternion.Euler(0f, 0f, currentAngle) * adjCenter;
             Debug.DrawRay(origin, dir * batLength, Color.red);
 
-            RaycastHit2D hit = Physics2D.Raycast(origin, dir.normalized, batLength, 1 << 6 | 1 << 7);
+            RaycastHit2D hit = Physics2D.Raycast(origin, dir.normalized, batLength, 1 << 6 | 1 << 7 | 1 << 11);
             if (hit && !hits.Contains(hit.transform.gameObject))
             {
                 int layer = hit.transform.gameObject.layer;
@@ -183,6 +183,10 @@ public class BatSwingController : MonoBehaviour
                 {
                     BaseEnemy enemy = hit.transform.GetComponent<BaseEnemy>();
                     enemy.Launch(reflectDir, ballReturnSpeedModifier * BulletHellCommon.BASE_ENEMY_LAUNCH_SPEED, 1);
+                }
+                if (layer == BulletHellCommon.BREAKABLE_LAYER)
+                {
+                    hit.transform.GetComponent<BreakableItem>().Break();
                 }
                 hits.Add(hit.transform.gameObject);
             }
