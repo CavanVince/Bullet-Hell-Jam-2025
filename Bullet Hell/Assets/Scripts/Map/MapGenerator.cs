@@ -41,7 +41,6 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Drawing map");
         GenerateMap();
     }
 
@@ -177,7 +176,6 @@ public class MapGenerator : MonoBehaviour
                     RoomType.EMPTY,
                     chosenConfig.Key
                 );
-                Debug.Log($"Created room at {chosenConfig.Value}");
 
                 // Add room to map
                 PopulatePositionsForRoom(newRoom);
@@ -192,7 +190,6 @@ public class MapGenerator : MonoBehaviour
                     break;
             }
         }
-        Debug.Log($"Created {filledRooms} rooms");
     }
 
     // Assign special rooms (boss, shop, treasure)
@@ -309,15 +306,42 @@ public class MapGenerator : MonoBehaviour
                     transform.rotation
                 );
 
+                RoomGameObject roomGo = roomInstance.transform.Find("Grid")?.GetComponent<RoomGameObject>();
+                roomGo?.OpenDoors();
+
                 if (currentRoom.roomType == RoomType.SPAWN)
                 {
                     //roomInstance.GetComponentInChildren<Tilemap>().color = Color.yellow;
                     spawnPoint = roomPos;
+                    roomGo?.RoomCleared();
                 }
                 else if (currentRoom.roomType == RoomType.BOSS)
                 {
                     //roomInstance.GetComponentInChildren<Tilemap>().color = Color.red;
                 }
+
+                // Determine if a wall needs to be enabled due to a lack of a connecting room
+                if (y + 1 < board.GetLength(1) && board[x, y + 1] == null)
+                {
+                    // No bottom right neighbour
+                    roomGo?.BottomRightWall.SetActive(true);
+                }
+                if (x + 1 < board.GetLength(0) && board[x + 1, y] == null)
+                {
+                    // No bottom left neighbour
+                    roomGo?.BottomLeftWall.SetActive(true);
+                }
+                if (y - 1 > 0 && board[x, y - 1] == null)
+                {
+                    // No top left neighbour
+                    roomGo?.TopLeftWall.SetActive(true);
+                }
+                if (x - 1 > 0 && board[x - 1, y] == null)
+                {
+                    // No top right neighbour
+                    roomGo?.TopRightWall.SetActive(true);
+                }
+
                 mapTiles.Add(roomInstance);
             }
         }
