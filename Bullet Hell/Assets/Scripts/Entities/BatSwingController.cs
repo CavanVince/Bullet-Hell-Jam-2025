@@ -122,11 +122,6 @@ public class BatSwingController : MonoBehaviour
         Debug.Log($"normalized swing power: {normalizedSwingPower}");
         Debug.Log($"ballReturnSpeedModifier: {ballReturnSpeedModifier}");
         GetComponent<PlayerController>().dashAvailable = false;
-         if (isCrit)
-        {
-            ballReturnSpeedModifier *= 2f;
-            isCrit = false;
-        }
         float elapsed = 0f;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -184,8 +179,15 @@ public class BatSwingController : MonoBehaviour
                 {
                     Debug.Log($"Hit Bullet {hit.transform.name} with bat");
                     hit.transform.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
-                    bullet.damage *= 2;
-                    hit.transform.GetComponent<StandardBullet>().Fire(reflectDir * ballReturnSpeedModifier);
+                    if (isCrit)
+                    {
+                        ballReturnSpeedModifier *= 2;
+                        bullet.damage *= 2;
+                        Debug.Log($"Crit! Dealing {bullet.damage} damage");
+                        isCrit = false;
+                    }
+                    StandardBullet standard_bullet = (StandardBullet) bullet;
+                    standard_bullet.Fire(reflectDir * ballReturnSpeedModifier);
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {
