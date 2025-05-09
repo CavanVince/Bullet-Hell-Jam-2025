@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 
 public class RoomGameObject : MonoBehaviour
 {
@@ -14,8 +15,6 @@ public class RoomGameObject : MonoBehaviour
     // Global event that gets called to all rooms when the player clear the current one they are in
     public static UnityEvent roomCleared;
 
-    [SerializeField] List<GameObject> doors;
-
     // The bottom left wall when there isn't a connecting room
     public GameObject BottomLeftWall;
 
@@ -27,6 +26,39 @@ public class RoomGameObject : MonoBehaviour
 
     // The top right wall when there isn't a connecting room
     public GameObject TopRightWall;
+
+    [SerializeField]
+    private List<GameObject> doors;
+
+    [SerializeField]
+    private Tilemap fogOfWar;
+
+    [SerializeField]
+    private Tilemap pathfindingTilemap;
+
+    [SerializeField]
+    private List<GameObject> enemyPrefabs;
+
+    private int[,] walkableTiles;
+
+    private void Awake()
+    {
+        // Populate array with walkable tiles
+        pathfindingTilemap.CompressBounds();
+        BoundsInt bounds = pathfindingTilemap.cellBounds;
+        walkableTiles = new int[bounds.max.x - bounds.min.x, bounds.max.y - bounds.min.y];
+        for (int x = bounds.min.x; x < bounds.size.x; x++)
+        {
+            for (int y = bounds.min.y; y < bounds.size.y; y++)
+            {
+                TileBase tile = pathfindingTilemap.GetTile(new Vector3Int(x, y, 0));
+                if (tile != null)
+                {
+                    Debug.Log("x: " + x + " y: " + y + " tile: " + tile.name);
+                }
+            }
+        }
+    }
 
     void Start()
     {
@@ -73,14 +105,39 @@ public class RoomGameObject : MonoBehaviour
         {
             Animator doorAnim = door.GetComponent<Animator>();
             doorAnim.Play("DoorClose");
-            Debug.Log("Closing");
             door.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Helper function to start the fog fade coroutine
+    /// </summary>
+    public void FadeFog()
+    {
+        StartCoroutine(FadeFogCoroutine());
+    }
+
+    private void SpawnEnemies()
+    {
+
+    }
+
+    IEnumerator FadeFogCoroutine()
+    {
+        Color modifiedColor = fogOfWar.color;
+        while (modifiedColor.a > 0)
+        {
+            modifiedColor.a -= Time.deltaTime;
+            fogOfWar.color = modifiedColor;
+            yield return new WaitForEndOfFrame();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isRoomCleared == false)
-            roomEntered?.Invoke();
+        if (isRoomCleared) return;
+
+        roomEntered?.Invoke();
+        FadeFog();
     }
 }
