@@ -5,7 +5,9 @@ public enum EnemyState
 {
     IDLE,
     LAUNCHED,
-    DAZED
+    DAZED,
+
+    EXPLODING // only used for BombEnemy
 }
 public class BaseEnemy : BaseEntity
 {
@@ -30,12 +32,9 @@ public class BaseEnemy : BaseEntity
     {
         if (!isLaunchable)
         {
-            Debug.Log("Enemy not launchable");
             return;
         }
         isLaunched = true;
-        Debug.Log("Enemy launched");
-        Debug.Log($"prevSpeed:{moveSpeed},speed:{speed},dir{direction}");
         moveDir = direction;
         moveSpeed = speed;
 
@@ -44,7 +43,27 @@ public class BaseEnemy : BaseEntity
         healthComponent.TakeDamage(damage);
     }
 
-     protected new void Start()
+    protected virtual void OnAggro()
+    {
+
+    }
+
+   private void Update()
+    {
+        // In aggro range
+        if (Vector2.Distance(player.transform.position, transform.position) <= aggroRange)
+        {
+            OnAggro();
+            // strafe and shoot at player as appropriate
+        }
+        else
+        {
+            // idk maybe just move around randomly or do nothin?
+            // or see if nearby friendlies are aggro'd and join in
+        }
+    }
+
+    protected override void Start()
     {
         defaultMoveSpeed = moveSpeed;
         base.Start();

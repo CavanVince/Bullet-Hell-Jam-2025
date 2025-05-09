@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseEntity : MonoBehaviour
 {
 
-    protected HealthComponent healthComponent;
+    public HealthComponent healthComponent;
 
     protected bool takesFriendlyFireAerialBulletDamage;
 
