@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class ShotgunEnemy : BaseEnemy
 {
-    override
-    protected void ShootPlayer()
+    // TODO: IMPLEMENT. This is intended to represent the total number of bullets emitted per shotgun blast, and the number of consecutive shotgun blasts to pulse.
+    [SerializeField]
+    private int numBullets, pulseCount;
+
+    // TODO: IMPLEMENT. This is intended to represent the interval (in seconds) between shotgun blasts specified in pulseCount.
+    private float pulseInterval;
+
+    // TODO: IMPLEMENT. This is intended to represent the total arc area in front of the Enemy that bullets are allowed to spawn when ShootPlayer is called.
+    [Range(0, 180)]
+    private int arcLength = 60;
+
+    protected override void ShootPlayer()
     {
         int numberOfBullets = 5;
-        float spreadAngle = 30f;
+        float spreadAngle = 30f; // TODO: might be cool to have the spread angle wider if the player is further away, and narrower if they are close (making shotguns more accurate in close range)
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
         float baseAngle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
 

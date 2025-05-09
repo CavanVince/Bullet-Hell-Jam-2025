@@ -1,20 +1,32 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StandardBullet : BaseBullet
 {
     public Vector2 moveDir;
+    public float moveSpeed;
 
+    private Vector2 origin;
     private Vector2 perpendicularDirection;
     private float timeAlive;
 
     [SerializeField]
-    private float moveSpeed;
+    private float range = 10f;
+
+
+    protected new void Start()
+    {
+        base.Start();
+        origin = transform.position;
+    }
 
     private void FixedUpdate()
     {
+        if (range > 0 && Vector2.Distance(origin, transform.position) > range)
+        {
+            // out of range and died
+            BulletManager.instance.RepoolBullet(gameObject);
+        }
         Vector2 velocityVector = moveDir * moveSpeed * Time.deltaTime;
 
         Vector2 moveFuncResult;
@@ -37,21 +49,22 @@ public class StandardBullet : BaseBullet
     /// </summary>
     /// <param name="direction">The direction that the bullet should move</param>
     /// <param name="movementFunc">The function that the bullet should follow while moving</param>
-    public void Fire(Vector2 direction, Func<float, float> movementFunc)
+    public void Fire(Vector2 direction, float speed, Func<float, float> movementFunc)
     {
         moveDir = direction;
         perpendicularDirection = new Vector2(-direction.y, direction.x);
         timeAlive = Time.time;
         moveFunc = movementFunc;
+        moveSpeed = speed;
     }
 
     /// <summary>
     /// Overload of the fire function where bullets move in a straight line
     /// </summary>
     /// <param name="direction">The direction that the bullet should move</param>
-    public void Fire(Vector2 direction)
+    public void Fire(Vector2 direction, float speed)
     {
-        Fire(direction, x => 0);
+        Fire(direction, speed, x => 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

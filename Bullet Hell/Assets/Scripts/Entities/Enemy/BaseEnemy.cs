@@ -1,26 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum EnemyState
+{
+    IDLE,
+    LAUNCHED,
+    DAZED
+}
 public class BaseEnemy : BaseEntity
 {
-    protected PlayerController player;
-    protected float shotTimerTracker = 0;
-    protected int enemyHealth;
-
-    [SerializeField]
-    protected float shotTimer; // How long between shots
-
-    [SerializeField]
-    protected float shotDistance; // How far the enemy can be before it shoots
-    public bool isLaunchable;
-    private bool isLaunched;
-    Rigidbody2D rb;
-    private float timeAlive;
-    private Vector2 moveDir;
+    public float maxLaunchDistance = .5f;
     public float moveSpeed;
+    public bool isLaunchable = true;
+
+    [SerializeField]
+    protected float aggroRange;
+    protected EnemyState enemyState;
+    protected Vector2 moveDir;
+    protected bool isLaunched;
+    protected PlayerController player;
+
+    private float defaultMoveSpeed;
+    private Vector2 launchedFromPos;
+    private Vector2 launchDestination;
+    private Rigidbody2D rb;
+
     
-    public virtual void Launch(Vector2 direction)
+    public virtual void Launch(Vector2 direction, float speed, int damage)
     {
         if (!isLaunchable)
         {
@@ -29,41 +35,40 @@ public class BaseEnemy : BaseEntity
         }
         isLaunched = true;
         Debug.Log("Enemy launched");
+        Debug.Log($"prevSpeed:{moveSpeed},speed:{speed},dir{direction}");
         moveDir = direction;
+        moveSpeed = speed;
+
+        launchedFromPos = transform.position;
+        launchDestination = launchedFromPos * moveDir * maxLaunchDistance;
+        healthComponent.TakeDamage(damage);
     }
 
      protected new void Start()
     {
+        defaultMoveSpeed = moveSpeed;
         base.Start();
-        // TODO: Needs to be made to not suck
-        player = FindObjectOfType<PlayerController>();
-        enemyHealth = 5;
-        isLaunchable = true;
-        isLaunched = false;
+        enemyState = EnemyState.IDLE;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
     }
 
-    void Update()
-    {
-        if (shotTimerTracker <= 0)
-        {
-            ShootPlayer();
-            shotTimerTracker = shotTimer;
-        }
-        else
-        {
-            shotTimerTracker -= Time.deltaTime;
-        }
-    }
     void FixedUpdate()
     {
-        if (!isLaunched)
+        if (isLaunched)
         {
-            rb.MovePosition((Vector2)transform.position + (moveDir * moveSpeed * Time.deltaTime));
-            return;
+            bool beyondLaunchTarget = Vector2.Distance(launchDestination, launchedFromPos) <= Vector2.Distance(transform.position, launchedFromPos);
+            if (!beyondLaunchTarget)
+            {
+                rb.MovePosition((Vector2)transform.position + (moveDir * moveSpeed * Time.deltaTime));
+            }
+            else
+            {
+                isLaunched = false;
+                moveSpeed = defaultMoveSpeed;
+            }
         }
-        rb.MovePosition((Vector2)transform.position + (moveDir * 1 * Time.deltaTime));
     }
 
     /// <summary>
@@ -71,7 +76,7 @@ public class BaseEnemy : BaseEntity
     /// </summary>
     protected virtual void ShootPlayer()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) < shotDistance)
+        if (Vector2.Distance(player.transform.position, transform.position) < aggroRange)
         {
             BulletManager.instance.FireBullet(transform.position, (player.transform.position - transform.position).normalized);
         }

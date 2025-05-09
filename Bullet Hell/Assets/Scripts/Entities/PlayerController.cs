@@ -1,16 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
-    private CircleCollider2D circleCollider;
     private Vector2 moveDir;
     
     [SerializeField]
@@ -53,7 +47,6 @@ public class PlayerController : BaseEntity
             batSwingController.StartSwingWindup();
         else if (Input.GetMouseButtonUp(0))
             batSwingController.StopSwingWindup();
-        // // // // // //
 
         // Debug Control, TODO: Remove
         if (Input.GetKeyDown(KeyCode.F))

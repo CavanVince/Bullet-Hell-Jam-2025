@@ -62,7 +62,6 @@ public class BatSwingController : MonoBehaviour
         { 
             maxBallReturnSpeed= 1;
         }
-        
     }
 
     public void StartSwingWindup()
@@ -80,14 +79,12 @@ public class BatSwingController : MonoBehaviour
         if (swingState != SwingState.CHARGING) return;
         timeAfterFullChargeEnd = Time.time;
         totalChargeTime = timeAfterFullChargeEnd - timeAfterFullChargeStart;
-        Debug.Log($"Total Charge Time: {totalChargeTime}");
         if ((totalChargeTime <= critTimePlusMinus))
         {
             chargeBar.GetComponent<SpriteRenderer>().sprite = criticalChargeSprite;
             isCrit = true;
         }
         swingState = SwingState.SWINGING;
-        Debug.Log($"Swing power: {currentSwingPower}");
         StartCoroutine(SwingBat(currentSwingPower));
     }
 
@@ -119,8 +116,6 @@ public class BatSwingController : MonoBehaviour
         int minSwingPower = 1;
         float normalizedSwingPower = (float) (swingPower - minSwingPower) / (float) (maxSwingPower - minSwingPower);
         float ballReturnSpeedModifier = Mathf.Lerp(minBallReturnSpeed, maxBallReturnSpeed, normalizedSwingPower);
-        Debug.Log($"normalized swing power: {normalizedSwingPower}");
-        Debug.Log($"ballReturnSpeedModifier: {ballReturnSpeedModifier}");
         GetComponent<PlayerController>().dashAvailable = false;
         float elapsed = 0f;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -147,18 +142,14 @@ public class BatSwingController : MonoBehaviour
         };
 
         Vector3 adjCenter = directions[directionIndex];
-
-        Vector3 origin = transform.GetChild(0).position;
-        Vector3 dir = Quaternion.Euler(0f, 0f, batStartAngle) * Vector3.right;
-
         List<GameObject> hits = new List<GameObject>();
 
         while (elapsed < swingTime)
         {
-            origin = transform.GetChild(0).position;
+            Vector3 origin = transform.GetChild(0).position;
             float t = elapsed / swingTime;
             float currentAngle = Mathf.Lerp(batStartAngle, batEndAngle, t);
-            dir = Quaternion.Euler(0f, 0f, currentAngle) * adjCenter;
+            Vector3 dir = Quaternion.Euler(0f, 0f, currentAngle) * adjCenter;
             Debug.DrawRay(origin, dir * batLength, Color.red);
 
             RaycastHit2D hit = Physics2D.Raycast(origin, dir.normalized, batLength, 1 << 6 | 1 << 7);
@@ -175,24 +166,23 @@ public class BatSwingController : MonoBehaviour
                 }
 
                 BaseBullet bullet = hit.transform.GetComponent<BaseBullet>();
+
                 if (layer == BulletHellCommon.BULLET_LAYER && bullet != null && bullet.GetType() == typeof(StandardBullet))
                 {
-                    Debug.Log($"Hit Bullet {hit.transform.name} with bat");
                     hit.transform.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
                     if (isCrit)
                     {
-                        ballReturnSpeedModifier *= 2;
+                        ballReturnSpeedModifier *= 1.5f;
                         bullet.damage *= 2;
-                        Debug.Log($"Crit! Dealing {bullet.damage} damage");
                         isCrit = false;
                     }
                     StandardBullet standard_bullet = (StandardBullet) bullet;
-                    standard_bullet.Fire(reflectDir * ballReturnSpeedModifier);
+                    standard_bullet.Fire(reflectDir, ballReturnSpeedModifier * standard_bullet.moveSpeed);
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {
-                    Debug.Log($"Hit enemy {hit.transform.name} with bat");
-                    hit.transform.GetComponent<BaseEnemy>().Launch(reflectDir * ballReturnSpeedModifier* 5f);
+                    BaseEnemy enemy = hit.transform.GetComponent<BaseEnemy>();
+                    enemy.Launch(reflectDir, ballReturnSpeedModifier * BulletHellCommon.BASE_ENEMY_LAUNCH_SPEED, 1);
                 }
                 hits.Add(hit.transform.gameObject);
             }

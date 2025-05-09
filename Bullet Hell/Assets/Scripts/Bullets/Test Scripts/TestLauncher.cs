@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestLauncher : MonoBehaviour
@@ -16,13 +14,11 @@ public class TestLauncher : MonoBehaviour
         GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("Running DaOctopus");
             StartCoroutine(ap.DaOctopus(() => enemy.transform.position, 5, 5, 1f, null, 0, null));
         }
 
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("Running Diverging Radial");
             if (!shooting)
             {
                 shooting = true;
@@ -31,12 +27,10 @@ public class TestLauncher : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Y))
         {
-            Debug.Log("Running Shoot at Vector2.zero");
             StartCoroutine(ap.Shoot(() => enemy.transform.position, () => Vector2.zero));
         }
         else if (Input.GetKeyDown(KeyCode.U))
         {
-            Debug.Log("Running Shotgun shot");
             StartCoroutine(ap.RadialAerialAroundPlayer(() => transform.position, 5, 1, 0, null));
         }
         else if (Input.GetKeyDown(KeyCode.X))

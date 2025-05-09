@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-
 public enum BulletType
 {
     STANDARD,
@@ -13,7 +12,6 @@ public enum BulletType
 public class BulletManager : MonoBehaviour
 {
     public static BulletManager instance;
-
     private Dictionary<BulletType, List<BaseBullet>> spawnedBulletPools;
 
     [SerializeField]
@@ -115,7 +113,6 @@ public class BulletManager : MonoBehaviour
         return bullet;
     }
 
-
     /// <summary>
     /// Helper function to launch a bullet
     /// </summary>
@@ -128,7 +125,7 @@ public class BulletManager : MonoBehaviour
         bullet.damage = bullet.baseDamage;
         bullet.gameObject.layer = BulletHellCommon.BULLET_LAYER;
         bullet.transform.position = startPos;
-        bullet.Fire(direction, movementFunc);
+        bullet.Fire(direction, bullet.moveSpeed, movementFunc);
         bullet.gameObject.SetActive(true);
     }
 

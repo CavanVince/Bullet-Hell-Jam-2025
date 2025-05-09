@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseBullet : MonoBehaviour
@@ -12,7 +10,7 @@ public abstract class BaseBullet : MonoBehaviour
     public int damage;
 
 
-    void Start()
+    protected virtual void Start()
     {
         damage = baseDamage;
         rb = GetComponent<Rigidbody2D>();
