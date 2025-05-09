@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5944700728213652858}
   - component: {fileID: 7558736749234336095}
   - component: {fileID: 3102576259949685569}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -142,9 +142,9 @@ GameObject:
   - component: {fileID: 6304804721968132314}
   - component: {fileID: 3540089538281905634}
   - component: {fileID: 3732931825396158777}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -262,6 +262,10 @@ PrefabInstance:
     - target: {fileID: 4229916686873092496, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
       propertyPath: m_Name
       value: BatChargeBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4229916686873092496, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4229916686873092496, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
       propertyPath: m_IsActive
