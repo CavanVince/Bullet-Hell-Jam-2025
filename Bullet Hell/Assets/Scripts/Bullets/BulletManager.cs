@@ -139,8 +139,10 @@ public class BulletManager : MonoBehaviour
         bullet.Fire(destination);
     }
 
-    public void RepoolBullet(GameObject bullet)
+    public void RepoolBullet(GameObject gameObj)
     {
-        bullet.gameObject.SetActive(false);
+        gameObj.SetActive(false);
+        BaseBullet bullet = gameObj.GetComponent<BaseBullet>();
+        bullet.damage = bullet.baseDamage;
     }
 }

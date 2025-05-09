@@ -8,7 +8,7 @@ public class TestLauncher : MonoBehaviour
     private bool shooting;
     private void Start()
     {
-        ap = GetComponent<AttackPatterns>();
+        ap = new AttackPatterns(BulletManager.instance);
     }
 
     private void Update()

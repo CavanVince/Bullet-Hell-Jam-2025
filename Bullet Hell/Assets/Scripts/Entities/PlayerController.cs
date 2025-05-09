@@ -7,7 +7,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
     private CircleCollider2D circleCollider;
@@ -26,8 +26,10 @@ public class PlayerController : MonoBehaviour
 
     private BatSwingController batSwingController;
 
-    void Start()
+    protected new void Start()
     {
+        base.Start();
+
         batSwingController = GetComponent<BatSwingController>();
         rb = GetComponent<Rigidbody2D>();
         dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
@@ -57,24 +59,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             BulletManager.instance.FireAerialBullet(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Collider2D coll = collision.collider;
-        OnTriggerEnter2D(coll);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        int layer = collision.gameObject.layer;
-        Debug.Log($"{transform.name} collided with {collision.name}");
-        HealthComponent health = GetComponent<HealthComponent>();
-        if (layer == BulletHellCommon.BULLET_LAYER || layer == BulletHellCommon.ENEMY_LAYER)
-        {
-            if (health != null)
-                health.TakeDamage();
         }
     }
 
