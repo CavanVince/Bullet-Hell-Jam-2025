@@ -6,6 +6,8 @@ public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
     private Vector2 moveDir;
+    private Vector2 previousDir; // Used for animation exclusively
+    private Animator animator;
 
     public bool dashAvailable = true;
     private bool dashing = false;
@@ -38,7 +40,9 @@ public class PlayerController : BaseEntity
 
         batSwingController = GetComponent<BatSwingController>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
         dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
+        previousDir = new Vector2(1, -1);
     }
 
     void Update()
@@ -64,7 +68,23 @@ public class PlayerController : BaseEntity
     private void FixedUpdate()
     {
         // Move the player
-        rb.MovePosition(moveDir * moveSpeed * Time.deltaTime * dashMultiplier + (Vector2)transform.position);
+        Vector2 updatedDir = moveDir * moveSpeed * Time.deltaTime * dashMultiplier + (Vector2)transform.position;
+        rb.MovePosition(updatedDir);
+
+        // Update animations
+        if ((updatedDir - (Vector2)transform.position).magnitude != 0)
+        {
+            animator.SetFloat("Input X", updatedDir.x - transform.position.x);
+            animator.SetFloat("Input Y", updatedDir.y - transform.position.y);
+            animator.SetBool("IsMoving", true);
+            previousDir = updatedDir - (Vector2)transform.position;
+        }
+        else
+        {
+            animator.SetFloat("Input X", previousDir.x);
+            animator.SetFloat("Input Y", previousDir.y);
+            animator.SetBool("IsMoving", false);
+        }
     }
 
     void MovePlayer()

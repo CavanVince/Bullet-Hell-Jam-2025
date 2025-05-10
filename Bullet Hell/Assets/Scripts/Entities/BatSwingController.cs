@@ -34,7 +34,7 @@ public class BatSwingController : MonoBehaviour
 
     Sprite[] chargeBarSprites;
     Sprite criticalChargeSprite;
-    
+
     [SerializeField]
     private float critTimePlusMinus;
 
@@ -44,7 +44,7 @@ public class BatSwingController : MonoBehaviour
     private void Start()
     {
         allChargeBarSprites = Resources.LoadAll<Sprite>("Power-Bar");
-        
+
         chargeBarSprites = allChargeBarSprites.Take(allChargeBarSprites.Length - 1).ToArray();
         criticalChargeSprite = allChargeBarSprites[allChargeBarSprites.Length - 1];
 
@@ -54,13 +54,13 @@ public class BatSwingController : MonoBehaviour
         {
             swingTime = .2f;
         }
-        if (minBallReturnSpeed== 0)
+        if (minBallReturnSpeed == 0)
         {
-            minBallReturnSpeed= 1;
+            minBallReturnSpeed = 1;
         }
-        if (maxBallReturnSpeed== 0) 
-        { 
-            maxBallReturnSpeed= 1;
+        if (maxBallReturnSpeed == 0)
+        {
+            maxBallReturnSpeed = 1;
         }
     }
 
@@ -100,7 +100,7 @@ public class BatSwingController : MonoBehaviour
             {
                 // set next sprite
                 currentSwingPower++;
-                chargeBar.GetComponent<SpriteRenderer>().sprite = chargeBarSprites[currentSwingPower-1];
+                chargeBar.GetComponent<SpriteRenderer>().sprite = chargeBarSprites[currentSwingPower - 1];
                 if (chargeBar.GetComponent<SpriteRenderer>().sprite == chargeBarSprites[chargeBarSprites.Length - 1])
                 {
                     timeAfterFullChargeStart = Time.time;
@@ -114,7 +114,7 @@ public class BatSwingController : MonoBehaviour
     {
         int maxSwingPower = chargeBarSprites.Length;
         int minSwingPower = 1;
-        float normalizedSwingPower = (float) (swingPower - minSwingPower) / (float) (maxSwingPower - minSwingPower);
+        float normalizedSwingPower = (float)(swingPower - minSwingPower) / (float)(maxSwingPower - minSwingPower);
         float ballReturnSpeedModifier = Mathf.Lerp(minBallReturnSpeed, maxBallReturnSpeed, normalizedSwingPower);
         GetComponent<PlayerController>().dashAvailable = false;
         float elapsed = 0f;
@@ -143,6 +143,10 @@ public class BatSwingController : MonoBehaviour
 
         Vector3 adjCenter = directions[directionIndex];
         List<GameObject> hits = new List<GameObject>();
+
+        // Update attacking animation
+        Animator animator = GetComponentInChildren<Animator>();
+        animator.SetBool("IsAttacking", true);
 
         while (elapsed < swingTime)
         {
@@ -176,7 +180,7 @@ public class BatSwingController : MonoBehaviour
                         bullet.damage *= 2;
                         isCrit = false;
                     }
-                    StandardBullet standardBullet = (StandardBullet) bullet;
+                    StandardBullet standardBullet = (StandardBullet)bullet;
                     standardBullet.Fire(standardBullet.transform.position, reflectDir, ballReturnSpeedModifier * standardBullet.moveSpeed);
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
@@ -195,6 +199,7 @@ public class BatSwingController : MonoBehaviour
         }
         GetComponent<PlayerController>().dashAvailable = true;
         swingState = SwingState.NONE;
+        animator.SetBool("IsAttacking", false);
     }
 
 }
