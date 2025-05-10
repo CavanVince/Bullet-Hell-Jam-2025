@@ -11,6 +11,12 @@ public class RoomGameObject : MonoBehaviour
     // Flag if the player cleared the room
     private bool isRoomCleared = false;
 
+    // Flag if the player entered the room
+    private bool isRoomEntered = false;
+
+    // The enemy count of the room
+    private int enemyCount = 0;
+
     // Global event that gets called to all rooms when the player enters it
     public static UnityEvent roomEntered;
 
@@ -50,10 +56,6 @@ public class RoomGameObject : MonoBehaviour
     // Spawn point parent
     [SerializeField]
     private GameObject enemySpawnPoints;
-
-    // List of enemy prefabs
-    [SerializeField]
-    private List<GameObject> enemyPrefabs;
 
     private void Awake()
     {
@@ -98,7 +100,7 @@ public class RoomGameObject : MonoBehaviour
     public void RoomCleared()
     {
         isRoomCleared = true;
-        OpenDoors();
+        roomCleared?.Invoke();
     }
 
     /// <summary>
@@ -143,6 +145,19 @@ public class RoomGameObject : MonoBehaviour
         {
             GameObject enemy = EntityManager.instance.SummonEnemy(typeof(BaseEnemy), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
             enemy.GetComponent<BaseEnemy>().OwningRoom = this;
+            enemyCount++;
+        }
+    }
+
+    /// <summary>
+    /// How the room should process the event of an enemy dying
+    /// </summary>
+    public void EnemyDied()
+    {
+        enemyCount--;
+        if (enemyCount <= 0)
+        {
+            RoomCleared();
         }
     }
 
@@ -160,6 +175,10 @@ public class RoomGameObject : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") != true) return;
+
+        if (!isRoomEntered) isRoomEntered = true;
+        else return;
+
         if (isRoomCleared) return;
 
         roomEntered?.Invoke();

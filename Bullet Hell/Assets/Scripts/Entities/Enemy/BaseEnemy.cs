@@ -37,6 +37,9 @@ public class BaseEnemy : BaseEntity
     private Rigidbody2D rb;
     private AttackPatterns ap;
 
+    private float pathCalcTime = 1;
+    private float currentPathCalcTime;
+
     [HideInInspector]
     public Func<IEnumerator> shootFunc;
 
@@ -79,9 +82,13 @@ public class BaseEnemy : BaseEntity
         {
             // idk maybe just move around randomly or do nothin?
             // or see if nearby friendlies are aggro'd and join in
-            if (enemyState == EnemyState.MOVING && path.Count <= 0)
+            if (enemyState == EnemyState.MOVING && pathCalcTime <= currentPathCalcTime)
             {
                 PathToPlayer();
+            }
+            else if (enemyState == EnemyState.MOVING && currentPathCalcTime < pathCalcTime)
+            {
+                currentPathCalcTime += Time.deltaTime;
             }
         }
     }
@@ -154,6 +161,7 @@ public class BaseEnemy : BaseEntity
     protected virtual void PathToPlayer()
     {
         path.Clear();
+        currentPathCalcTime = 0;
 
         Vector3Int enemyPos = ConvertToRoomSpace(transform.position);
         Vector3Int playerPos = ConvertToRoomSpace(player.transform.position);
@@ -174,11 +182,12 @@ public class BaseEnemy : BaseEntity
     public void SetPath(NativeList<int2> newPath)
     {
         LineRenderer lr = GetComponent<LineRenderer>();
-        lr.positionCount = newPath.Length;
+        lr.positionCount = 0;
+        lr.positionCount = newPath.Length - 1;
         for (int i = 1; i < newPath.Length; i++) // Exclude first point (starting point)
         {
             path.Add(new Vector2(newPath[i].x, newPath[i].y));
-            lr.SetPosition(i, ConvertToWorldSpace(new Vector3Int((int)path[i].x, (int)path[i].y)));
+            lr.SetPosition(i - 1, ConvertToWorldSpace(new Vector3Int(newPath[i].x, newPath[i].y)));
         }
         newPath.Dispose();
     }
@@ -207,6 +216,7 @@ public class BaseEnemy : BaseEntity
     {
         base.ResetState();
         enemyState = EnemyState.MOVING;
+        currentPathCalcTime = pathCalcTime;
         isLaunched = false;
         isShooting = false;
         shootFunc = () => ap.Shoot(new ShootParameters(originCalculation: () => transform.position, destinationCalculation: () => player.transform.position));
