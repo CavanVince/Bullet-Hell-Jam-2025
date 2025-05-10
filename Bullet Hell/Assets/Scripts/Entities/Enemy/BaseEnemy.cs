@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using System.Collections;
@@ -21,13 +20,15 @@ public class BaseEnemy : BaseEntity
     public bool isLaunchable = true;
     public RoomGameObject OwningRoom;
 
-    private bool isShooting;
+    private float dazeDurationS = 1f;
 
     [SerializeField]
     protected float aggroRange;
+    [SerializeField]
+    protected float shootRange;
+
     protected EnemyState enemyState;
     protected Vector2 moveDir;
-    protected bool isLaunched;
     protected List<Vector2> path;
     [HideInInspector]
     public PlayerController player;
@@ -43,6 +44,8 @@ public class BaseEnemy : BaseEntity
     [HideInInspector]
     public Func<IEnumerator> shootFunc;
 
+    private Coroutine shootRoutine, shootFuncRoutine;
+
     protected override void Start()
     {
         base.Start();
@@ -57,45 +60,91 @@ public class BaseEnemy : BaseEntity
 
     IEnumerator Shoot()
     {
-        isShooting = true;
-        yield return StartCoroutine(shootFunc());
-        isShooting = false;
+        enemyState = EnemyState.SHOOTING;
+        shootFuncRoutine = StartCoroutine(shootFunc());
+        yield return shootFuncRoutine;
+        enemyState = EnemyState.IDLE;
+        shootRoutine = null;
+    }
+
+    void StopShooting()
+    {
+        if (shootFuncRoutine != null)
+        {
+            StopCoroutine(shootFuncRoutine);
+        }
+        if (shootRoutine != null)
+        {
+            StopCoroutine(shootRoutine);
+        }
     }
 
     protected virtual void Update()
     {
-        if (isShooting)
+        // was shooting but now out of range
+        if (enemyState == EnemyState.SHOOTING && Vector2.Distance(player.transform.position, transform.position) > shootRange)
+        {
+            if (shootFuncRoutine != null)
+            {
+                // is still finishing its shot pattern, keep shooting until complete
+                return;
+            }
+            enemyState = EnemyState.IDLE;
+            return;
+        }
+        // is busy doing something
+        else if (enemyState == EnemyState.SHOOTING || enemyState == EnemyState.LAUNCHED || enemyState == EnemyState.DAZED)
         {
             return;
         }
         // In aggro range
         // TODO: Add raycast check to make sure player is visible
-        if (Vector2.Distance(player.transform.position, transform.position) <= aggroRange)
+        else if (Vector2.Distance(player.transform.position, transform.position) <= shootRange)
         {
-            enemyState = EnemyState.SHOOTING;
-            isShooting = true;
             path.Clear();
-            StartCoroutine(Shoot());
+            shootRoutine = StartCoroutine(Shoot());
             // strafe and shoot at player as appropriate
         }
-        else
+        else if ((enemyState == EnemyState.MOVING && path.Count <= 0) ||
+                (enemyState == EnemyState.IDLE && Vector2.Distance(player.transform.position, transform.position) <= aggroRange))
         {
+<<<<<<< Updated upstream
             // idk maybe just move around randomly or do nothin?
             // or see if nearby friendlies are aggro'd and join in
             if (enemyState == EnemyState.MOVING && pathCalcTime <= currentPathCalcTime)
+=======
+            PathToPlayer();
+        }
+    }
+
+    IEnumerator Dazed(float duration_s)
+    {
+        enemyState = EnemyState.DAZED;
+        yield return new WaitForSeconds(duration_s);
+        enemyState = EnemyState.IDLE;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == BulletHellCommon.WALL_LAYER)
+        {
+            if (enemyState == EnemyState.LAUNCHED)
+>>>>>>> Stashed changes
             {
-                PathToPlayer();
+                launchDestination = transform.position;
+                StartCoroutine(Dazed(dazeDurationS));
             }
             else if (enemyState == EnemyState.MOVING && currentPathCalcTime < pathCalcTime)
             {
                 currentPathCalcTime += Time.deltaTime;
             }
         }
+        base.OnTriggerEnter2D(collision);
     }
 
     void FixedUpdate()
     {
-        if (isLaunched)
+        if (enemyState == EnemyState.LAUNCHED)
         {
             bool beyondLaunchTarget = Vector2.Distance(launchDestination, launchedFromPos) <= Vector2.Distance(transform.position, launchedFromPos);
             if (!beyondLaunchTarget)
@@ -104,8 +153,7 @@ public class BaseEnemy : BaseEntity
             }
             else
             {
-                isLaunched = false;
-                moveSpeed = defaultMoveSpeed;
+                StartCoroutine(Dazed(dazeDurationS));
             }
         }
         else if (enemyState == EnemyState.MOVING && path.Count > 0)
@@ -124,12 +172,14 @@ public class BaseEnemy : BaseEntity
 
     public virtual void Launch(Vector2 direction, float speed, int damage)
     {
-        GetComponent<Animator>().SetInteger("animState", (int)enemyState);
         if (!isLaunchable)
         {
             return;
         }
-        isLaunched = true;
+
+        StopShooting();
+
+        enemyState = EnemyState.LAUNCHED;
         moveDir = direction;
         moveSpeed = speed;
 
@@ -139,6 +189,7 @@ public class BaseEnemy : BaseEntity
 
     }
 
+<<<<<<< Updated upstream
     protected virtual void OnAggro()
     {
 
@@ -165,14 +216,20 @@ public class BaseEnemy : BaseEntity
         }
     }
 
+=======
+>>>>>>> Stashed changes
     /// <summary>
     /// Calculate the shortest path to the player's position
     /// </summary>
     protected virtual void PathToPlayer()
     {
         path.Clear();
+<<<<<<< Updated upstream
         currentPathCalcTime = 0;
 
+=======
+        enemyState = EnemyState.MOVING;
+>>>>>>> Stashed changes
         Vector3Int enemyPos = ConvertToRoomSpace(transform.position);
         Vector3Int playerPos = ConvertToRoomSpace(player.transform.position);
 
@@ -225,10 +282,14 @@ public class BaseEnemy : BaseEntity
     public override void ResetState()
     {
         base.ResetState();
+<<<<<<< Updated upstream
         enemyState = EnemyState.MOVING;
         currentPathCalcTime = pathCalcTime;
         isLaunched = false;
         isShooting = false;
+=======
+        enemyState = EnemyState.IDLE;
+>>>>>>> Stashed changes
         shootFunc = () => ap.Shoot(new ShootParameters(originCalculation: () => transform.position, destinationCalculation: () => player.transform.position));
 
     }
