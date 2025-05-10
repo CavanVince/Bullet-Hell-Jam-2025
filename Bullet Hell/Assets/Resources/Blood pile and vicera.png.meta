@@ -105,14 +105,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.47852927, y: 0.6686985}
+      pivot: {x: 0.47852927, y: 0.696304}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 6d9671d833ecf294b8ccd06968270bc5
-      internalID: -478917988
+      spriteID: 7440ef093f92c94c0800000000000000
+      internalID: -4279499419822455737
       vertices: []
       indices: 
       edges: []
@@ -126,14 +126,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.47239482, y: 0.70243824}
+      pivot: {x: 0.47546208, y: 0.684035}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dccc22908695194e9c01b9bd14af6db
-      internalID: 467355808
+      spriteID: fa04c161c965691499deb94541ba3e70
+      internalID: -1056167690
       vertices: []
       indices: 
       edges: []
@@ -147,14 +147,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.48159695, y: 0.70857275}
+      pivot: {x: 0.46626043, y: 0.6993713}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02ce625e3e7573d42b4837a9ea86246c
-      internalID: -1874717569
+      spriteID: d42be9fa44355eb43b6f7e6a8815bfab
+      internalID: -1719544902
       vertices: []
       indices: 
       edges: []
@@ -168,14 +168,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.4907987, y: 0.723909}
+      pivot: {x: 0.48773122, y: 0.720842}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9fade275b620ed041b7f075ee51cab75
-      internalID: -1356096955
+      spriteID: 0c0bae27b4e76b948a8db2f125bcab3c
+      internalID: 1312109865
       vertices: []
       indices: 
       edges: []
@@ -183,7 +183,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 96573b1808d67fb4b9dcaa6d0a25e97f
     internalID: 0
     vertices: []
     indices: 
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blood pile and vicera_0: -478917988
-      Blood pile and vicera_1: 467355808
-      Blood pile and vicera_2: -1874717569
-      Blood pile and vicera_3: -1356096955
+      Blood pile and vicera_0: -4279499419822455737
+      Blood pile and vicera_1: -1056167690
+      Blood pile and vicera_2: -1719544902
+      Blood pile and vicera_3: 1312109865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
