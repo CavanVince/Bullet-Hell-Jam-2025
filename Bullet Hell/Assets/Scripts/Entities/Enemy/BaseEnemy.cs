@@ -47,7 +47,6 @@ public class BaseEnemy : BaseEntity
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
         path = new List<Vector2>();
-        enemyState = EnemyState.MOVING;
         ap = new AttackPatterns(EntityManager.instance);
 
         ResetState();
@@ -105,9 +104,9 @@ public class BaseEnemy : BaseEntity
         else if (enemyState == EnemyState.MOVING && path.Count > 0)
         {
             Vector2 enemyPos = (Vector2)transform.position;
-            Vector2 newPos = OwningRoom.GetComponentInParent<Grid>().CellToWorld(new Vector3Int((int)path[0].x, (int)path[0].y, 0));
+            Vector2 newPos = ConvertToWorldSpace(new Vector3Int((int)path[0].x, (int)path[0].y, 0));
 
-            //rb.MovePosition(enemyPos + ((enemyPos - newPos).normalized * moveSpeed * Time.deltaTime));
+            rb.MovePosition(enemyPos + ((newPos - enemyPos).normalized * moveSpeed * Time.deltaTime));
 
             if (Vector2.Distance(enemyPos, newPos) <= 0.25f)
             {
@@ -159,6 +158,7 @@ public class BaseEnemy : BaseEntity
         Vector3Int enemyPos = ConvertToRoomSpace(transform.position);
         Vector3Int playerPos = ConvertToRoomSpace(player.transform.position);
 
+
         Pathfinding.CalculatePath(
             new int2(enemyPos.x, enemyPos.y),
             new int2(playerPos.x, playerPos.y),
@@ -173,9 +173,12 @@ public class BaseEnemy : BaseEntity
     /// <param name="newPath"></param>
     public void SetPath(NativeList<int2> newPath)
     {
-        for (int i = 0; i < newPath.Length; i++)
+        LineRenderer lr = GetComponent<LineRenderer>();
+        lr.positionCount = newPath.Length;
+        for (int i = 1; i < newPath.Length; i++) // Exclude first point (starting point)
         {
             path.Add(new Vector2(newPath[i].x, newPath[i].y));
+            lr.SetPosition(i, ConvertToWorldSpace(new Vector3Int((int)path[i].x, (int)path[i].y)));
         }
         newPath.Dispose();
     }
@@ -190,12 +193,23 @@ public class BaseEnemy : BaseEntity
         return OwningRoom.GetComponentInParent<Grid>().WorldToCell(pos);
     }
 
+    /// <summary>
+    /// Helper function to convert a tile position to world space
+    /// </summary>
+    /// <param name="pos">The position of the tile on the grid</param>
+    /// <returns></returns>
+    private Vector3 ConvertToWorldSpace(Vector3Int pos)
+    {
+        return OwningRoom.GetComponentInParent<Grid>().CellToWorld(pos);
+    }
+
     public override void ResetState()
     {
         base.ResetState();
-        enemyState = EnemyState.IDLE;
+        enemyState = EnemyState.MOVING;
         isLaunched = false;
         isShooting = false;
-        shootFunc = () => ap.Shoot(new ShootParameters(originCalculation:() => transform.position, destinationCalculation:() => player.transform.position));
+        shootFunc = () => ap.Shoot(new ShootParameters(originCalculation: () => transform.position, destinationCalculation: () => player.transform.position));
+
     }
 }
