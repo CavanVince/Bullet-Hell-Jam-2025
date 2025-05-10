@@ -314,6 +314,7 @@ public class MapGenerator : MonoBehaviour
                     //roomInstance.GetComponentInChildren<Tilemap>().color = Color.yellow;
                     spawnPoint = roomPos;
                     roomGo?.RoomCleared();
+                    roomGo?.FadeFog();
                 }
                 else if (currentRoom.roomType == RoomType.BOSS)
                 {
