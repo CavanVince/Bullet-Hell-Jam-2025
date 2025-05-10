@@ -42,7 +42,11 @@ public class BombEnemy : BaseEnemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.gameObject.transform.parent.GetComponent<BaseEntity>().healthComponent.TakeDamage(explosionDamage);
+        BaseEntity entity = collision.gameObject.transform.parent.GetComponentInParent<BaseEntity>();
+        if (entity != null)
+        {
+            entity.healthComponent.TakeDamage(explosionDamage);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

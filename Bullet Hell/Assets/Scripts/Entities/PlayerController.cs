@@ -42,7 +42,7 @@ public class PlayerController : BaseEntity
             StartCoroutine(Dash());
         }
 
-        // Bat Controls //
+        // Bat Controls
         if (Input.GetMouseButtonDown(0))
             batSwingController.StartSwingWindup();
         else if (Input.GetMouseButtonUp(0))
@@ -51,7 +51,7 @@ public class PlayerController : BaseEntity
         // Debug Control, TODO: Remove
         if (Input.GetKeyDown(KeyCode.F))
         {
-            BulletManager.instance.FireAerialBullet(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            EntityManager.instance.FireBullet(typeof(AerialBullet), Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
 

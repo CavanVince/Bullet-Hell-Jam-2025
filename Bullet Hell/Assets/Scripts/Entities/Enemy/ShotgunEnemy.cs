@@ -28,7 +28,7 @@ public class ShotgunEnemy : BaseEnemy
             float bulletAngle = baseAngle + angleOffset;
             Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
 
-            BulletManager.instance.FireBullet(transform.position, bulletDir.normalized);
+            EntityManager.instance.FireBullet(typeof(StandardBullet), transform.position, bulletDir.normalized);
         }
     }
 }
