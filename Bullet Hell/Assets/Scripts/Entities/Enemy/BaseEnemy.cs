@@ -4,7 +4,6 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
 public enum EnemyState
 {
     IDLE,
@@ -17,7 +16,6 @@ public enum EnemyState
 public class BaseEnemy : BaseEntity
 {
     public float maxLaunchDistance = .5f;
-    public float moveSpeed;
     public bool isLaunchable = true;
     public RoomGameObject OwningRoom;
 
@@ -28,38 +26,52 @@ public class BaseEnemy : BaseEntity
     protected EnemyState enemyState;
     protected Vector2 moveDir;
     protected bool isLaunched;
-    protected PlayerController player;
     protected List<Vector2> path;
+    [HideInInspector]
+    public PlayerController player;
 
-    private float defaultMoveSpeed;
     private Vector2 launchedFromPos;
     private Vector2 launchDestination;
     private Rigidbody2D rb;
     private AttackPatterns ap;
 
+    [HideInInspector]
+    public Func<IEnumerator> shootFunc;
+
     protected override void Start()
     {
-        ap = new AttackPatterns(EntityManager.instance);
-        defaultMoveSpeed = moveSpeed;
         base.Start();
         player = PlayerController.Instance;
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
         path = new List<Vector2>();
         enemyState = EnemyState.MOVING;
+        ap = new AttackPatterns(EntityManager.instance);
+
+        ResetState();
     }
 
-    private void Update()
+    IEnumerator Shoot()
     {
-        if (isShooting) return;
+        isShooting = true;
+        yield return StartCoroutine(shootFunc());
+        isShooting = false;
+    }
+
+    protected virtual void Update()
+    {
+        if (isShooting)
+        {
+            return;
+        }
         // In aggro range
         // TODO: Add raycast check to make sure player is visible
         if (Vector2.Distance(player.transform.position, transform.position) <= aggroRange)
         {
             enemyState = EnemyState.SHOOTING;
             isShooting = true;
-            StartCoroutine(ap.Shoot(() => transform.position, () => player.transform.position, 3, .5f, 2, () => isShooting = false));
             path.Clear();
+            StartCoroutine(Shoot());
             // strafe and shoot at player as appropriate
         }
         else
@@ -124,9 +136,6 @@ public class BaseEnemy : BaseEntity
     }
 
 
-
-
-
     /// <summary>
     /// Launches a bullet at the player if 
     /// </summary>
@@ -137,7 +146,6 @@ public class BaseEnemy : BaseEntity
             EntityManager.instance.FireBullet(typeof(StandardBullet), transform.position, (player.transform.position - transform.position).normalized);
         }
     }
-
 
     /// <summary>
     /// Calculate the shortest path to the player's position
@@ -178,5 +186,14 @@ public class BaseEnemy : BaseEntity
     private Vector3Int ConvertToRoomSpace(Vector2 pos)
     {
         return OwningRoom.GetComponentInParent<Grid>().WorldToCell(pos);
+    }
+
+    public override void ResetState()
+    {
+        base.ResetState();
+        enemyState = EnemyState.IDLE;
+        isLaunched = false;
+        isShooting = false;
+        shootFunc = () => ap.Shoot(new ShootParameters(originCalculation:() => transform.position, destinationCalculation:() => player.transform.position));
     }
 }

@@ -7,9 +7,6 @@ public class PlayerController : BaseEntity
     private Rigidbody2D rb;
     private Vector2 moveDir;
 
-    [SerializeField]
-    private float moveSpeed;
-
     public bool dashAvailable = true;
     private bool dashing = false;
     public float dashMultiplier;
@@ -62,16 +59,6 @@ public class PlayerController : BaseEntity
             batSwingController.StartSwingWindup();
         else if (Input.GetMouseButtonUp(0))
             batSwingController.StopSwingWindup();
-
-        // Debug Control, TODO: Remove
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            EntityManager.instance.FireBullet(typeof(AerialBullet), Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-        else if (Input.GetKeyDown(KeyCode.B))
-        {
-            EntityManager.instance.SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
-        }
     }
 
     private void FixedUpdate()
