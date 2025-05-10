@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2192389323943361480}
-  - component: {fileID: 7029724577208460046}
+  - component: {fileID: -5352878190331560325}
   m_Layer: 0
-  m_Name: Bullet Manager
+  m_Name: Entity Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7029724577208460046
+--- !u!114 &-5352878190331560325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eab889ecfa8c3041b4cc76272ab2061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3779985338521425694, guid: 67e275dd454f6f5498d42daeae5e8268, type: 3}
+  standardBulletPrefab: {fileID: 3779985338521425694, guid: 67e275dd454f6f5498d42daeae5e8268, type: 3}
+  aerialBulletPrefab: {fileID: 2649368732903720990, guid: 4ac9505a0fc07ee4c838ac91cfc3655c, type: 3}
+  basicEnemyPrefab: {fileID: 6562345963098122877, guid: 642768d490021df4298e5afb2df128b6, type: 3}
+  bombEnemyPrefab: {fileID: 6562345963098122877, guid: a9c2a44c0356d76409e7d21d746bf67a, type: 3}
+  poolSize: 20

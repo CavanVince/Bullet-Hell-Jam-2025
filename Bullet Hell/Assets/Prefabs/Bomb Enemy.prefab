@@ -250,7 +250,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &-4541003171636025418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1054173c66420a94d96a03207a236507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  health: 3
+  maxHealth: 1
+  health: 1
   invulnerabilityDurationOnHit: 0
 --- !u!95 &4114375878203789848
 Animator:
@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b039af4fafa944ca2c60bdf71cbbee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthComponent: {fileID: 0}
   maxLaunchDistance: 1
   moveSpeed: 1
   isLaunchable: 1
@@ -306,3 +307,4 @@ MonoBehaviour:
   distanceFromPlayerToExplode: 2
   timeToExplode_s: 1
   bombRadius: 3
+  explosionDamage: 1

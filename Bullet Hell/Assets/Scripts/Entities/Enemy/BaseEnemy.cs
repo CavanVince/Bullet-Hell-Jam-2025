@@ -97,7 +97,7 @@ public class BaseEnemy : BaseEntity
     {
         if (Vector2.Distance(player.transform.position, transform.position) < aggroRange)
         {
-            BulletManager.instance.FireBullet(transform.position, (player.transform.position - transform.position).normalized);
+            EntityManager.instance.FireBullet(typeof(StandardBullet), transform.position, (player.transform.position - transform.position).normalized);
         }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 public class StandardBullet : BaseBullet
 {
     public Vector2 moveDir;
-    public float moveSpeed;
 
     private Vector2 origin;
     private Vector2 perpendicularDirection;
@@ -25,7 +24,7 @@ public class StandardBullet : BaseBullet
         if (range > 0 && Vector2.Distance(origin, transform.position) > range)
         {
             // out of range and died
-            BulletManager.instance.RepoolBullet(gameObject);
+            EntityManager.instance.Repool(gameObject);
         }
         Vector2 velocityVector = moveDir * moveSpeed * Time.deltaTime;
 
@@ -49,7 +48,7 @@ public class StandardBullet : BaseBullet
     /// </summary>
     /// <param name="direction">The direction that the bullet should move</param>
     /// <param name="movementFunc">The function that the bullet should follow while moving</param>
-    public void Fire(Vector2 direction, float speed, Func<float, float> movementFunc)
+    public override void Fire(Vector2 startPos, Vector2 direction, float speed, Func<float, float> movementFunc=null)
     {
         moveDir = direction;
         perpendicularDirection = new Vector2(-direction.y, direction.x);
@@ -58,22 +57,13 @@ public class StandardBullet : BaseBullet
         moveSpeed = speed;
     }
 
-    /// <summary>
-    /// Overload of the fire function where bullets move in a straight line
-    /// </summary>
-    /// <param name="direction">The direction that the bullet should move</param>
-    public void Fire(Vector2 direction, float speed)
-    {
-        Fire(direction, speed, x => 0);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         bool hitPlayer = collision.gameObject.tag == "Player" && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
         bool hitEnemy = collision.gameObject.tag == "Enemy" && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
         if (hitEnemy || hitPlayer)
         {
-            BulletManager.instance.RepoolBullet(gameObject);
+            EntityManager.instance.Repool(gameObject);
         }
     }
 }

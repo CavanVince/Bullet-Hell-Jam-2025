@@ -176,8 +176,8 @@ public class BatSwingController : MonoBehaviour
                         bullet.damage *= 2;
                         isCrit = false;
                     }
-                    StandardBullet standard_bullet = (StandardBullet) bullet;
-                    standard_bullet.Fire(reflectDir, ballReturnSpeedModifier * standard_bullet.moveSpeed);
+                    StandardBullet standardBullet = (StandardBullet) bullet;
+                    standardBullet.Fire(standardBullet.transform.position, reflectDir, ballReturnSpeedModifier * standardBullet.moveSpeed);
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {

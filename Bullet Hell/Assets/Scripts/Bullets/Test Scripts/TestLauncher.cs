@@ -6,7 +6,7 @@ public class TestLauncher : MonoBehaviour
     private bool shooting;
     private void Start()
     {
-        ap = new AttackPatterns(BulletManager.instance);
+        ap = new AttackPatterns(EntityManager.instance);
     }
 
     private void Update()
