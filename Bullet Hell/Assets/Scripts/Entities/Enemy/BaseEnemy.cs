@@ -1,12 +1,17 @@
+using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public enum EnemyState
 {
     IDLE,
+    MOVING,
     LAUNCHED,
     DAZED,
-
+    SHOOTING,
     EXPLODING // only used for BombEnemy
 }
 public class BaseEnemy : BaseEntity
@@ -14,6 +19,7 @@ public class BaseEnemy : BaseEntity
     public float maxLaunchDistance = .5f;
     public float moveSpeed;
     public bool isLaunchable = true;
+    public RoomGameObject OwningRoom;
 
     private bool isShooting;
 
@@ -23,6 +29,7 @@ public class BaseEnemy : BaseEntity
     protected Vector2 moveDir;
     protected bool isLaunched;
     protected PlayerController player;
+    protected List<Vector2> path;
 
     private float defaultMoveSpeed;
     private Vector2 launchedFromPos;
@@ -35,26 +42,34 @@ public class BaseEnemy : BaseEntity
         ap = new AttackPatterns(EntityManager.instance);
         defaultMoveSpeed = moveSpeed;
         base.Start();
-        enemyState = EnemyState.IDLE;
         player = PlayerController.Instance;
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
+        path = new List<Vector2>();
+        enemyState = EnemyState.MOVING;
     }
 
     private void Update()
     {
         if (isShooting) return;
         // In aggro range
+        // TODO: Add raycast check to make sure player is visible
         if (Vector2.Distance(player.transform.position, transform.position) <= aggroRange)
         {
+            enemyState = EnemyState.SHOOTING;
             isShooting = true;
             StartCoroutine(ap.Shoot(() => transform.position, () => player.transform.position, 3, .5f, 2, () => isShooting = false));
+            path.Clear();
             // strafe and shoot at player as appropriate
         }
         else
         {
             // idk maybe just move around randomly or do nothin?
             // or see if nearby friendlies are aggro'd and join in
+            if (enemyState == EnemyState.MOVING && path.Count <= 0)
+            {
+                PathToPlayer();
+            }
         }
     }
 
@@ -71,6 +86,18 @@ public class BaseEnemy : BaseEntity
             {
                 isLaunched = false;
                 moveSpeed = defaultMoveSpeed;
+            }
+        }
+        else if (enemyState == EnemyState.MOVING && path.Count > 0)
+        {
+            Vector2 enemyPos = (Vector2)transform.position;
+            Vector2 newPos = OwningRoom.GetComponentInParent<Grid>().CellToWorld(new Vector3Int((int)path[0].x, (int)path[0].y, 0));
+
+            //rb.MovePosition(enemyPos + ((enemyPos - newPos).normalized * moveSpeed * Time.deltaTime));
+
+            if (Vector2.Distance(enemyPos, newPos) <= 0.25f)
+            {
+                path.RemoveAt(0);
             }
         }
     }
@@ -115,8 +142,41 @@ public class BaseEnemy : BaseEntity
     /// <summary>
     /// Calculate the shortest path to the player's position
     /// </summary>
-    protected virtual void PathToPlayer() 
+    protected virtual void PathToPlayer()
     {
-        
+        path.Clear();
+
+        Vector3Int enemyPos = ConvertToRoomSpace(transform.position);
+        Vector3Int playerPos = ConvertToRoomSpace(player.transform.position);
+
+        Pathfinding.CalculatePath(
+            new int2(enemyPos.x, enemyPos.y),
+            new int2(playerPos.x, playerPos.y),
+            new int2(OwningRoom.GridBounds.size.x, OwningRoom.GridBounds.size.y),
+            OwningRoom.walkabilityGrid,
+            this);
+    }
+
+    /// <summary>
+    /// Helper function to assign the path once it has been calculated by the pathfinding manager
+    /// </summary>
+    /// <param name="newPath"></param>
+    public void SetPath(NativeList<int2> newPath)
+    {
+        for (int i = 0; i < newPath.Length; i++)
+        {
+            path.Add(new Vector2(newPath[i].x, newPath[i].y));
+        }
+        newPath.Dispose();
+    }
+
+    /// <summary>
+    /// Helper function to convert a position to room space
+    /// </summary>
+    /// <param name="pos">The position in room space</param>
+    /// <returns></returns>
+    private Vector3Int ConvertToRoomSpace(Vector2 pos)
+    {
+        return OwningRoom.GetComponentInParent<Grid>().WorldToCell(pos);
     }
 }

@@ -23,7 +23,7 @@ public class EntityManager : MonoBehaviour
 
     private void Start()
     {
-        SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        //SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
     }
 
     /// <summary>
@@ -51,18 +51,20 @@ public class EntityManager : MonoBehaviour
     /// <summary>
     /// Summons an entity from the pool and places them in the world at a given position and rotation.
     /// </summary>
-    public void SummonEnemy(Type type, Vector2 position, Quaternion rotation)
+    public GameObject SummonEnemy(Type type, Vector2 position, Quaternion rotation)
     {
         GameObject go = SummonEntity(type);
         BaseEntity entity = go.GetComponent<BaseEntity>();
 
-        if (entity == null) {
+        if (entity == null)
+        {
             throw new Exception($"Type {type} has no related script that inherits from BaseEntity attached to it");
         }
 
         go.transform.position = position;
         go.transform.rotation = rotation;
         go.SetActive(true);
+        return go;
     }
 
     private void Awake()
@@ -100,7 +102,7 @@ public class EntityManager : MonoBehaviour
             throw new Exception($"Type {type} does not have an object pool to summon from");
         }
         // Check pool first and use first unused if any
-        foreach(GameObject go in entityPools[type])
+        foreach (GameObject go in entityPools[type])
         {
             if (!go.activeInHierarchy)
             {
@@ -159,7 +161,7 @@ public class EntityManager : MonoBehaviour
 
         foreach (KeyValuePair<Type, List<GameObject>> type_list in entityPools)
         {
-           
+
             for (int i = 0; i < poolSize; i++)
             {
                 spawnedObject = Spawn(type_list.Key);

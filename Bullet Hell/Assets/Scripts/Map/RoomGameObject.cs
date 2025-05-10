@@ -32,6 +32,9 @@ public class RoomGameObject : MonoBehaviour
     // Array of 1's and 0's to indicate tile walkability
     public NativeArray<int> walkabilityGrid;
 
+    // Bounds of the pathfinding tilemap
+    public BoundsInt GridBounds;
+
     // List of the room door game objects
     [SerializeField]
     private List<GameObject> doors;
@@ -56,22 +59,22 @@ public class RoomGameObject : MonoBehaviour
     {
         // Populate array with walkable tiles
         pathfindingTilemap.CompressBounds();
-        BoundsInt bounds = pathfindingTilemap.cellBounds;
-        walkabilityGrid = new NativeArray<int>(bounds.size.x * bounds.size.y, Allocator.Persistent);
+        GridBounds = pathfindingTilemap.cellBounds;
+        walkabilityGrid = new NativeArray<int>(GridBounds.size.x * GridBounds.size.y, Allocator.Persistent);
 
-        int horizontalDiff = Mathf.Sign(bounds.min.x) == -1 ? -bounds.min.x : 0;
-        int verticalDiff = Mathf.Sign(bounds.min.x) == -1 ? -bounds.min.y : 0;
+        int horizontalDiff = Mathf.Sign(GridBounds.min.x) == -1 ? -GridBounds.min.x : 0;
+        int verticalDiff = Mathf.Sign(GridBounds.min.x) == -1 ? -GridBounds.min.y : 0;
 
-        for (int x = bounds.min.x; x < bounds.max.x; x++)
+        for (int x = GridBounds.min.x; x < GridBounds.max.x; x++)
         {
-            for (int y = bounds.min.y; y < bounds.max.y; y++)
+            for (int y = GridBounds.min.y; y < GridBounds.max.y; y++)
             {
                 TileBase tile = pathfindingTilemap.GetTile(new Vector3Int(x, y, 0));
-                walkabilityGrid[(x + horizontalDiff) + (y + verticalDiff) * bounds.size.x] = 0;
+                walkabilityGrid[(x + horizontalDiff) + (y + verticalDiff) * GridBounds.size.x] = 0;
 
                 if (tile != null)
                 {
-                    walkabilityGrid[(x + horizontalDiff) + (y + verticalDiff) * bounds.size.x] = 1;
+                    walkabilityGrid[(x + horizontalDiff) + (y + verticalDiff) * GridBounds.size.x] = 1;
                 }
             }
         }
@@ -136,9 +139,10 @@ public class RoomGameObject : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        for (int i = 0; i < enemySpawnPoints.transform.childCount; i++)
+        for (int i = 0; i < /*enemySpawnPoints.transform.childCount*/1; i++)
         {
-            EntityManager.instance.SummonEnemy(typeof(BaseEnemy), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
+            GameObject enemy = EntityManager.instance.SummonEnemy(typeof(BaseEnemy), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
+            enemy.GetComponent<BaseEnemy>().OwningRoom = this;
         }
     }
 

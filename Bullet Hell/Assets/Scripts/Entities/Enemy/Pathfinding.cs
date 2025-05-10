@@ -7,19 +7,32 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Pathfinding
+public class Pathfinding : MonoBehaviour
 {
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
-   
+    private static List<PathInformation> pathingUnits;
+
     private void Start()
     {
-        float startTime = Time.realtimeSinceStartup;
-        FindPathJob findPathJob = new FindPathJob { startPosition = new int2(0, 0), endPosition = new int2(19, 19) };
-        findPathJob.Schedule();
+        //FindPathJob findPathJob = new FindPathJob { startPosition = new int2(0, 0), endPosition = new int2(19, 19) };
+        //findPathJob.Schedule();
 
-        Debug.Log("Time: " + ((Time.realtimeSinceStartup - startTime) * 1000f));
+        pathingUnits = new List<PathInformation>();
+    }
+
+    private void Update()
+    {
+        for (int i = pathingUnits.Count - 1; i >= 0; i--)
+        {
+            if (pathingUnits[i].jobHandle.IsCompleted)
+            {
+                pathingUnits[i].jobHandle.Complete();
+                pathingUnits[i].unit.SetPath(pathingUnits[i].savedPath);
+                pathingUnits.RemoveAt(i);
+            }
+        }
     }
 
     /// <summary>
@@ -28,25 +41,37 @@ public class Pathfinding
     /// <param name="startPos">The starting position</param>
     /// <param name="endPos">The ending position</param>
     /// <param name="gridDimensions">The dimensions of the room</param>
-    /// <param name="tileWeights">Array created by the room containing the weights of all the tiles</param>
+    /// <param name="walkabilityGrid">Array created by the room containing the weights of all the tiles</param>
     /// <param name="path">The path reference of the object moving along the path</param>
-    public static void CalculatePath(int2 startPos, int2 endPos, int2 gridDimensions, NativeArray<int> tileWeights, NativeList<int2> path)
+    public static void CalculatePath(int2 startPos, int2 endPos, int2 gridDimensions, NativeArray<int> walkabilityGrid, BaseEnemy enemy)
     {
-        
+        List<NativeList<int2>> pathList = new List<NativeList<int2>>();
+        pathList.Add(new NativeList<int2>(Allocator.Persistent));
+        FindPathJob findPathJob = new FindPathJob { startPosition = startPos, endPosition = endPos, gridDimensions = gridDimensions, walkabilityGrid = walkabilityGrid, path = pathList[0] };
+
+        PathInformation newUnit = new PathInformation
+        {
+            savedPath = pathList[0],
+            unit = enemy,
+            jobHandle = findPathJob.Schedule()
+        };
+        pathingUnits.Add(newUnit);
+        //findPathJob.Run();
     }
 
-    [BurstCompile]
+    //[BurstCompile]
     private struct FindPathJob : IJob
     {
         public int2 startPosition;
         public int2 endPosition;
-        public NativeArray<int> walkabilityGrid;
         public int2 gridDimensions;
+        [ReadOnly] public NativeArray<int> walkabilityGrid;
+        public NativeList<int2> path;
 
         public void Execute()
         {
             // Initialize the grid, will need to be adjusted to calculate off of Justin's prefabs later
-            int2 gridSize = new int2(20, 20);
+            int2 gridSize = gridDimensions;
             NativeArray<PathNode> pathNodeArray = new NativeArray<PathNode>(gridSize.x * gridSize.y, Allocator.Temp);
 
             for (int x = 0; x < gridSize.x; x++)
@@ -61,7 +86,7 @@ public class Pathfinding
                     pathNode.hCost = CalculateDistanceCost(new int2(x, y), endPosition);
                     pathNode.CalculateFCost();
 
-                    pathNode.isWalkable = true;
+                    pathNode.isWalkable = walkabilityGrid[CalculateIndex(x, y, gridSize.x)] == 1 ? true : false;
                     pathNode.cameFromNodeIndex = -1;
 
                     pathNodeArray[pathNode.index] = pathNode;
@@ -163,9 +188,7 @@ public class Pathfinding
             else
             {
                 // Found a path
-                NativeList<int2> path = CalculatePath(pathNodeArray, endNode);
-
-                path.Dispose();
+                CalculatePath(pathNodeArray, endNode, path);
             }
 
             pathNodeArray.Dispose();
@@ -236,53 +259,57 @@ public class Pathfinding
                 gridPosition.y < gridSize.y; ;
         }
 
-        private NativeList<int2> CalculatePath(NativeArray<PathNode> pathNodeArray, PathNode endNode)
+        private void CalculatePath(NativeArray<PathNode> pathNodeArray, PathNode endNode, NativeList<int2> outputPath)
         {
-            if (endNode.cameFromNodeIndex == -1)
-            {
-                // Couldn't find a path
-                return new NativeList<int2>(Allocator.Temp);
-            }
-            else
-            {
+            if (endNode.cameFromNodeIndex != -1)
+
                 // Found a path
-                NativeList<int2> path = new NativeList<int2>(Allocator.Temp);
-                path.Add(new int2(endNode.x, endNode.y));
+                outputPath.Add(new int2(endNode.x, endNode.y));
 
-                PathNode currentNode = endNode;
-                while (currentNode.cameFromNodeIndex != -1)
-                {
-                    PathNode cameFromNode = pathNodeArray[currentNode.cameFromNodeIndex];
-                    path.Add(new int2(cameFromNode.x, cameFromNode.y));
-                    currentNode = cameFromNode;
-                }
-
-                return path;
-            }
-        }
-
-        /// <summary>
-        /// Struct to contain all of the information about a path node
-        /// </summary>
-        private struct PathNode
-        {
-            public int x;
-            public int y;
-
-            public int index;
-
-            public int gCost;
-            public int hCost;
-            public int fCost;
-
-            public bool isWalkable;
-
-            public int cameFromNodeIndex;
-
-            public void CalculateFCost()
+            PathNode currentNode = endNode;
+            while (currentNode.cameFromNodeIndex != -1)
             {
-                fCost = gCost + hCost;
+                PathNode cameFromNode = pathNodeArray[currentNode.cameFromNodeIndex];
+                outputPath.Add(new int2(cameFromNode.x, cameFromNode.y));
+                currentNode = cameFromNode;
             }
         }
     }
+
+    /// <summary>
+    /// Struct to contain all of the information about a path node
+    /// </summary>
+    private struct PathNode
+    {
+        public int x;
+        public int y;
+
+        public int index;
+
+        public int gCost;
+        public int hCost;
+        public int fCost;
+
+        public bool isWalkable;
+
+        public int cameFromNodeIndex;
+
+        public void CalculateFCost()
+        {
+            fCost = gCost + hCost;
+        }
+    }
+
+    /// <summary>
+    /// Data container for path information to be stored across multiple frames
+    /// </summary>
+    private struct PathInformation
+    {
+        public NativeList<int2> savedPath;
+        public BaseEnemy unit;
+        public JobHandle jobHandle;
+    }
 }
+
+
+
