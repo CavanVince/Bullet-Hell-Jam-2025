@@ -3,7 +3,7 @@ using UnityEngine;
 public class TestLauncher : MonoBehaviour
 {
     AttackPatterns ap;
-    private bool shooting;
+    GameObject nearestEnemy;
     private void Start()
     {
         ap = new AttackPatterns(EntityManager.instance);
@@ -11,36 +11,52 @@ public class TestLauncher : MonoBehaviour
 
     private void Update()
     {
-        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.anyKeyDown)
         {
-            StartCoroutine(ap.DaOctopus(() => enemy.transform.position, 5, 5, 1f, null, 0, null));
-        }
 
-        else if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (!shooting)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                shooting = true;
-                StartCoroutine(ap.DivergingRadial(() => enemy.transform.position, 8, 5, 1f, null, null, 0, () => shooting = false));
+                EntityManager.instance.FireBullet(typeof(AerialBullet), Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                return;
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.Y))
-        {
-            StartCoroutine(ap.Shoot(() => enemy.transform.position, () => Vector2.zero));
-        }
-        else if (Input.GetKeyDown(KeyCode.U))
-        {
-            StartCoroutine(ap.RadialAerialAroundPlayer(() => transform.position, 5, 1, 0, null));
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            Vector2 start = transform.position;
-            StartCoroutine(ap.WalkDaLineAerial(() => start, () => start + new Vector2(0, 10), 1, .05f, 0, () =>
+            else if (Input.GetKeyDown(KeyCode.B))
             {
-                start = start + new Vector2(1, 10);
-                StartCoroutine(ap.WalkDaLineAerial(() => start, () => start - new Vector2(0, -10), 1, .05f));
-            }));
+                EntityManager.instance.SummonEnemy(typeof(BombEnemy), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                return;
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                EntityManager.instance.SummonEnemy(typeof(BaseEnemy), Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                return;
+            }
+
+            nearestEnemy = EntityManager.instance.GetEntityClosestTo(gameObject, typeof(BaseEnemy));
+            if (nearestEnemy == null)
+            {
+                Debug.Log("Enemy not found");
+                return;
+            }
+            BaseEnemy enemy = nearestEnemy.GetComponent<BaseEnemy>();
+            if (enemy == null)
+            {
+                Debug.Log("BaseEnemy component not found");
+                return;
+            }
+
+            ShootParameters sp = new ShootParameters(originCalculation: () => enemy.transform.position, destinationCalculation: () => enemy.player.transform.position, numBullets: 5, pulseCount: 5, pulseInterval_s: .5f, cooldown: 1f);
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                enemy.shootFunc = () => ap.DaOctopus(sp);
+            }
+            else if (Input.GetKeyDown(KeyCode.T))
+            {
+                enemy.shootFunc = () => ap.DivergingRadial(sp);
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                enemy.shootFunc = () => ap.Shoot(sp);
+            }
+            nearestEnemy = null;
         }
     }
 }

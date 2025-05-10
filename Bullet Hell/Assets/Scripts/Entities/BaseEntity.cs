@@ -7,6 +7,12 @@ public class BaseEntity : MonoBehaviour
 
     public HealthComponent healthComponent;
 
+    public float defaultMoveSpeed = 1f;
+
+    [HideInInspector]
+    public float moveSpeed;
+
+    protected float maxMoveSpeed;
     protected bool takesFriendlyFireAerialBulletDamage;
 
     protected Dictionary<int, string> tagToFriendlyBulletLayerMap = new Dictionary<int, string>()
@@ -17,6 +23,7 @@ public class BaseEntity : MonoBehaviour
 
     protected virtual void Start()
     {
+        moveSpeed = defaultMoveSpeed;
         healthComponent= GetComponent<HealthComponent>();
         // REMOVE 'true' if non-player entities should not take aerial damage
         takesFriendlyFireAerialBulletDamage = true || gameObject.tag == "Player";
@@ -40,5 +47,11 @@ public class BaseEntity : MonoBehaviour
             Debug.Log($"Entity: {transform.name} collided with {collision.gameObject.name}");
             healthComponent.TakeDamage(bullet.damage);
         }
+    }
+
+    public virtual void ResetState()
+    {
+        healthComponent.ResetState();
+        moveSpeed = defaultMoveSpeed;
     }
 }

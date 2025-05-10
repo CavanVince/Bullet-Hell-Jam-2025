@@ -20,10 +20,12 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField]
     private int poolSize;
+    public Sprite[] bulletSprites;
 
     private void Start()
     {
-        //SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        bulletSprites = Resources.LoadAll<Sprite>("Bullet");
     }
 
     /// <summary>
@@ -82,11 +84,32 @@ public class EntityManager : MonoBehaviour
                 { typeof(BombEnemy), new List<GameObject>(poolSize) }
             };
             InitPools();
+
+            // pull any enemies from the hierarchy to be managed by this
+            
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public GameObject GetEntityClosestTo(GameObject origin, Type entityType)
+    {
+        GameObject closest = null;
+        float distance = 0f;
+        foreach(GameObject go in entityPools[entityType]) {
+            if (!go.activeInHierarchy) continue;
+
+            float newDist = Vector2.Distance(origin.transform.position, go.transform.position);
+            if (closest == null || newDist < distance)
+            {
+                closest = go;
+                distance = newDist;
+            }
+        }
+
+        return closest;
     }
 
     /// <summary>
@@ -174,6 +197,23 @@ public class EntityManager : MonoBehaviour
 
     public void Repool(GameObject gameObj)
     {
+
+        BaseBullet bullet = gameObj.GetComponent<BaseBullet>();
+        BaseEntity entity = gameObj.GetComponent<BaseEntity>();
+
+        if (bullet != null)
+        {
+            bullet.ResetState();
+        }
+        else if (entity != null)
+        {
+            entity.ResetState();
+        }
+        else
+        {
+            throw new Exception($"Unknown gameobject to repool {gameObj.transform.name}");
+        }
         gameObj.SetActive(false);
+
     }
 }

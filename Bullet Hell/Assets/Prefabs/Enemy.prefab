@@ -170,8 +170,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: -4541003171636025418}
-  maxLaunchDistance: 0.5
+  defaultMoveSpeed: 1
   moveSpeed: 1
+  maxLaunchDistance: 0.5
   isLaunchable: 1
   OwningRoom: {fileID: 0}
   aggroRange: 5
@@ -215,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  health: 3
+  defaultStartingHealth: 3
   invulnerabilityDurationOnHit: 0
 --- !u!95 &4114375878203789848
 Animator:

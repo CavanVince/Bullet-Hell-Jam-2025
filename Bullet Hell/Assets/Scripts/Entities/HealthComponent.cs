@@ -5,9 +5,10 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
 
-    public int maxHealth;
+    public int maxHealth = 5;
 
-    [SerializeField]
+    public int defaultStartingHealth = 3;
+
     protected int health;
 
     protected bool invulnerable;
@@ -17,14 +18,7 @@ public class HealthComponent : MonoBehaviour
 
     void Start()
     {
-        if (maxHealth == 0)
-        {
-            maxHealth = 5;
-        }
-        if (health == 0)
-        {
-            health = 5;
-        }
+        health = defaultStartingHealth;
         invulnerable = false;
     }
 
@@ -99,5 +93,10 @@ public class HealthComponent : MonoBehaviour
         }
         spr.color = originalColor;
         invulnerable = false;
+    }
+
+    public void ResetState()
+    {
+        Start();
     }
 }
