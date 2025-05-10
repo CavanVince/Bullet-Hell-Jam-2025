@@ -5,7 +5,10 @@ using UnityEngine;
 public class EntityManager : MonoBehaviour
 {
     public static EntityManager instance;
-    private Dictionary<Type, List<GameObject>> spawnedBulletPools;
+    private Dictionary<Type, List<GameObject>> entityPools;
+
+    [SerializeField]
+    private int maxPoolSizePerInstance = 100;
 
     // Bullets
     [SerializeField]
@@ -17,6 +20,11 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField]
     private int poolSize;
+
+    private void Start()
+    {
+        SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+    }
 
     /// <summary>
     /// Grabs an available bullet from the pool and launches it in the specified direction
@@ -64,7 +72,7 @@ public class EntityManager : MonoBehaviour
         {
             instance = this;
 
-            spawnedBulletPools = new Dictionary<Type, List<GameObject>>()
+            entityPools = new Dictionary<Type, List<GameObject>>()
             {
                 { typeof(StandardBullet),  new List<GameObject>(poolSize) },
                 { typeof(AerialBullet), new List<GameObject>(poolSize) },
@@ -87,12 +95,12 @@ public class EntityManager : MonoBehaviour
     /// <returns></returns>
     private GameObject SummonEntity(Type type)
     {
-        if (!spawnedBulletPools.ContainsKey(type))
+        if (!entityPools.ContainsKey(type))
         {
             throw new Exception($"Type {type} does not have an object pool to summon from");
         }
         // Check pool first and use first unused if any
-        foreach(GameObject go in spawnedBulletPools[type])
+        foreach(GameObject go in entityPools[type])
         {
             if (!go.activeInHierarchy)
             {
@@ -102,7 +110,9 @@ public class EntityManager : MonoBehaviour
         // Otherwise, spawn a new one
         GameObject spawnedObj = Spawn(type);
         // TODO: if we want to pool this newly spawned entity, that would go here.
-
+        List<GameObject> list = entityPools[type];
+        if (list.Count < maxPoolSizePerInstance)
+            list.Add(spawnedObj);
         return spawnedObj;
     }
 
@@ -147,7 +157,7 @@ public class EntityManager : MonoBehaviour
     {
         GameObject spawnedObject;
 
-        foreach (KeyValuePair<Type, List<GameObject>> type_list in spawnedBulletPools)
+        foreach (KeyValuePair<Type, List<GameObject>> type_list in entityPools)
         {
            
             for (int i = 0; i < poolSize; i++)
@@ -155,7 +165,7 @@ public class EntityManager : MonoBehaviour
                 spawnedObject = Spawn(type_list.Key);
                 spawnedObject.SetActive(false);
 
-                spawnedBulletPools[type_list.Key].Add(spawnedObject);
+                entityPools[type_list.Key].Add(spawnedObject);
             }
         }
     }

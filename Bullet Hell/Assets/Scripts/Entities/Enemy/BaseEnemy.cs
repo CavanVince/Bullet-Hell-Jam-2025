@@ -15,6 +15,8 @@ public class BaseEnemy : BaseEntity
     public float moveSpeed;
     public bool isLaunchable = true;
 
+    private bool isShooting;
+
     [SerializeField]
     protected float aggroRange;
     protected EnemyState enemyState;
@@ -26,34 +28,27 @@ public class BaseEnemy : BaseEntity
     private Vector2 launchedFromPos;
     private Vector2 launchDestination;
     private Rigidbody2D rb;
+    private AttackPatterns ap;
 
-    
-    public virtual void Launch(Vector2 direction, float speed, int damage)
+    protected override void Start()
     {
-        if (!isLaunchable)
-        {
-            return;
-        }
-        isLaunched = true;
-        moveDir = direction;
-        moveSpeed = speed;
-
-        launchedFromPos = transform.position;
-        launchDestination = launchedFromPos * moveDir * maxLaunchDistance;
-        healthComponent.TakeDamage(damage);
+        ap = new AttackPatterns(EntityManager.instance);
+        defaultMoveSpeed = moveSpeed;
+        base.Start();
+        enemyState = EnemyState.IDLE;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        rb = GetComponent<Rigidbody2D>();
+        moveSpeed = 1f;
     }
 
-    protected virtual void OnAggro()
+    private void Update()
     {
-
-    }
-
-   private void Update()
-    {
+        if (isShooting) return;
         // In aggro range
         if (Vector2.Distance(player.transform.position, transform.position) <= aggroRange)
         {
-            OnAggro();
+            isShooting = true;
+            StartCoroutine(ap.Shoot(() => transform.position, () => player.transform.position, 3, .5f, 2, () => isShooting = false));
             // strafe and shoot at player as appropriate
         }
         else
@@ -61,16 +56,6 @@ public class BaseEnemy : BaseEntity
             // idk maybe just move around randomly or do nothin?
             // or see if nearby friendlies are aggro'd and join in
         }
-    }
-
-    protected override void Start()
-    {
-        defaultMoveSpeed = moveSpeed;
-        base.Start();
-        enemyState = EnemyState.IDLE;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        rb = GetComponent<Rigidbody2D>();
-        moveSpeed = 1f;
     }
 
     void FixedUpdate()
@@ -89,6 +74,31 @@ public class BaseEnemy : BaseEntity
             }
         }
     }
+
+    public virtual void Launch(Vector2 direction, float speed, int damage)
+    {
+        GetComponent<Animator>().SetInteger("animState", (int) enemyState);
+        if (!isLaunchable)
+        {
+            return;
+        }
+        isLaunched = true;
+        moveDir = direction;
+        moveSpeed = speed;
+
+        launchedFromPos = transform.position;
+        launchDestination = launchedFromPos * moveDir * maxLaunchDistance;
+        healthComponent.TakeDamage(damage);
+    }
+
+    protected virtual void OnAggro()
+    {
+
+    }
+
+   
+
+    
 
     /// <summary>
     /// Launches a bullet at the player if 
