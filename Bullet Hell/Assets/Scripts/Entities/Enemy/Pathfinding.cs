@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Pathfinding : MonoBehaviour
+public class Pathfinding
 {
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
+   
     private void Start()
     {
         float startTime = Time.realtimeSinceStartup;
@@ -18,6 +20,19 @@ public class Pathfinding : MonoBehaviour
         findPathJob.Schedule();
 
         Debug.Log("Time: " + ((Time.realtimeSinceStartup - startTime) * 1000f));
+    }
+
+    /// <summary>
+    /// Helper function to calculate the shortest path
+    /// </summary>
+    /// <param name="startPos">The starting position</param>
+    /// <param name="endPos">The ending position</param>
+    /// <param name="gridDimensions">The dimensions of the room</param>
+    /// <param name="tileWeights">Array created by the room containing the weights of all the tiles</param>
+    /// <param name="path">The path reference of the object moving along the path</param>
+    public static void CalculatePath(int2 startPos, int2 endPos, int2 gridDimensions, NativeArray<int> tileWeights, NativeList<int2> path)
+    {
+        
     }
 
     [BurstCompile]

@@ -20,21 +20,23 @@ public class PlayerController : BaseEntity
 
     private BatSwingController batSwingController;
 
-    public static PlayerController instance;
+    public static PlayerController Instance;
 
-    protected new void Start()
+    private void Awake()
     {
-
         // Singleton (yippee!) :D
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
+    }
 
+    protected new void Start()
+    {
         base.Start();
 
         batSwingController = GetComponent<BatSwingController>();
