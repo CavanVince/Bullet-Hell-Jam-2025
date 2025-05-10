@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -61,6 +62,7 @@ public class HealthComponent : MonoBehaviour
             }
             else
             {
+                GetComponent<BaseEnemy>()?.OwningRoom.EnemyDied();
                 EntityManager.instance.Repool(gameObject);
                 return;
             }
