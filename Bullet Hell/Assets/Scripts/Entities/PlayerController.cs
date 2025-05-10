@@ -6,7 +6,7 @@ public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
     private Vector2 moveDir;
-    
+
     [SerializeField]
     private float moveSpeed;
 
@@ -19,6 +19,21 @@ public class PlayerController : BaseEntity
     public bool hasBossroomKey;
 
     private BatSwingController batSwingController;
+
+    public static PlayerController Instance;
+
+    private void Awake()
+    {
+        // Singleton (yippee!) :D
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     protected new void Start()
     {
@@ -71,9 +86,9 @@ public class PlayerController : BaseEntity
         moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveDir.normalized;
     }
-    
+
     private IEnumerator Dash()
-    
+
     {
         dashing = true;
         dashAvailable = false;

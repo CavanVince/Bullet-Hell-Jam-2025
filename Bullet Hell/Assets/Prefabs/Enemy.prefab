@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c878f3a4a6df932458728fb0f1366769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthComponent: {fileID: 0}
+  healthComponent: {fileID: -4541003171636025418}
   maxLaunchDistance: 0.5
   moveSpeed: 1
   isLaunchable: 1

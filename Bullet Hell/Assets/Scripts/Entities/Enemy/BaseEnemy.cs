@@ -36,7 +36,7 @@ public class BaseEnemy : BaseEntity
         defaultMoveSpeed = moveSpeed;
         base.Start();
         enemyState = EnemyState.IDLE;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = PlayerController.Instance;
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
     }
@@ -77,7 +77,7 @@ public class BaseEnemy : BaseEntity
 
     public virtual void Launch(Vector2 direction, float speed, int damage)
     {
-        GetComponent<Animator>().SetInteger("animState", (int) enemyState);
+        GetComponent<Animator>().SetInteger("animState", (int)enemyState);
         if (!isLaunchable)
         {
             return;
@@ -96,9 +96,9 @@ public class BaseEnemy : BaseEntity
 
     }
 
-   
 
-    
+
+
 
     /// <summary>
     /// Launches a bullet at the player if 
@@ -109,5 +109,14 @@ public class BaseEnemy : BaseEntity
         {
             EntityManager.instance.FireBullet(typeof(StandardBullet), transform.position, (player.transform.position - transform.position).normalized);
         }
+    }
+
+
+    /// <summary>
+    /// Calculate the shortest path to the player's position
+    /// </summary>
+    protected virtual void PathToPlayer() 
+    {
+        
     }
 }
