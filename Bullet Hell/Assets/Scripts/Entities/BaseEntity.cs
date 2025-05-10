@@ -18,7 +18,7 @@ public class BaseEntity : MonoBehaviour
     protected virtual void Start()
     {
         healthComponent= GetComponent<HealthComponent>();
-        // REMOVE 'true' if enemy should not take aerial damage
+        // REMOVE 'true' if non-player entities should not take aerial damage
         takesFriendlyFireAerialBulletDamage = true || gameObject.tag == "Player";
     }
 

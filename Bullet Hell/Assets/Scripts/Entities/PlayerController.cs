@@ -66,6 +66,10 @@ public class PlayerController : BaseEntity
         {
             EntityManager.instance.FireBullet(typeof(AerialBullet), Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            EntityManager.instance.SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        }
     }
 
     private void FixedUpdate()

@@ -67,7 +67,7 @@ public class HealthComponent : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                EntityManager.instance.Repool(gameObject);
                 return;
             }
         }

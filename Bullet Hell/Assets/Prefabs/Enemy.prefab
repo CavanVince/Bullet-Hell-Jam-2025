@@ -172,7 +172,7 @@ MonoBehaviour:
   maxLaunchDistance: 0.5
   moveSpeed: 1
   isLaunchable: 1
-  aggroRange: 0
+  aggroRange: 5
 --- !u!50 &-7640562882703524757
 Rigidbody2D:
   serializedVersion: 4
@@ -225,7 +225,7 @@ Animator:
   m_GameObject: {fileID: 6562345963098122877}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8111333f0271c784fa1c5d7a9f98d31f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
