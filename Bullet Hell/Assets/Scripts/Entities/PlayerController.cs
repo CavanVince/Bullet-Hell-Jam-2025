@@ -40,7 +40,7 @@ public class PlayerController : BaseEntity
 
         batSwingController = GetComponent<BatSwingController>();
         rb = GetComponent<Rigidbody2D>();
-        animator = transform.GetChild(0).GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
         previousDir = new Vector2(1, -1);
     }
