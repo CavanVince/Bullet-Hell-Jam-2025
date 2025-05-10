@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 28b6a5bebe91e974d80911ebabe1d71d
+guid: cef5a15d1893888488f061077bae59e9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,64 +97,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: books_0
+      name: Bench_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.4930987, y: 0.57361394}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4aca28cdeda486ae0800000000000000
-      internalID: -1555911350213759836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: books_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5023005, y: 0.58051527}
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7630557841cd564c8a78fe005ee1226
-      internalID: -515201075
+      spriteID: 2005e18ea0ce8924ea9ef829c749a8d5
+      internalID: 13117722
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: books_2
+      name: Bench_1
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.49539924, y: 0.5828157}
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 050bdb4d132abd4498c519e5d8517d04
-      internalID: -732759335
+      spriteID: 5f25fc57203595c4c9990c6d0afe49c1
+      internalID: 52984047
       vertices: []
       indices: 
       edges: []
@@ -162,7 +141,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 38ca11aba88b85246b16221bb0ade058
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -170,9 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      books_0: -1555911350213759836
-      books_1: -515201075
-      books_2: -732759335
+      Bench_0: 13117722
+      Bench_1: 52984047
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

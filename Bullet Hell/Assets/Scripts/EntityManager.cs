@@ -20,10 +20,12 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField]
     private int poolSize;
+    public Sprite[] bulletSprites;
 
     private void Start()
     {
-        //SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        bulletSprites = Resources.LoadAll<Sprite>("Bullet");
     }
 
     /// <summary>

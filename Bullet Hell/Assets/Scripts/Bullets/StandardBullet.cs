@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 public class StandardBullet : BaseBullet
@@ -11,12 +12,16 @@ public class StandardBullet : BaseBullet
 
     [SerializeField]
     private float range = 10f;
+    private SpriteRenderer spriteRenderer;
 
+    
 
     protected new void Start()
     {
         base.Start();
         origin = transform.position;
+        spriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        
     }
 
     private void FixedUpdate()
@@ -41,6 +46,7 @@ public class StandardBullet : BaseBullet
         // Update the bullet's position
         Vector2 newPosition = (Vector2) transform.position + velocityVector + moveFuncResult;
         rb.MovePosition(newPosition);
+        HandleSpriteAndColliderRotation(moveDir);
     }
 
     /// <summary>
@@ -55,6 +61,25 @@ public class StandardBullet : BaseBullet
         timeAlive = Time.time;
         moveFunc = movementFunc;
         moveSpeed = speed;
+    }
+    private void HandleSpriteAndColliderRotation(Vector2 dirVector)
+    {
+       Vector2 tempDir = dirVector.normalized;
+        float angleRelXAxis = Mathf.Atan2(tempDir.y, tempDir.x) * Mathf.Rad2Deg;
+        float angleRelYAxis = Mathf.Atan2(tempDir.x, tempDir.y) * Mathf.Rad2Deg;
+        if (angleRelXAxis < 0)
+        {
+            angleRelXAxis += 360;
+        }
+        transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, -angleRelYAxis);   
+        Vector3[] directions = BulletHellCommon.directions;
+        int directionIndex = Mathf.RoundToInt(angleRelXAxis / 45) % 8;
+        spriteRenderer.sprite = EntityManager.instance.bulletSprites[directionIndex];
+        float snappedAngle = directionIndex * 45f;
+        float correctionAngle = angleRelXAxis - snappedAngle;
+        transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, correctionAngle);
+
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

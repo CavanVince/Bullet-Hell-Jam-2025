@@ -28,6 +28,7 @@ public class BreakableItem : BaseEntity
     }
     IEnumerator Destroy()
     {
+        GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
