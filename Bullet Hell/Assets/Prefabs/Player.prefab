@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be312dade54bbdb4db8d4bec41e10c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthComponent: {fileID: 0}
   moveSpeed: 5
   dashAvailable: 1
   dashMultiplier: 1
@@ -117,7 +118,7 @@ MonoBehaviour:
   maxBallReturnSpeed: 2
   minBallReturnSpeed: 1
   swingTime: 0.05
-  critTimePlusMinus: 0
+  critTimePlusMinus: 0.5
   chargeBar: {fileID: 1166300213705320722}
 --- !u!114 &3102576259949685569
 MonoBehaviour:

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class AttackPatterns
 {
-    BulletManager bulletManager;
-    public AttackPatterns(BulletManager bulletManager)
+    EntityManager bulletManager;
+    public AttackPatterns(EntityManager bulletManager)
     {
         this.bulletManager = bulletManager;
     }
@@ -38,7 +38,7 @@ public class AttackPatterns
             float bulletAngle = baseAngle + angleOffset;
             Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
 
-            bulletManager.FireBullet(calcOrigin(), bulletDir.normalized);
+            bulletManager.FireBullet(typeof(StandardBullet), calcOrigin(), bulletDir.normalized);
         }
         yield return new WaitForSeconds(cooldown);
         if (onCompletion != null)
@@ -52,7 +52,7 @@ public class AttackPatterns
         for (int i = 0; i < numBullets; i++)
         {
             Vector3 directionToPlayer = (calcTarget() - calcOrigin()).normalized;
-            bulletManager.FireBullet(calcOrigin(), directionToPlayer);
+            bulletManager.FireBullet(typeof(StandardBullet), calcOrigin(), directionToPlayer);
 
             yield return new WaitForSeconds(intervalBetweenShots);
         }
@@ -72,7 +72,7 @@ public class AttackPatterns
         {
             foreach(Vector2 point in points)
             {
-                bulletManager.FireBullet(origin, (point - origin).normalized, movementFunc);
+                bulletManager.FireBullet(typeof(StandardBullet), origin, (point - origin).normalized, movementFunc);
             }
             yield return new WaitForSeconds(pulseInterval);
         }
@@ -99,7 +99,7 @@ public class AttackPatterns
 
             foreach(Vector2 point in points)
             {
-                bulletManager.FireAerialBullet(point);
+                bulletManager.FireBullet(typeof(AerialBullet), point, point);
             }
 
             yield return new WaitForSeconds(pulseInterval);
@@ -123,7 +123,7 @@ public class AttackPatterns
 
         while (Vector2.Distance(current, target) > spacing)
         {
-            bulletManager.FireAerialBullet(current);
+            bulletManager.FireBullet(typeof(AerialBullet), current, current);
             current = current + (dir * spacing);
 
             yield return new WaitForSeconds(pulseInterval);

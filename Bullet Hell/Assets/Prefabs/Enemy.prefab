@@ -168,10 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c878f3a4a6df932458728fb0f1366769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotTimer: 2
-  shotDistance: 10
-  isLaunchable: 1
+  healthComponent: {fileID: 0}
+  maxLaunchDistance: 0.5
   moveSpeed: 1
+  isLaunchable: 1
+  aggroRange: 0
 --- !u!50 &-7640562882703524757
 Rigidbody2D:
   serializedVersion: 4
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1054173c66420a94d96a03207a236507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 3
   health: 3
   invulnerabilityDurationOnHit: 0
 --- !u!95 &4114375878203789848

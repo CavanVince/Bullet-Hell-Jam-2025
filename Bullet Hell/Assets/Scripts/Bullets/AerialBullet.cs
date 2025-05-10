@@ -11,7 +11,6 @@ public class AerialBullet : BaseBullet
     // We don't need to declare rb here since it's inherited from BaseBullet
     private SpriteRenderer telegraphRenderer;
 
-
     [SerializeField] private float telegraphTime, activeTime, _unusedDamageRadius;
 
     void Awake()
@@ -44,13 +43,13 @@ public class AerialBullet : BaseBullet
     }
 
     // Override the abstract methods from BaseBullet
-    public void Fire(Vector2 destination)
+    public override void Fire(Vector2 startPos, Vector2 _unused_destination, float moveSpeed, Func<float, float> moveFunc)
     {
         // Start the telegraph animation
-        StartCoroutine(TelegraphToBullet(destination));
+        StartCoroutine(TelegraphToBullet(startPos));
     }
 
-    private IEnumerator TelegraphToBullet(Vector2 destination)
+    private IEnumerator TelegraphToBullet(Vector2 origin)
     {
         if (telegraphRenderer == null || telegraphObject == null || bulletObject == null)
         {
@@ -89,9 +88,9 @@ public class AerialBullet : BaseBullet
             rb.simulated = true;
             Debug.Log("Activating rb2d of bullet");
             // Calculate direction and set initial velocity
-            if (destination != Vector2.zero)
+            if (origin != Vector2.zero)
             {
-                Vector2 direction = (destination - (Vector2)transform.position).normalized;
+                Vector2 direction = (origin - (Vector2)transform.position).normalized;
                 rb.velocity = direction * 10f; // You may want to adjust speed or make it configurable
             }
         }
