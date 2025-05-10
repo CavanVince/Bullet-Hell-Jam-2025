@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 0}
+  defaultMoveSpeed: 5
   moveSpeed: 5
   dashAvailable: 1
   dashMultiplier: 1

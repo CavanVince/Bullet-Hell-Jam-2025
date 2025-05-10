@@ -82,10 +82,18 @@ public class StandardBullet : BaseBullet
         
     }
 
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    OnTriggerEnter2D(collision.collider);
+    //}
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        bool hitPlayer = collision.gameObject.tag == "Player" && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
-        bool hitEnemy = collision.gameObject.tag == "Enemy" && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
+        if (collision == null | collision.transform.parent == null || collision.transform.parent.gameObject == null)
+            return;
+
+        bool hitPlayer = collision.transform.parent.gameObject.tag == "Player" && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
+        bool hitEnemy = collision.transform.parent.gameObject.tag == "Enemy" && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
         if (hitEnemy || hitPlayer)
         {
             EntityManager.instance.Repool(gameObject);

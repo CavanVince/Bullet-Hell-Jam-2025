@@ -15,11 +15,14 @@ public class BombEnemy : BaseEnemy
 
     GameObject explosionObject;
 
+    Color spriteColor;
+
     protected override void Start()
     {
         base.Start();
+        spriteColor = GetComponentInChildren<SpriteRenderer>().color;
         // there's probably a better way to do this
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.tag == "ExplosionRadius")
             {
@@ -29,14 +32,20 @@ public class BombEnemy : BaseEnemy
         }
     }
 
-    protected override void OnAggro()
+    protected override void Update()
     {
         if (enemyState == EnemyState.EXPLODING) return;
 
-        // move towards player
+
         if (Vector2.Distance(player.transform.position, transform.position) <= distanceFromPlayerToExplode)
         {
+            // explosion state triggered
             StartCoroutine(Explode());
+        }
+        else
+        {
+            // move towards player
+
         }
     }
 
@@ -62,9 +71,16 @@ public class BombEnemy : BaseEnemy
 
         explosionObject.GetComponent<CircleCollider2D>().radius = bombRadius;
         yield return new WaitForFixedUpdate();
-        enemyState = EnemyState.IDLE;
         healthComponent.TakeDamage(999);
-        //EntityManager.instance.Repool(gameObject);
-        Destroy(gameObject);
+        EntityManager.instance.Repool(gameObject);
+    }
+
+    public override void ResetState()
+    {
+        base.ResetState();
+        explosionObject.GetComponent<CircleCollider2D>().radius = .5f;
+        GetComponentInChildren<SpriteRenderer>().color = spriteColor;
+        enemyState = EnemyState.IDLE;
+
     }
 }

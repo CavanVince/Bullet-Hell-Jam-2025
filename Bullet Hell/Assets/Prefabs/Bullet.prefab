@@ -76,8 +76,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 1
   damage: 0
-  moveDir: {x: 0, y: 0}
+  baseMoveSpeed: 6
   moveSpeed: 6
+  moveDir: {x: 0, y: 0}
+  range: 10
 --- !u!1 &4045280634036728742
 GameObject:
   m_ObjectHideFlags: 0

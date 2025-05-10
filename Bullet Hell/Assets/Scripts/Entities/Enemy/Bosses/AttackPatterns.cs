@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AttackPatterns
 {
-    EntityManager bulletManager;
-    public AttackPatterns(EntityManager bulletManager)
+    EntityManager entityManager;
+    public AttackPatterns(EntityManager entityManager)
     {
-        this.bulletManager = bulletManager;
+        this.entityManager = entityManager;
     }
 
     private List<Vector2> GetNRadialPointsAroundOrigin(Vector2 origin, int n, float radius)
@@ -27,112 +26,94 @@ public class AttackPatterns
         return points;
     }
 
-    public IEnumerator ShotgunShot(Func<Vector2> calcOrigin, Func<Vector2> target, int numBullets = 5, float spreadAngle = 30f, float cooldown=0f, Action onCompletion = null)
+    public IEnumerator ShotgunShot(ShootParameters shootParams)
     {
-        Vector3 directionToTarget = (target() - calcOrigin()).normalized;
+        Vector3 directionToTarget = (shootParams.destinationCalculation() - shootParams.originCalculation()).normalized;
         float baseAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
-        for (int i = 0; i < numBullets; i++)
+        for (int i = 0; i < shootParams.numBullets; i++)
         {
-            float angleOffset = Mathf.Lerp(-spreadAngle / 2, spreadAngle / 2, (float)i / (numBullets - 1));
+            float angleOffset = Mathf.Lerp(shootParams.spreadAngle / 2, shootParams.spreadAngle / 2, (float)i / (shootParams.numBullets - 1));
             float bulletAngle = baseAngle + angleOffset;
             Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
 
-            bulletManager.FireBullet(typeof(StandardBullet), calcOrigin(), bulletDir.normalized);
+            entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), bulletDir.normalized);
         }
-        yield return new WaitForSeconds(cooldown);
-        if (onCompletion != null)
-        {
-            onCompletion();
-        }
+        yield return new WaitForSeconds(shootParams.cooldown);
     }
 
-    public IEnumerator Shoot(Func<Vector2> calcOrigin, Func<Vector2> calcTarget, int numBullets = 5, float intervalBetweenShots = .5f, float cooldown=0f, Action onCompletion = null)
+    public IEnumerator Shoot(ShootParameters shootParams)
     {
-        for (int i = 0; i < numBullets; i++)
+        for (int i = 0; i < shootParams.numBullets; i++)
         {
-            Vector3 directionToPlayer = (calcTarget() - calcOrigin()).normalized;
-            bulletManager.FireBullet(typeof(StandardBullet), calcOrigin(), directionToPlayer);
+            Vector3 directionToPlayer = (shootParams.destinationCalculation() - shootParams.originCalculation()).normalized;
+            entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), directionToPlayer);
 
-            yield return new WaitForSeconds(intervalBetweenShots);
+            yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
-        yield return new WaitForSeconds(cooldown);
-        if (onCompletion != null)
-        {
-            onCompletion();
-        }
+        yield return new WaitForSeconds(shootParams.cooldown);
     }
 
-    public IEnumerator DivergingRadial(Func<Vector2> calcOrigin, int numBullets, int pulseCount, float pulseInterval, Func<float, float> movementFunc, Func<float, float> angleOffset, float cooldown=0f, Action onComplete = null)
+    public IEnumerator DivergingRadial(ShootParameters shootParams)
     {
-        Vector2 origin = calcOrigin();
+        Vector2 origin = shootParams.originCalculation();
 
-        List<Vector2> points = GetNRadialPointsAroundOrigin(origin, numBullets, 1);
-        for (int i = 0; i < pulseCount; i++)
+        List<Vector2> points = GetNRadialPointsAroundOrigin(origin, shootParams.numBullets, 1);
+        for (int i = 0; i < shootParams.pulseCount; i++)
         {
             foreach(Vector2 point in points)
             {
-                bulletManager.FireBullet(typeof(StandardBullet), origin, (point - origin).normalized, movementFunc);
+                entityManager.FireBullet(typeof(StandardBullet), origin, (point - origin).normalized, shootParams.movementFunc);
             }
-            yield return new WaitForSeconds(pulseInterval);
+            yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
 
-        yield return new WaitForSeconds(cooldown);
-        if (onComplete!= null)
-        {
-            onComplete();
-        }
+        yield return new WaitForSeconds(shootParams.cooldown);
     }
 
-    public IEnumerator DaOctopus(Func<Vector2> calcOrigin, int numBullets, int pulseCount, float pulseInterval, Func<float, float> angleOffset, float cooldown=0f, Action onComplete=null)
+    public IEnumerator DaOctopus(ShootParameters shootParams)
     {
-        yield return DivergingRadial(calcOrigin, numBullets, pulseCount, pulseInterval, x => Mathf.Sin(x * 8f) * 0.1f, angleOffset, cooldown, onComplete);
+        shootParams.movementFunc = x => Mathf.Sin(x * 8f) * .1f;
+        yield return DivergingRadial(shootParams);
     }
 
-    public IEnumerator RadialAerialAroundPlayer(Func<Vector2> calcTarget, int pulseCount, float pulseInterval, float cooldown=0f, Action onComplete=null)
+    public IEnumerator RadialAerialAroundPlayer(ShootParameters shootParams)
     {
 
-        for (int r = pulseCount; r > 0; r--)
+        for (int r = shootParams.pulseCount; r > 0; r--)
         {
-            Vector2 target = calcTarget();
+            Vector2 target = shootParams.destinationCalculation();
             List<Vector2> points = GetNRadialPointsAroundOrigin(target, r * 2, r);
 
             foreach(Vector2 point in points)
             {
-                bulletManager.FireBullet(typeof(AerialBullet), point, point);
+                entityManager.FireBullet(typeof(AerialBullet), point, point);
             }
 
-            yield return new WaitForSeconds(pulseInterval);
+            yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
 
-        yield return new WaitForSeconds(cooldown);
-        if (onComplete != null)
-        {
-            onComplete();
-        }
+        yield return new WaitForSeconds(shootParams.cooldown);
     }
 
-    public IEnumerator WalkDaLineAerial(Func<Vector2> calcOrigin, Func<Vector2> calcTarget, float spacing, float pulseInterval, float cooldown=0f, Action onComplete=null)
-    {
-        Vector2 origin = calcOrigin();
-        Vector2 target = calcTarget();
+    // sorry bro, this shit is broke
+    //public IEnumerator WalkDaLineAerial(ShootParameters shootParams)
+    //{
+    //    Vector2 origin = shootParams.originCalculation();
+    //    Vector2 target = shootParams.destinationCalculation();
 
-        Vector2 dir = (target - origin).normalized;
+    //    Vector2 dir = (target - origin).normalized;
 
-        Vector2 current = origin;
+    //    Vector2 current = origin;
 
-        while (Vector2.Distance(current, target) > spacing)
-        {
-            bulletManager.FireBullet(typeof(AerialBullet), current, current);
-            current = current + (dir * spacing);
+    //    while (Vector2.Distance(current, target) > spacing)
+    //    {
+    //        entityManager.FireBullet(typeof(AerialBullet), current, current);
+    //        current = current + (dir * spacing);
 
-            yield return new WaitForSeconds(pulseInterval);
-        }
+    //        yield return new WaitForSeconds(shootParams.pulseInterval_s);
+    //    }
 
-        yield return new WaitForSeconds(cooldown);
-        if (onComplete != null)
-        {
-            onComplete();
-        }
-    }
+    //    yield return new WaitForSeconds(shootParams.cooldown);
+    //}
 }
