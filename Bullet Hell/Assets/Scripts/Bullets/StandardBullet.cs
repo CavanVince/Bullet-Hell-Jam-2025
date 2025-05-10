@@ -61,6 +61,7 @@ public class StandardBullet : BaseBullet
         timeAlive = Time.time;
         moveFunc = movementFunc;
         moveSpeed = speed;
+        origin = startPos;
     }
     private void HandleSpriteAndColliderRotation(Vector2 dirVector)
     {

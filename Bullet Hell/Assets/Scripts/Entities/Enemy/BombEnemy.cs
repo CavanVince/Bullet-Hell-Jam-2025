@@ -19,17 +19,17 @@ public class BombEnemy : BaseEnemy
 
     protected override void Start()
     {
-        base.Start();
-        spriteColor = GetComponentInChildren<SpriteRenderer>().color;
-        // there's probably a better way to do this
         for (int i = 0; i < transform.childCount; i++)
         {
+            Debug.Log(i);
             if (transform.GetChild(i).gameObject.tag == "ExplosionRadius")
             {
                 explosionObject = transform.GetChild(i).gameObject;
                 break;
             }
         }
+        spriteColor = GetComponentInChildren<SpriteRenderer>().color;
+        base.Start();
     }
 
     protected override void Update()
