@@ -25,6 +25,8 @@ public class Pathfinding : MonoBehaviour
     {
         public int2 startPosition;
         public int2 endPosition;
+        public NativeArray<int> walkabilityGrid;
+        public int2 gridDimensions;
 
         public void Execute()
         {

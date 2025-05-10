@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -27,6 +29,9 @@ public class RoomGameObject : MonoBehaviour
     // The top right wall when there isn't a connecting room
     public GameObject TopRightWall;
 
+    // Array of 1's and 0's to indicate tile walkability
+    public NativeArray<int> walkabilityGrid;
+
     [SerializeField]
     private List<GameObject> doors;
 
@@ -39,22 +44,26 @@ public class RoomGameObject : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemyPrefabs;
 
-    private int[,] walkableTiles;
-
     private void Awake()
     {
         // Populate array with walkable tiles
         pathfindingTilemap.CompressBounds();
         BoundsInt bounds = pathfindingTilemap.cellBounds;
-        walkableTiles = new int[bounds.max.x - bounds.min.x, bounds.max.y - bounds.min.y];
-        for (int x = bounds.min.x; x < bounds.size.x; x++)
+        walkabilityGrid = new NativeArray<int>(bounds.size.x * bounds.size.y, Allocator.Persistent);
+
+        int horizontalDiff = Mathf.Sign(bounds.min.x) == -1 ? -bounds.min.x : 0;
+        int verticalDiff = Mathf.Sign(bounds.min.x) == -1 ? -bounds.min.y : 0;
+
+        for (int x = bounds.min.x; x < bounds.max.x; x++)
         {
-            for (int y = bounds.min.y; y < bounds.size.y; y++)
+            for (int y = bounds.min.y; y < bounds.max.y; y++)
             {
                 TileBase tile = pathfindingTilemap.GetTile(new Vector3Int(x, y, 0));
+                walkabilityGrid[(x + horizontalDiff) + (y + verticalDiff) * bounds.size.x] = 0;
+
                 if (tile != null)
                 {
-                    Debug.Log("x: " + x + " y: " + y + " tile: " + tile.name);
+                    walkabilityGrid[(x + horizontalDiff) + (y + verticalDiff) * bounds.size.x] = 1;
                 }
             }
         }
@@ -139,5 +148,10 @@ public class RoomGameObject : MonoBehaviour
 
         roomEntered?.Invoke();
         FadeFog();
+    }
+
+    private void OnDestroy()
+    {
+        walkabilityGrid.Dispose();
     }
 }
