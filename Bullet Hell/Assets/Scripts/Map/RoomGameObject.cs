@@ -139,7 +139,7 @@ public class RoomGameObject : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        for (int i = 0; i < /*enemySpawnPoints.transform.childCount*/1; i++)
+        for (int i = 0; i < /*enemySpawnPoints.transform.childCount*/ 1; i++)
         {
             GameObject enemy = EntityManager.instance.SummonEnemy(typeof(BaseEnemy), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
             enemy.GetComponent<BaseEnemy>().OwningRoom = this;

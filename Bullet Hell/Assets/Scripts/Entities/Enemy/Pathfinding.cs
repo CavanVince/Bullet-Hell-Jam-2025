@@ -47,7 +47,7 @@ public class Pathfinding : MonoBehaviour
     {
         List<NativeList<int2>> pathList = new List<NativeList<int2>>();
         pathList.Add(new NativeList<int2>(Allocator.Persistent));
-        FindPathJob findPathJob = new FindPathJob { startPosition = startPos, endPosition = endPos, gridDimensions = gridDimensions, walkabilityGrid = walkabilityGrid, path = pathList[0] };
+        FindPathJob findPathJob = new FindPathJob { startPosition = endPos, endPosition = startPos, gridDimensions = gridDimensions, walkabilityGrid = walkabilityGrid, path = pathList[0] };
 
         PathInformation newUnit = new PathInformation
         {
@@ -56,7 +56,6 @@ public class Pathfinding : MonoBehaviour
             jobHandle = findPathJob.Schedule()
         };
         pathingUnits.Add(newUnit);
-        //findPathJob.Run();
     }
 
     //[BurstCompile]
@@ -74,9 +73,9 @@ public class Pathfinding : MonoBehaviour
             int2 gridSize = gridDimensions;
             NativeArray<PathNode> pathNodeArray = new NativeArray<PathNode>(gridSize.x * gridSize.y, Allocator.Temp);
 
-            for (int x = 0; x < gridSize.x; x++)
+            for (int x = -10; x < gridSize.x - 10; x++)
             {
-                for (int y = 0; y < gridSize.y; y++)
+                for (int y = -10; y < gridSize.y - 10; y++)
                 {
                     PathNode pathNode = new PathNode();
                     pathNode.x = x;
@@ -206,7 +205,7 @@ public class Pathfinding : MonoBehaviour
         /// <returns></returns>
         private int CalculateIndex(int x, int y, int gridWidth)
         {
-            return x + y * gridWidth;
+            return (x + 10) + (y + 10) * gridWidth;
         }
 
         /// <summary>
@@ -253,10 +252,10 @@ public class Pathfinding : MonoBehaviour
         private bool IsPositionInsideGrid(int2 gridPosition, int2 gridSize)
         {
             return
-                gridPosition.x >= 0 &&
-                gridPosition.y >= 0 &&
-                gridPosition.x < gridSize.x &&
-                gridPosition.y < gridSize.y; ;
+                gridPosition.x >= -9 &&
+                gridPosition.y >= -9 &&
+                gridPosition.x < gridSize.x - 10 &&
+                gridPosition.y < gridSize.y - 10;
         }
 
         private void CalculatePath(NativeArray<PathNode> pathNodeArray, PathNode endNode, NativeList<int2> outputPath)
