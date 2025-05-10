@@ -24,7 +24,7 @@ public class EntityManager : MonoBehaviour
 
     private void Start()
     {
-        SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
+        //SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
         bulletSprites = Resources.LoadAll<Sprite>("Bullet");
     }
 

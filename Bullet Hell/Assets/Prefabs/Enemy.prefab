@@ -170,12 +170,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: -4541003171636025418}
-  defaultMoveSpeed: 1
+  defaultMoveSpeed: 2
   moveSpeed: 1
   maxLaunchDistance: 0.5
   isLaunchable: 1
   OwningRoom: {fileID: 0}
   aggroRange: 5
+  player: {fileID: 0}
 --- !u!50 &-7640562882703524757
 Rigidbody2D:
   serializedVersion: 4
