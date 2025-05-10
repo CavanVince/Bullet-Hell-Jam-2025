@@ -35,7 +35,7 @@ public class BaseEntity : MonoBehaviour
         OnTriggerEnter2D(collider);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         Transform parent = collision.transform.parent;
         if (parent == null) return;
