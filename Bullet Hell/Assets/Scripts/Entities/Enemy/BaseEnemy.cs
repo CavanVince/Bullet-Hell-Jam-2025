@@ -3,6 +3,8 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using System.Collections;
 
 public enum EnemyState
 {
