@@ -197,7 +197,6 @@ public class EntityManager : MonoBehaviour
 
     public void Repool(GameObject gameObj)
     {
-
         BaseBullet bullet = gameObj.GetComponent<BaseBullet>();
         BaseEntity entity = gameObj.GetComponent<BaseEntity>();
 

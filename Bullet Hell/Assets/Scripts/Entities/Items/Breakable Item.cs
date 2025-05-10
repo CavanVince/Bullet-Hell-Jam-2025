@@ -22,15 +22,9 @@ public class BreakableItem : BaseEntity
         GetComponent<SpriteRenderer>().sprite = sprites[index];
         if (index == sprites.Length - 1)
         {
-            StartCoroutine(Destroy());
+            GetComponent<Collider2D>().enabled = false;
         }
     
-    }
-    IEnumerator Destroy()
-    {
-        GetComponent<Collider2D>().enabled = false;
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {

@@ -29,7 +29,7 @@ public class BaseEntity : MonoBehaviour
         takesFriendlyFireAerialBulletDamage = true || gameObject.tag == "Player";
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         Collider2D collider = collision.collider;
         OnTriggerEnter2D(collider);

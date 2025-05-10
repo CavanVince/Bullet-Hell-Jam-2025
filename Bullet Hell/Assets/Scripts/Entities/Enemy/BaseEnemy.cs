@@ -136,11 +136,21 @@ public class BaseEnemy : BaseEntity
         launchedFromPos = transform.position;
         launchDestination = launchedFromPos * moveDir * maxLaunchDistance;
         healthComponent.TakeDamage(damage);
+
     }
 
     protected virtual void OnAggro()
     {
 
+    }
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        isLaunched = false;
+        int layer = collision.gameObject.layer;
+        if (layer == BulletHellCommon.WALL_LAYER || layer == BulletHellCommon.BREAKABLE_LAYER)
+        {
+           healthComponent.TakeDamage();
+        }
     }
 
 

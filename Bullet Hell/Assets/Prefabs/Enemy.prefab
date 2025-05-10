@@ -172,7 +172,7 @@ MonoBehaviour:
   healthComponent: {fileID: -4541003171636025418}
   defaultMoveSpeed: 2
   moveSpeed: 1
-  maxLaunchDistance: 0.5
+  maxLaunchDistance: 10
   isLaunchable: 1
   OwningRoom: {fileID: 0}
   aggroRange: 5
