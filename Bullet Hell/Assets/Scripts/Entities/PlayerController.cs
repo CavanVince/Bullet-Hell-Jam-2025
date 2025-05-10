@@ -6,7 +6,7 @@ public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
     private Vector2 moveDir;
-    
+
     [SerializeField]
     private float moveSpeed;
 
@@ -20,8 +20,21 @@ public class PlayerController : BaseEntity
 
     private BatSwingController batSwingController;
 
+    public static PlayerController instance;
+
     protected new void Start()
     {
+
+        // Singleton (yippee!) :D
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         base.Start();
 
         batSwingController = GetComponent<BatSwingController>();
@@ -67,9 +80,9 @@ public class PlayerController : BaseEntity
         moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveDir.normalized;
     }
-    
+
     private IEnumerator Dash()
-    
+
     {
         dashing = true;
         dashAvailable = false;

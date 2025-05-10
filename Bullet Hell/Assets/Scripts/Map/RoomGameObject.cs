@@ -32,15 +32,23 @@ public class RoomGameObject : MonoBehaviour
     // Array of 1's and 0's to indicate tile walkability
     public NativeArray<int> walkabilityGrid;
 
+    // List of the room door game objects
     [SerializeField]
     private List<GameObject> doors;
 
+    // Fog of war tilemap
     [SerializeField]
     private Tilemap fogOfWar;
 
+    // Pathfinding tilemap
     [SerializeField]
     private Tilemap pathfindingTilemap;
 
+    // Spawn point parent
+    [SerializeField]
+    private GameObject enemySpawnPoints;
+
+    // List of enemy prefabs
     [SerializeField]
     private List<GameObject> enemyPrefabs;
 
@@ -128,7 +136,10 @@ public class RoomGameObject : MonoBehaviour
 
     private void SpawnEnemies()
     {
-
+        for (int i = 0; i < enemySpawnPoints.transform.childCount; i++)
+        {
+            EntityManager.instance.SummonEnemy(typeof(BaseEnemy), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
+        }
     }
 
     IEnumerator FadeFogCoroutine()
@@ -144,10 +155,12 @@ public class RoomGameObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player") != true) return;
         if (isRoomCleared) return;
 
         roomEntered?.Invoke();
         FadeFog();
+        SpawnEnemies();
     }
 
     private void OnDestroy()

@@ -27,7 +27,7 @@ public class BaseEnemy : BaseEntity
     private Vector2 launchDestination;
     private Rigidbody2D rb;
 
-    
+
     public virtual void Launch(Vector2 direction, float speed, int damage)
     {
         if (!isLaunchable)
@@ -48,9 +48,10 @@ public class BaseEnemy : BaseEntity
 
     }
 
-   private void Update()
+    private void Update()
     {
         // In aggro range
+        // TODO: Make sure that enemy can also see player (not obstructed by obstacle)
         if (Vector2.Distance(player.transform.position, transform.position) <= aggroRange)
         {
             OnAggro();
@@ -68,7 +69,7 @@ public class BaseEnemy : BaseEntity
         defaultMoveSpeed = moveSpeed;
         base.Start();
         enemyState = EnemyState.IDLE;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = PlayerController.instance;
         rb = GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
     }
