@@ -3742,8 +3742,6 @@ MonoBehaviour:
   fogOfWar: {fileID: 4416349306799432415}
   pathfindingTilemap: {fileID: 6192469621827535018}
   enemySpawnPoints: {fileID: 1421110213820153187}
-  enemyPrefabs:
-  - {fileID: 6562345963098122877, guid: 642768d490021df4298e5afb2df128b6, type: 3}
 --- !u!1 &1421110213820153187
 GameObject:
   m_ObjectHideFlags: 0
@@ -4329,7 +4327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3504329083615378868
 Transform:
   m_ObjectHideFlags: 0
