@@ -62,7 +62,7 @@ public class HealthComponent : MonoBehaviour
             }
             else
             {
-                GetComponent<BaseEnemy>()?.OwningRoom.EnemyDied();
+                GetComponent<BaseEnemy>()?.OwningRoom?.EnemyDied();
                 EntityManager.instance.Repool(gameObject);
                 return;
             }

@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using System;
 using System.Collections;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum EnemyState
 {
@@ -108,11 +109,9 @@ public class BaseEnemy : BaseEntity
         else if ((enemyState == EnemyState.MOVING && path.Count <= 0) ||
                 (enemyState == EnemyState.IDLE && Vector2.Distance(player.transform.position, transform.position) <= aggroRange))
         {
-<<<<<<< Updated upstream
             // idk maybe just move around randomly or do nothin?
             // or see if nearby friendlies are aggro'd and join in
             if (enemyState == EnemyState.MOVING && pathCalcTime <= currentPathCalcTime)
-=======
             PathToPlayer();
         }
     }
@@ -126,10 +125,9 @@ public class BaseEnemy : BaseEntity
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == BulletHellCommon.WALL_LAYER)
+        if (collision.gameObject.layer == BulletHellCommon.WALL_LAYER || collision.gameObject.layer == BulletHellCommon.BREAKABLE_LAYER)
         {
             if (enemyState == EnemyState.LAUNCHED)
->>>>>>> Stashed changes
             {
                 launchDestination = transform.position;
                 StartCoroutine(Dazed(dazeDurationS));
@@ -189,20 +187,7 @@ public class BaseEnemy : BaseEntity
 
     }
 
-<<<<<<< Updated upstream
-    protected virtual void OnAggro()
-    {
-
-    }
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        isLaunched = false;
-        int layer = collision.gameObject.layer;
-        if (layer == BulletHellCommon.WALL_LAYER || layer == BulletHellCommon.BREAKABLE_LAYER)
-        {
-           healthComponent.TakeDamage();
-        }
-    }
+    
 
 
     /// <summary>
@@ -216,20 +201,14 @@ public class BaseEnemy : BaseEntity
         }
     }
 
-=======
->>>>>>> Stashed changes
     /// <summary>
     /// Calculate the shortest path to the player's position
     /// </summary>
     protected virtual void PathToPlayer()
     {
         path.Clear();
-<<<<<<< Updated upstream
         currentPathCalcTime = 0;
-
-=======
         enemyState = EnemyState.MOVING;
->>>>>>> Stashed changes
         Vector3Int enemyPos = ConvertToRoomSpace(transform.position);
         Vector3Int playerPos = ConvertToRoomSpace(player.transform.position);
 
@@ -282,14 +261,8 @@ public class BaseEnemy : BaseEntity
     public override void ResetState()
     {
         base.ResetState();
-<<<<<<< Updated upstream
-        enemyState = EnemyState.MOVING;
         currentPathCalcTime = pathCalcTime;
-        isLaunched = false;
-        isShooting = false;
-=======
         enemyState = EnemyState.IDLE;
->>>>>>> Stashed changes
         shootFunc = () => ap.Shoot(new ShootParameters(originCalculation: () => transform.position, destinationCalculation: () => player.transform.position));
 
     }
