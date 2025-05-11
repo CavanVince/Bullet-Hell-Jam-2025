@@ -82,7 +82,7 @@ MonoBehaviour:
   moveSpeed: 5
   dashAvailable: 1
   dashMultiplier: 1
-  dashLength: 0.25
+  dashLength: 0.3
   dashCooldown: 0.25
   hasBossroomKey: 0
 --- !u!114 &5944700728213652858
@@ -276,8 +276,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.42}
-  m_Size: {x: 0.68, y: 2.09}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.64, y: 1.25}
   m_Direction: 0
 --- !u!1001 &3070374184955627650
 PrefabInstance:
