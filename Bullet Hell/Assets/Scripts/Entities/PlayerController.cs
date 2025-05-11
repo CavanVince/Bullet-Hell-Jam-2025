@@ -21,6 +21,11 @@ public class PlayerController : BaseEntity
 
     public static PlayerController Instance;
 
+    [SerializeField]
+    private AudioClip dashClip;
+
+    private AudioSource audioSource;
+
     private void Awake()
     {
         // Singleton (yippee!) :D
@@ -38,6 +43,7 @@ public class PlayerController : BaseEntity
     {
         base.Start();
 
+        audioSource = GetComponent<AudioSource>();
         batSwingController = GetComponent<BatSwingController>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
@@ -100,6 +106,9 @@ public class PlayerController : BaseEntity
         dashing = true;
         dashAvailable = false;
         dashMultiplier = 2f;
+
+        audioSource.clip = dashClip;
+        audioSource.Play();
 
         yield return new WaitForSeconds(dashLength);
 

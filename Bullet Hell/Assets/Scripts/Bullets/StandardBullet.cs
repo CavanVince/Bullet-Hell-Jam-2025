@@ -13,6 +13,11 @@ public class StandardBullet : BaseBullet
     public float bulletDistance = 10f;
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    private AudioClip shootClip;
+
+    private AudioSource audioSource;
+
     
 
     protected new void Start()
@@ -20,6 +25,8 @@ public class StandardBullet : BaseBullet
         base.Start();
         origin = transform.position;
         spriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -60,6 +67,8 @@ public class StandardBullet : BaseBullet
         moveFunc = movementFunc;
         moveSpeed = speed;
         origin = startPos;
+        audioSource.clip = shootClip; 
+        audioSource.Play();
     }
     private void HandleSpriteAndColliderRotation(Vector2 dirVector)
     {

@@ -22,6 +22,11 @@ public class HealthComponent : MonoBehaviour
     Color originalColor;
     public GameObject heartContainer;
 
+    [SerializeField]
+    private AudioClip[] deathClips;
+
+    private AudioSource audioSource;
+
     void Start()
     {
         spr = GetComponentInChildren<SpriteRenderer>();
@@ -75,6 +80,9 @@ public class HealthComponent : MonoBehaviour
                     Instantiate(heartContainer, transform.position, transform.rotation);
                 }
                 GetComponent<BaseEnemy>()?.OwningRoom?.EnemyDied();
+                int randClip = Random.Range(0, 3);
+                audioSource.clip = deathClips[randClip];
+                audioSource.Play();
                 EntityManager.instance.Repool(gameObject);
                 return;
             }

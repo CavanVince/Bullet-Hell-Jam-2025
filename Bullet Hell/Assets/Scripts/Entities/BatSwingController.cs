@@ -55,9 +55,16 @@ public class BatSwingController : MonoBehaviour
     [SerializeField]
     private GameObject chargeBar;
 
+    [SerializeField]
+    private AudioClip batClip;
+
+    private AudioSource audioSource;
+
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+
+        audioSource = GetComponent<AudioSource>();
 
         allChargeBarSprites = Resources.LoadAll<Sprite>("Power-Bar");
 
@@ -135,6 +142,9 @@ public class BatSwingController : MonoBehaviour
         playerController.dashAvailable = false;
         float elapsed = 0f;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        audioSource.clip = batClip;
+        audioSource.Play();
 
         Vector3 aimVector = (mousePosition - transform.position).normalized;
         Vector3 centerPerpend = new Vector3(-aimVector.y, aimVector.x, 0);
