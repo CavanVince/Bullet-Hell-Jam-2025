@@ -106,13 +106,19 @@ public class BaseEnemy : BaseEntity
             shootRoutine = StartCoroutine(Shoot());
             // strafe and shoot at player as appropriate
         }
-        else if ((enemyState == EnemyState.MOVING && path.Count <= 0) ||
-                (enemyState == EnemyState.IDLE && Vector2.Distance(player.transform.position, transform.position) <= aggroRange))
+        else if ((enemyState == EnemyState.IDLE && Vector2.Distance(player.transform.position, transform.position) <= aggroRange))
+        {
+            enemyState = EnemyState.MOVING;
+        }
+
+        if (enemyState == EnemyState.MOVING)
         {
             // idk maybe just move around randomly or do nothin?
             // or see if nearby friendlies are aggro'd and join in
-            if (enemyState == EnemyState.MOVING && pathCalcTime <= currentPathCalcTime)
-            PathToPlayer();
+            if (pathCalcTime <= currentPathCalcTime)
+                PathToPlayer();
+            else
+                currentPathCalcTime += Time.deltaTime;
         }
     }
 
@@ -187,7 +193,7 @@ public class BaseEnemy : BaseEntity
 
     }
 
-    
+
 
 
     /// <summary>
