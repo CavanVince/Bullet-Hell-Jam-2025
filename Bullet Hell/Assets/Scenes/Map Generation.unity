@@ -274,6 +274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1602625250}
   smoothSpeed: 0.125
+  RenderFeature: {fileID: 8245433620166222461, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
+  baseDistortMaterial: {fileID: 2100000, guid: 27b2bc7f0fe038742897766fe39eba46, type: 2}
 --- !u!1001 &787071024
 PrefabInstance:
   m_ObjectHideFlags: 0

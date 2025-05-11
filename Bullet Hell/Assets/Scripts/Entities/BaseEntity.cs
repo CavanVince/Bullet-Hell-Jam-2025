@@ -48,7 +48,6 @@ public class BaseEntity : MonoBehaviour
 
         bool isHostileBullet = !tagToFriendlyBulletLayerMap[bullet.gameObject.layer].Contains(transform.gameObject.tag);
         if (isHostileBullet || (takesFriendlyFireAerialBulletDamage && bullet.GetType() == typeof(AerialBullet))) {
-            Debug.Log($"Entity: {transform.name} collided with {collision.gameObject.name}");
             healthComponent?.TakeDamage(bullet.damage);
         }
     }

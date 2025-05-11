@@ -15,6 +15,13 @@ public class HealthItem : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Vector3 newPos = transform.position;
+        newPos.y += Mathf.Sin(Time.time * 0.5f);
+        transform.position = newPos;
+    }
+
     bool PickupHealth(Collider2D collision)
     {
         HealthComponent healthComponent = collision.gameObject.GetComponentInParent<HealthComponent>();
