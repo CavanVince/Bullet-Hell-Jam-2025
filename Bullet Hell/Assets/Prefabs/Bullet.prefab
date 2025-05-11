@@ -89,7 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7117938579487811560}
-  - component: {fileID: 8890909340609652463}
+  - component: {fileID: 4268861389725502405}
   m_Layer: 6
   m_Name: BulletCollider
   m_TagString: Untagged
@@ -112,8 +112,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6347166918678508551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &8890909340609652463
-CapsuleCollider2D:
+--- !u!58 &4268861389725502405
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -144,9 +144,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.06}
-  m_Size: {x: 0.46, y: 1.31}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
 --- !u!1 &5426944642947614132
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1438870501, guid: ed94a93095ad7f84f814fe8dbe2fd197, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6675cde604385fe47a54b2e78ff57e94, type: 3}
   m_Color: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
   m_FlipX: 0
   m_FlipY: 0

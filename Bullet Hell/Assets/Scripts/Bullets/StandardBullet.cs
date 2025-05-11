@@ -73,7 +73,6 @@ public class StandardBullet : BaseBullet
         transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, -angleRelYAxis);   
         Vector3[] directions = BulletHellCommon.directions;
         int directionIndex = Mathf.RoundToInt(angleRelXAxis / 45) % 8;
-        spriteRenderer.sprite = EntityManager.instance.bulletSprites[directionIndex];
         float snappedAngle = directionIndex * 45f;
         float correctionAngle = angleRelXAxis - snappedAngle;
         transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, correctionAngle);

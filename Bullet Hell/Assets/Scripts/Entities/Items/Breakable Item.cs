@@ -22,7 +22,7 @@ public class BreakableItem : BaseEntity
         GetComponent<SpriteRenderer>().sprite = sprites[index];
         if (index == sprites.Length - 1)
         {
-            GetComponent<Collider2D>().enabled = false;
+            GetComponentInChildren<Collider2D>().enabled = false;
         }
     
     }

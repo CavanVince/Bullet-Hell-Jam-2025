@@ -366,6 +366,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5352878190331560325, guid: f1d11ce346a42d049b9e9cae4f830e89, type: 3}
+      propertyPath: basicEnemyPrefab
+      value: 
+      objectReference: {fileID: 6562345963098122877, guid: c5b46636dc9727d4fb5463a3c3aeae5b, type: 3}
     - target: {fileID: 2192389323943361480, guid: f1d11ce346a42d049b9e9cae4f830e89, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -543,6 +547,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3478476148869050184, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: defaultMoveSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1077596012872309678, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: m_Controller
       value: 

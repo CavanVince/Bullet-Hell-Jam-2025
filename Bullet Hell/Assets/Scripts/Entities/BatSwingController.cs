@@ -235,21 +235,23 @@ public class BatSwingController : MonoBehaviour
                     }
                     if (layer == BulletHellCommon.BREAKABLE_LAYER)
                     {
-                        collider.transform.GetComponent<BreakableItem>().Break();
+                        colliderParent.GetComponent<BreakableItem>().Break();
                     }
                     hits.Add(colliderParent.gameObject);
                 }
 
             }
             elapsed += Time.deltaTime;
+
+            // Detach the trail
+            if (elapsed >= batTime)
+                batTrail.transform.parent = null;
+
             yield return null;
         }
 
         playerController.dashAvailable = true;
         swingState = SwingState.NONE;
-
-        // Detach the trail
-        batTrail.transform.parent = null;
     }
 
     private void Update()
