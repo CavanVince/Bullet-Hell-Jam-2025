@@ -10,8 +10,7 @@ public class StandardBullet : BaseBullet
     private Vector2 perpendicularDirection;
     private float timeAlive;
 
-    [SerializeField]
-    private float range = 10f;
+    public float range = 10f;
     private SpriteRenderer spriteRenderer;
 
     

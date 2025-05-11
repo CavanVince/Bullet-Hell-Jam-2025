@@ -50,7 +50,7 @@ public class AttackPatterns
         for(int i = 0; i < shootParams.pulseCount; i++)
         {
             foreach(Vector2 point in points) {
-                entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), shootParams.movementFunc);
+                entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), point, shootParams.movementFunc);
             }
             yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
@@ -119,6 +119,18 @@ public class AttackPatterns
             yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
 
+        yield return new WaitForSeconds(shootParams.cooldown);
+    }
+
+    public IEnumerator Aerial(ShootParameters shootParams)
+    {
+        for (int i = 0; i < shootParams.pulseCount; i++)
+        {
+            Vector2 target = shootParams.destinationCalculation();
+            entityManager.FireBullet(typeof(AerialBullet), target, shootParams.movementFunc);
+
+            yield return new WaitForSeconds(shootParams.pulseInterval_s);
+        }
         yield return new WaitForSeconds(shootParams.cooldown);
     }
 

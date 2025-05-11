@@ -151,12 +151,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5793453022946380779}
-  - component: {fileID: 560223675032653926}
   - component: {fileID: -7640562882703524757}
   - component: {fileID: -4541003171636025418}
   - component: {fileID: 7348254081045029066}
+  - component: {fileID: 9052742358424053667}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: RadialEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,27 +178,6 @@ Transform:
   - {fileID: 888603774155355029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &560223675032653926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6562345963098122877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c878f3a4a6df932458728fb0f1366769, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthComponent: {fileID: -4541003171636025418}
-  defaultMoveSpeed: 2
-  moveSpeed: 1
-  maxLaunchDistance: 10
-  isLaunchable: 1
-  OwningRoom: {fileID: 0}
-  aggroRange: 15
-  shootRange: 7
-  player: {fileID: 0}
 --- !u!50 &-7640562882703524757
 Rigidbody2D:
   serializedVersion: 4
@@ -240,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   defaultStartingHealth: 10
+  health: 0
   invulnerabilityDurationOnHit: 0
 --- !u!120 &7348254081045029066
 LineRenderer:
@@ -345,3 +325,29 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &9052742358424053667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562345963098122877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f425b5dc46f5fae4389cd7e8b83d31df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthComponent: {fileID: 0}
+  defaultMoveSpeed: 2
+  moveSpeed: 0
+  maxLaunchDistance: 10
+  isLaunchable: 1
+  OwningRoom: {fileID: 0}
+  aggroRange: 15
+  shootRange: 7
+  player: {fileID: 0}
+  pulseCount: 5
+  pulseInterval_s: 0.5
+  aftershotCooldown: 2
+  numBullets: 8
+  bulletDistance: 10
