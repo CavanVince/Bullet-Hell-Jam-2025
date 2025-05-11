@@ -15,7 +15,7 @@ public static class BulletHellCommon
         
 
     public const float
-        BASE_ENEMY_LAUNCH_SPEED = 10f;
+        BASE_ENEMY_LAUNCH_SPEED = 20f;
     public static Vector3[] directions = new Vector3[8]
         {
             Vector3.right,

@@ -54,14 +54,16 @@ public class BhossBhaby : BaseEntity
 
     struct AttackSet
     {
-        public AttackSet(Func<IEnumerator>[] moves, float duration)
+        public AttackSet(Func<IEnumerator>[] moves, float duration, float probability)
         {
             this.moves = moves;
             this.duration = duration;
+            this.probability = probability;
         }
 
         public Func<IEnumerator>[] moves;
         public float duration;
+        public float probability;
     }
 
     // Start is called before the first frame update
@@ -83,29 +85,63 @@ public class BhossBhaby : BaseEntity
             { 
                 Distance.CLOSE, new AttackSet[] 
                 { 
+                    // IMPLEMENT ME
+
                     // shotgun burst for 6 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => ShotgunBurst() }, 6f) 
+                    new AttackSet(new Func<IEnumerator>[] { () => ShotgunBurst() }, 6f, 1f) 
                 } 
             },
             { 
                 Distance.MID, new AttackSet[] 
                 { 
+                    // IMPLEMENT ME
+
                     // aerials on ground around player, radial from boss for 8 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss() }, 8f) 
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss() }, 8f, 1f) 
                 } 
             },
             { 
                 Distance.FAR, new AttackSet[] 
                 // aerials on ground, long range aerial, and rapid fire at player for 8 seconds
-                { 
-                    //new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(), () => RapidShot() }, 8f),
-                    new AttackSet(new Func<IEnumerator>[] { () => LockemUp(), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 4), () => RapidShot() }, 10f),
-                } 
+
+                // the parameters here are AttackSet array, duration of pattern, probability of being selected
+                // note that each IEnumerator 'shoot function' has its own set of optional parameters, like setting the number of bullets per sec, bullet speed, bullet distance, cooldown after completion, etc
+                {
+                    // FIX ME
+
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true) }, 3f, .3f),
+                    new AttackSet(new Func<IEnumerator>[] { () => RadialFromBoss(3, bulletSpeed:25f, bulletDistance:30f)}, 3f, .5f),
+                    new AttackSet(new Func<IEnumerator>[] { () => RapidShot(10, bulletSpeed:25f) }, 3f, 0f),
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(3, bulletSpeed: 25f, bulletDistance:20f), () => RapidShot(10, bulletSpeed:25f) }, 8f, 0f),
+                    new AttackSet(new Func<IEnumerator>[] { () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 0f, 4) }, 1f, .2f )
+
+                    //new AttackSet(new Func<IEnumerator>[] { () => LockemUp(), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 4), () => RapidShot() }, 10f),
+                }
             }
         };
-        phaseTwoMoveset = new IEnumerator[] {  };
+
+        // IMPLEMENT ME
+        //phaseTwoMoveset = new Dictionary<Distance, AttackSet[]>;
     }
 
+    AttackSet GetWeightedRandomAttackSet(AttackSet[] attackSets)
+    {
+        float rand = UnityEngine.Random.value;
+        float currentProb = 0;
+
+        foreach(AttackSet attackSet in attackSets)
+        {
+            currentProb += attackSet.probability;
+            if (rand <= currentProb)
+            {
+                return attackSet;
+            }
+        }
+
+        throw new Exception("All probabilities in AttackSet must sum to 1");
+    }
+
+    // get the spawn point in the room that is closest to the player. Useful for summoning turrets / enemies / etc
     GameObject NearestSpawnPoint(Vector2 position)
     {
         GameObject closest = null;
@@ -123,6 +159,7 @@ public class BhossBhaby : BaseEntity
         return closest;
     }
 
+    // note that this is a NESTED IEnumerator being returned
     private IEnumerator SpawnEnemiesAfterDelay(GameObject spawnPoint, float delay, int enemies, float cooldown=6f)
     {
         IEnumerator DoSpawn() {
@@ -131,12 +168,14 @@ public class BhossBhaby : BaseEntity
             {
                 GameObject enemy = EntityManager.instance.SummonEnemy(typeof(BaseEnemy), spawnPoint.transform.position, Quaternion.identity);
                 enemy.GetComponent<BaseEnemy>().OwningRoom = OwningRoom;
+                enemy.GetComponent<BaseEnemy>().aggroRange = 30;
             }
             yield return new WaitForSeconds(cooldown);
         }
         yield return DoSpawn();
     }
 
+    // Call this to stop shooting immediately
     void StopShooting()
     {
         foreach(Coroutine co in activeShootCoroutines)
@@ -181,6 +220,12 @@ public class BhossBhaby : BaseEntity
     }
 
 
+    /// <summary>
+    /// Call this to start the boss shooting for 'duration' seconds. Each of the shoot functions will loop until duration is hit
+    /// </summary>
+    /// <param name="shootFuncs"></param>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     IEnumerator Shoot(Func<IEnumerator>[] shootFuncs, float duration=10f)
     {
         IEnumerator _ShootForDuration(Func<IEnumerator> f, float t)
@@ -195,9 +240,6 @@ public class BhossBhaby : BaseEntity
                 elapsedTime += Time.deltaTime;
             }
         }
-
-
-        Debug.Log($"Running shoot coroutine for {duration} seconds");
 
         bossState = BossState.ATTACKING;
         List<Coroutine> activeShootFuncRoutines = new List<Coroutine>();
@@ -269,7 +311,7 @@ public class BhossBhaby : BaseEntity
         yield return ap.ShotgunShot(sp);
     }
 
-    IEnumerator RadialFromBoss(int shotsPerSecond=3, float cooldown=0f)
+    IEnumerator RadialFromBoss(int shotsPerSecond=3, float bulletSpeed=15f, float bulletDistance=10f, float cooldown=0f)
     {
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
@@ -279,13 +321,14 @@ public class BhossBhaby : BaseEntity
             pulseCount: shotsPerSecond,
             pulseInterval_s: 1f/shotsPerSecond,
             cooldown: cooldown,
-            bulletSpeed: 8f
+            bulletSpeed: bulletSpeed,
+            bulletDistance: bulletDistance
         );
         yield return ap.DivergingRadial(sp);
 
     }
 
-    IEnumerator RapidShot(int shotsPerSecond=5, float cooldown=0f)
+    IEnumerator RapidShot(int shotsPerSecond=5, float bulletSpeed=15f, float cooldown=0f)
     {
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
@@ -294,8 +337,29 @@ public class BhossBhaby : BaseEntity
             pulseCount: shotsPerSecond,
             pulseInterval_s: 1f/shotsPerSecond,
             cooldown: cooldown,
-            bulletSpeed: 15f,
+            bulletSpeed: bulletSpeed,
             bulletDistance:40f
+        );
+        yield return ap.Shoot(sp);
+    }
+
+    // TODO: KEVIN IMPLEMENT ME
+    IEnumerator RandomTargetRapidShot(int shotsPerSecond = 5, float bulletSpeed = 15f, float cooldown = 0f)
+    {
+        // this one should do basically the same thing as the rapid shot, but have a randomly determined target somewhat around the player
+        // (refer to the AerialOnPlayer function above to see how that one calculates a random scatter around the player),
+        // specifically 'originCalculation' but it would instead be used to determine the destinationCalculation.
+
+        // FIXME
+        ShootParameters sp = new ShootParameters(
+            originCalculation: () => transform.position,
+            destinationCalculation: () => player.transform.position,
+            movementFunc: null,
+            pulseCount: shotsPerSecond,
+            pulseInterval_s: 1f / shotsPerSecond,
+            cooldown: cooldown,
+            bulletSpeed: bulletSpeed,
+            bulletDistance: 40f
         );
         yield return ap.Shoot(sp);
     }
@@ -324,7 +388,8 @@ public class BhossBhaby : BaseEntity
                     sr.color = Color.red;
                     possibleAttacks = phaseOneMoveset[Distance.FAR];
                 }
-                selectedAttackSet = possibleAttacks[UnityEngine.Random.Range(0, possibleAttacks.Length)];
+                // selects a random attack set being mindful of their probability weights.
+                selectedAttackSet = GetWeightedRandomAttackSet(possibleAttacks);
                 StartCoroutine(Shoot(selectedAttackSet.moves, selectedAttackSet.duration));
 
                 break;

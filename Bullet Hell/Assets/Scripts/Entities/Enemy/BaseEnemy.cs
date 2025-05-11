@@ -24,7 +24,7 @@ public class BaseEnemy : BaseEntity
     private float dazeDurationS = 1f;
 
     [SerializeField]
-    protected float aggroRange;
+    public float aggroRange;
     [SerializeField]
     protected float shootRange;
 
