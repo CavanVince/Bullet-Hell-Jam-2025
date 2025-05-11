@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
-    private Vector2 moveDir;
+    [HideInInspector]
+    public Vector2 moveDir;
     public Vector2 PreviousDir { get; private set; } // Used for animations exclusively
     private Animator animator;
 

@@ -24,7 +24,7 @@ public class BaseEnemy : BaseEntity
     private float dazeDurationS = 1f;
 
     [SerializeField]
-    protected float aggroRange;
+    public float aggroRange;
     [SerializeField]
     protected float shootRange;
 
@@ -147,7 +147,10 @@ public class BaseEnemy : BaseEntity
             {
                 launchDestination = transform.position;
                 healthComponent.TakeDamage(3);
-                StartCoroutine(Dazed(dazeDurationS));
+                if (gameObject.activeInHierarchy)
+                {
+                    StartCoroutine(Dazed(dazeDurationS));
+                }
             }
             else if (enemyState == EnemyState.MOVING && currentPathCalcTime < pathCalcTime)
             {

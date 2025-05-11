@@ -210,6 +210,11 @@ public class BatSwingController : MonoBehaviour
 
                     if (layer == BulletHellCommon.BULLET_LAYER && bullet != null && bullet.GetType() == typeof(StandardBullet))
                     {
+                        StandardBullet sb = bullet as StandardBullet;
+                        if (!sb.isReflectable)
+                        {
+                            continue;
+                        }
                         colliderParent.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
                         if (isCrit)
                         {

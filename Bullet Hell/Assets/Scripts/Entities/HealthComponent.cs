@@ -95,7 +95,10 @@ public class HealthComponent : MonoBehaviour
                 return;
             }
         }
-        StartCoroutine(StartInvulnerability());
+        if (gameObject.activeInHierarchy)
+        {
+            StartCoroutine(StartInvulnerability());
+        }
     }
 
     IEnumerator StartInvulnerability()

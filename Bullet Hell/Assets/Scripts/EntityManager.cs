@@ -12,7 +12,7 @@ public class EntityManager : MonoBehaviour
 
     // Bullets
     [SerializeField]
-    private GameObject standardBulletPrefab, aerialBulletPrefab;
+    private GameObject reflectableBulletPrefab, nonReflectableBulletPrefab, aerialBulletPrefab;
 
     // Enemies
     [SerializeField]
@@ -122,7 +122,7 @@ public class EntityManager : MonoBehaviour
     /// </summary>
     /// <param name="type">Type of object to retrieve from pool</param>
     /// <returns></returns>
-    public GameObject SummonEntity(Type type)
+    public GameObject SummonEntity(Type type, bool isReflectable=true)
     {
         if (!entityPools.ContainsKey(type))
         {
@@ -133,11 +133,12 @@ public class EntityManager : MonoBehaviour
         {
             if (!go.activeInHierarchy)
             {
-                return go;
+                if (type != typeof(StandardBullet) || ((isReflectable && go.GetComponent<StandardBullet>().isReflectable) || (!isReflectable && !go.GetComponent<StandardBullet>().isReflectable)))
+                    return go;
             }
         }
         // Otherwise, spawn a new one
-        GameObject spawnedObj = Spawn(type);
+        GameObject spawnedObj = Spawn(type, isReflectable = true);
         // TODO: if we want to pool this newly spawned entity, that would go here.
         List<GameObject> list = entityPools[type];
         if (list.Count < maxPoolSizePerInstance)
@@ -151,12 +152,15 @@ public class EntityManager : MonoBehaviour
     /// <param name="type">The type of prefab to return</param>
     /// <returns>Gameobject prefab of the newly instantiated prefab</returns>
     /// <exception cref="Exception">Thrown if the given type is not implemented in the function.</exception>
-    private GameObject Spawn(Type type)
+    private GameObject Spawn(Type type, bool isReflectable = true)
     {
         GameObject spawnedObject;
         if (type == typeof(StandardBullet))
         {
-            spawnedObject = standardBulletPrefab;
+            if (isReflectable)
+                spawnedObject = reflectableBulletPrefab;
+            else
+                spawnedObject = nonReflectableBulletPrefab;
         }
         else if (type == typeof(AerialBullet))
         {
