@@ -363,6 +363,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1714744560266740787, guid: f16fe90be09d57348b667b4380535616, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1714744560266740787, guid: f16fe90be09d57348b667b4380535616, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6821772548687699371, guid: f16fe90be09d57348b667b4380535616, type: 3}
       propertyPath: m_Name
       value: Bat
