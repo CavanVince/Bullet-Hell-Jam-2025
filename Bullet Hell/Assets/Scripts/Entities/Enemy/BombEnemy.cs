@@ -21,7 +21,6 @@ public class BombEnemy : BaseEnemy
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            Debug.Log(i);
             if (transform.GetChild(i).gameObject.tag == "ExplosionRadius")
             {
                 explosionObject = transform.GetChild(i).gameObject;

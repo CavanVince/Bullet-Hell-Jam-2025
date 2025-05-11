@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -14,7 +17,7 @@ public class HealthComponent : MonoBehaviour
     public int health;
 
     protected bool invulnerable;
-    
+
     [SerializeField]
     private float invulnerabilityDurationOnHit;
 
@@ -59,14 +62,27 @@ public class HealthComponent : MonoBehaviour
         }
 
         health -= damage;
-        Debug.Log($"{transform.name} took {damage} damage");
 
-        if (health <= 0) 
+        if (gameObject.CompareTag("Player"))
+        {
+            //Render stuff
+            FullScreenPassRendererFeature renderFeature = Camera.main.GetComponent<FollowCamera>().RenderFeature;
+            renderFeature.passMaterial = new Material(renderFeature.passMaterial);
+
+            float distortVal = (defaultStartingHealth - health) / (float)defaultStartingHealth * 0.25f;
+            distortVal = Mathf.Clamp(distortVal, 0f, 0.25f);
+            renderFeature.passMaterial.SetFloat("_Distort_Intensity", distortVal);
+        }
+
+
+        //Debug.Log($"{transform.name} took {damage} damage");
+
+        if (health <= 0)
         {
             Debug.Log($"{transform.name} took lethal damage!");
             if (gameObject.tag == "Player")
             {
-                Debug.Log("YOU DIED. GAME OVER SCREEN WOULD GO HERE");
+                //Debug.Log("YOU DIED. GAME OVER SCREEN WOULD GO HERE");
             }
             else
             {
