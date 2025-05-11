@@ -349,14 +349,6 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GenerateMap();
-        }
-    }
-
     void ConnectRooms(Room a, Room b)
     {
         a.connectedRooms.Add(b);
