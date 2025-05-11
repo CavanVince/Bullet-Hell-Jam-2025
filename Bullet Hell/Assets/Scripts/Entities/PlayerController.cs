@@ -6,7 +6,7 @@ public class PlayerController : BaseEntity
 {
     private Rigidbody2D rb;
     private Vector2 moveDir;
-    private Vector2 previousDir; // Used for animation exclusively
+    public Vector2 PreviousDir { get; private set; } // Used for animations exclusively
     private Animator animator;
 
     public bool dashAvailable = true;
@@ -42,7 +42,7 @@ public class PlayerController : BaseEntity
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         dashMultiplier = dashMultiplier > 0 ? dashMultiplier : 1f;
-        previousDir = new Vector2(1, -1);
+        PreviousDir = new Vector2(1, -1);
     }
 
     void Update()
@@ -77,12 +77,12 @@ public class PlayerController : BaseEntity
             animator.SetFloat("Input X", updatedDir.x - transform.position.x);
             animator.SetFloat("Input Y", updatedDir.y - transform.position.y);
             animator.SetBool("IsMoving", true);
-            previousDir = updatedDir - (Vector2)transform.position;
+            PreviousDir = updatedDir - (Vector2)transform.position;
         }
         else
         {
-            animator.SetFloat("Input X", previousDir.x);
-            animator.SetFloat("Input Y", previousDir.y);
+            animator.SetFloat("Input X", PreviousDir.x);
+            animator.SetFloat("Input Y", PreviousDir.y);
             animator.SetBool("IsMoving", false);
         }
     }

@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   defaultStartingHealth: 3
+  health: 0
   invulnerabilityDurationOnHit: 0.5
 --- !u!114 &7558736749234336095
 MonoBehaviour:
@@ -114,11 +115,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeBarSpeed: 0.025
   batStartAngle: -25
-  batEndAngle: 125
+  batEndAngle: 180
   batLength: 2
   maxBallReturnSpeed: 2
   minBallReturnSpeed: 1
-  swingTime: 0.05
+  swingTime: 0.25
+  batTime: 0.05
+  batTrans: {fileID: 0}
+  batTrailPrefab: {fileID: 0}
   critTimePlusMinus: 0.5
   chargeBar: {fileID: 1166300213705320722}
 --- !u!114 &3102576259949685569
@@ -208,7 +212,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1728268279, guid: 7ef0c19c78fd43349af881770b8ad46e, type: 3}
+  m_Sprite: {fileID: 1718835515, guid: 46c8f13684125304fb762966ea41f4f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

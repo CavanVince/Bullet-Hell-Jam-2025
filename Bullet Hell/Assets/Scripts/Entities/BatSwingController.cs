@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
+using Unity.Burst.CompilerServices;
 
 public enum SwingState
 {
@@ -27,8 +29,20 @@ public class BatSwingController : MonoBehaviour
 
     public float swingTime;
 
+    [SerializeField]
+    private float batTime;
+
     private int currentSwingPower;
     private bool isCrit;
+
+    [SerializeField]
+    private Transform batTrans;
+
+    [SerializeField]
+    private GameObject batTrailPrefab;
+
+    private Vector3 batAnimVelocity = Vector3.zero;
+    private PlayerController playerController;
 
     Sprite[] allChargeBarSprites;
 
@@ -43,6 +57,8 @@ public class BatSwingController : MonoBehaviour
 
     private void Start()
     {
+        playerController = GetComponent<PlayerController>();
+
         allChargeBarSprites = Resources.LoadAll<Sprite>("Power-Bar");
 
         chargeBarSprites = allChargeBarSprites.Take(allChargeBarSprites.Length - 1).ToArray();
@@ -116,7 +132,7 @@ public class BatSwingController : MonoBehaviour
         int minSwingPower = 1;
         float normalizedSwingPower = (float)(swingPower - minSwingPower) / (float)(maxSwingPower - minSwingPower);
         float ballReturnSpeedModifier = Mathf.Lerp(minBallReturnSpeed, maxBallReturnSpeed, normalizedSwingPower);
-        GetComponent<PlayerController>().dashAvailable = false;
+        playerController.dashAvailable = false;
         float elapsed = 0f;
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -144,72 +160,109 @@ public class BatSwingController : MonoBehaviour
         Vector3 adjCenter = directions[directionIndex];
         List<GameObject> hits = new List<GameObject>();
 
-        // Update attacking animation
-        Animator animator = GetComponentInChildren<Animator>();
-        animator.SetBool("IsAttacking", true);
+        // Instantiate bat trail
+        GameObject batTrail = Instantiate(batTrailPrefab, new Vector2(batTrans.position.x - 0.7f, batTrans.position.y + 0.7f), Quaternion.identity, batTrans);
 
         while (elapsed < swingTime)
         {
+            // Calculate values 
+            // Most of this stuff is now just used to animate the bat, as we now use a circle collider
             Vector3 origin = transform.GetChild(0).position;
-            float t = elapsed / swingTime;
+            float t = elapsed / batTime;
             float currentAngle = Mathf.Lerp(batStartAngle, batEndAngle, t);
             Vector3 dir = Quaternion.Euler(0f, 0f, currentAngle) * adjCenter;
-            Debug.DrawRay(origin, dir * batLength, Color.red);
+            // Debug.DrawRay(origin, dir.normalized * batLength, Color.red);
 
-            RaycastHit2D hit = Physics2D.Raycast(origin, dir.normalized, batLength, 1 << 6 | 1 << 7 | 1 << 11);
-            if (hit && !hits.Contains(hit.transform.gameObject))
+            // Bat animation
+            batTrans.position = origin + dir.normalized * (batLength);
+
+            // Detect collisions
+            Collider2D[] cols = Physics2D.OverlapCircleAll(origin, batLength);
+            Vector3 characterToCollider;
+            float dot;
+            foreach (Collider2D collider in cols)
             {
-                int layer = hit.transform.gameObject.layer;
-                Debug.Log(hit.transform.name);
-                Vector3 camMousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 camMousePos2D = new Vector2(camMousePos3D.x, camMousePos3D.y);
-                Vector2 reflectDir = (camMousePos2D - new Vector2(hit.transform.position.x, hit.transform.position.y)).normalized;
-                if (reflectDir.magnitude < batLength)
-                {
-                    reflectDir = (camMousePos2D - new Vector2(transform.GetChild(0).position.x, transform.GetChild(0).position.y)).normalized;
-                }
+                GameObject colliderParent = collider.transform.parent.gameObject;
+                // If the collider isn't a bullet, enemy, or breakable, continue.
+                if (colliderParent.layer != BulletHellCommon.BULLET_LAYER && colliderParent.layer != BulletHellCommon.ENEMY_LAYER && colliderParent.layer != BulletHellCommon.BREAKABLE_LAYER) continue;
 
-                BaseBullet bullet = hit.transform.GetComponent<BaseBullet>();
+                // If the collider has already been hit, continue
+                if (hits.Contains(colliderParent)) continue;
 
-                if (layer == BulletHellCommon.BULLET_LAYER && bullet != null && bullet.GetType() == typeof(StandardBullet))
+                characterToCollider = (collider.transform.position - origin).normalized;
+                Debug.Log(aimVector);
+                dot = Vector3.Dot(characterToCollider, aimVector);
+                if (dot >= Mathf.Cos(55))
                 {
-                    hit.transform.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
-                    if (isCrit)
+                    // Object hit
+                    int layer = colliderParent.layer;
+                    Vector3 camMousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector2 camMousePos2D = new Vector2(camMousePos3D.x, camMousePos3D.y);
+                    Vector2 reflectDir = (camMousePos2D - new Vector2(collider.transform.position.x, collider.transform.position.y)).normalized;
+                    if (reflectDir.magnitude < batLength)
                     {
-                        ballReturnSpeedModifier *= 1.5f;
-                        bullet.damage *= 2;
-                        isCrit = false;
+                        reflectDir = (camMousePos2D - new Vector2(transform.GetChild(0).position.x, transform.GetChild(0).position.y)).normalized;
                     }
-                    StandardBullet standardBullet = (StandardBullet)bullet;
-                    standardBullet.Fire(standardBullet.transform.position, reflectDir, ballReturnSpeedModifier * standardBullet.moveSpeed);
-                }
-                if (layer == BulletHellCommon.ENEMY_LAYER)
-                {
-                    if (hit.transform.gameObject.tag == "Boss")
+
+                    BaseBullet bullet = colliderParent.transform.GetComponent<BaseBullet>();
+
+                    if (layer == BulletHellCommon.BULLET_LAYER && bullet != null && bullet.GetType() == typeof(StandardBullet))
                     {
-                        hit.transform.GetComponentInParent<HealthComponent>().TakeDamage(1);
-                    }
-                    else
-                    {
-                        BaseEnemy enemy = hit.transform.GetComponent<BaseEnemy>();
-                        if (enemy != null)
+                        colliderParent.gameObject.layer = BulletHellCommon.PLAYER_PROJECTILE_LAYER; // Player Projectile layer
+                        if (isCrit)
                         {
-                            enemy.Launch(reflectDir, ballReturnSpeedModifier * BulletHellCommon.BASE_ENEMY_LAUNCH_SPEED, 1);
+                            ballReturnSpeedModifier *= 1.5f;
+                            bullet.damage *= 2;
+                            isCrit = false;
+                        }
+                        StandardBullet standardBullet = (StandardBullet)bullet;
+                        standardBullet.Fire(standardBullet.transform.position, reflectDir, ballReturnSpeedModifier * standardBullet.moveSpeed);
+                    }
+                    if (layer == BulletHellCommon.ENEMY_LAYER)
+                    {
+                        if (colliderParent.gameObject.tag == "Boss")
+                        {
+                            colliderParent.transform.GetComponent<HealthComponent>().TakeDamage(1);
+                        }
+                        else
+                        {
+                            BaseEnemy enemy = colliderParent.transform.GetComponent<BaseEnemy>();
+                            if (enemy != null)
+                            {
+                                enemy.Launch(reflectDir, ballReturnSpeedModifier * BulletHellCommon.BASE_ENEMY_LAUNCH_SPEED, 1);
+                            }
                         }
                     }
+                    if (layer == BulletHellCommon.BREAKABLE_LAYER)
+                    {
+                        collider.transform.GetComponent<BreakableItem>().Break();
+                    }
+                    hits.Add(colliderParent.gameObject);
                 }
-                if (layer == BulletHellCommon.BREAKABLE_LAYER)
-                {
-                    hit.transform.GetComponent<BreakableItem>().Break();
-                }
-                hits.Add(hit.transform.gameObject);
+
             }
             elapsed += Time.deltaTime;
             yield return null;
         }
-        GetComponent<PlayerController>().dashAvailable = true;
+
+        playerController.dashAvailable = true;
         swingState = SwingState.NONE;
-        animator.SetBool("IsAttacking", false);
+
+        // Detach the trail
+        batTrail.transform.parent = null;
+    }
+
+    private void Update()
+    {
+        if (swingState == SwingState.SWINGING) return;
+
+        // Adjust the bat's position
+        Vector3 newBatPos = transform.GetChild(0).position;
+
+        if (playerController.PreviousDir.y > 0 || (playerController.PreviousDir.y == 0 && playerController.PreviousDir.x > 0)) newBatPos.x += 1;
+        newBatPos.y += Mathf.Sin(Time.time) * 0.25f;
+
+        batTrans.position = Vector3.SmoothDamp(batTrans.position, newBatPos, ref batAnimVelocity, 0.05f);
     }
 
 }
