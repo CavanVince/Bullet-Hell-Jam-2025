@@ -497,8 +497,7 @@ MonoBehaviour:
   MAXROOMS: 20
   roomPlacementChance: 0.5
   rooms:
-  - {fileID: 8202402685310234507, guid: 4039cb5c2aa00df499c03ac8719b9d95, type: 3}
-  - {fileID: 8202402685310234507, guid: 12091dcd15fdc1d4cadb9a0de867ff4e, type: 3}
+  - {fileID: 8202402685310234507, guid: aaf7276107aa1ed4eaffe0b4863cdccc, type: 3}
   bossPrefab: {fileID: 0}
   shopPrefab: {fileID: 0}
   treasurePrefab: {fileID: 0}
