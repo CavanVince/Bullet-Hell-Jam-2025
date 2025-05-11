@@ -16,7 +16,7 @@ public class EntityManager : MonoBehaviour
 
     // Enemies
     [SerializeField]
-    private GameObject basicEnemyPrefab, bombEnemyPrefab;
+    private GameObject basicEnemyPrefab, bombEnemyPrefab, shotgunEnemyPrefab, aerialEnemyPrefab, radialEnemyPrefab, octoEnemyPrefab;
 
     [SerializeField]
     private int poolSize;
@@ -81,6 +81,10 @@ public class EntityManager : MonoBehaviour
                 { typeof(StandardBullet),  new List<GameObject>(poolSize) },
                 { typeof(AerialBullet), new List<GameObject>(poolSize) },
                 { typeof(BaseEnemy), new List<GameObject>(poolSize) },
+                { typeof(ShotgunEnemy), new List<GameObject>(poolSize)},
+                { typeof(AerialShooterEnemy), new List<GameObject>(poolSize)},
+                { typeof(OctopusShooterEnemy), new List<GameObject>(poolSize)},
+                { typeof(RadialShooterEnemy), new List<GameObject>(poolSize)},
                 { typeof(BombEnemy), new List<GameObject>(poolSize) }
             };
             InitPools();
@@ -165,6 +169,22 @@ public class EntityManager : MonoBehaviour
         else if (type == typeof(BombEnemy))
         {
             spawnedObject = bombEnemyPrefab;
+        }
+        else if (type == typeof(ShotgunEnemy))
+        {
+            spawnedObject = shotgunEnemyPrefab;
+        }
+        else if (type == typeof(AerialShooterEnemy))
+        {
+            spawnedObject = aerialEnemyPrefab;
+        }
+        else if (type == typeof(RadialShooterEnemy))
+        {
+            spawnedObject = radialEnemyPrefab;
+        }
+        else if (type == typeof(OctopusShooterEnemy)) 
+        {
+            spawnedObject = octoEnemyPrefab;
         }
         else
         {

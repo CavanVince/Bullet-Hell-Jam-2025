@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -143,7 +144,7 @@ public class RoomGameObject : MonoBehaviour
     {
         for (int i = 0; i < enemySpawnPoints.transform.childCount; i++)
         {
-            GameObject enemy = EntityManager.instance.SummonEnemy(typeof(BaseEnemy), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
+            GameObject enemy = EntityManager.instance.SummonEnemy(GetRandomEnemyType(), enemySpawnPoints.transform.GetChild(i).transform.position, Quaternion.identity);
             enemy.GetComponent<BaseEnemy>().OwningRoom = this;
             enemyCount++;
         }
@@ -170,6 +171,31 @@ public class RoomGameObject : MonoBehaviour
             fogOfWar.color = modifiedColor;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    /// <summary>
+    /// Helper function to return a random enemy type
+    /// </summary>
+    /// <returns></returns>
+    private Type GetRandomEnemyType()
+    {
+        int val = UnityEngine.Random.Range(0, 6);
+        switch (val)
+        {
+            case 0:
+                return typeof(BaseEnemy);
+            case 1:
+                return typeof(ShotgunEnemy);
+            case 2:
+                return typeof(AerialShooterEnemy);
+            case 3:
+                return typeof(OctopusShooterEnemy);
+            case 4:
+                return typeof(RadialShooterEnemy);
+                case 5:
+                return typeof(BombEnemy);
+        }
+        return typeof(BaseEnemy);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
