@@ -14,7 +14,8 @@ public struct ShootParameters
         int spreadAngle = 60,
         int offsetAngle = 0,
         bool predictPlayerMovement = false,
-        float bulletDistance = 10f
+        float bulletDistance = 10f,
+        float bulletSpeed = 6f
     )
     {
         this.originCalculation = originCalculation;
@@ -28,6 +29,7 @@ public struct ShootParameters
         this.offsetAngle = offsetAngle;
         this.predictPlayerMovement = predictPlayerMovement;
         this.bulletDistance = bulletDistance;
+        this.bulletSpeed = bulletSpeed;
     }
     public Func<Vector2> originCalculation;
     public Func<Vector2> destinationCalculation;
@@ -40,4 +42,5 @@ public struct ShootParameters
     public int offsetAngle;
     public bool predictPlayerMovement;
     public float bulletDistance;
+    public float bulletSpeed;
 }

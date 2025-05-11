@@ -39,7 +39,7 @@ public class EntityManager : MonoBehaviour
         if (bullet is StandardBullet)
         {
             StandardBullet sb = (StandardBullet)bullet;
-            sb.range = bulletDistance;
+            sb.bulletDistance = bulletDistance;
         }
         go.SetActive(true);
         bullet.Fire(origin, destination, bullet.moveSpeed, movementFunc);
@@ -118,7 +118,7 @@ public class EntityManager : MonoBehaviour
     /// </summary>
     /// <param name="type">Type of object to retrieve from pool</param>
     /// <returns></returns>
-    private GameObject SummonEntity(Type type)
+    public GameObject SummonEntity(Type type)
     {
         if (!entityPools.ContainsKey(type))
         {

@@ -41,30 +41,30 @@ public class AttackPatterns
     {
         Vector3 directionToTarget = (shootParams.destinationCalculation() - shootParams.originCalculation()).normalized;
 
-        float baseRad = Mathf.Atan2(directionToTarget.y, directionToTarget.x);
-        float lowerBoundRad = NormalizeRadian(baseRad - (shootParams.spreadAngle / 2)*Mathf.Deg2Rad);
-        float upperBoundRad = NormalizeRadian(baseRad + (shootParams.spreadAngle / 2)*Mathf.Deg2Rad);
+        //float baseRad = Mathf.Atan2(directionToTarget.y, directionToTarget.x);
+        //float lowerBoundRad = NormalizeRadian(baseRad - (shootParams.spreadAngle / 2)*Mathf.Deg2Rad);
+        //float upperBoundRad = NormalizeRadian(baseRad + (shootParams.spreadAngle / 2)*Mathf.Deg2Rad);
 
-        List<Vector2> points = GetNRadialPointsBetweenAngles(shootParams.originCalculation(), shootParams.numBullets, shootParams.numBullets, lowerBoundRad, upperBoundRad);
+        //List<Vector2> points = GetNRadialPointsBetweenAngles(shootParams.originCalculation(), shootParams.numBullets, shootParams.numBullets, lowerBoundRad, upperBoundRad);
         
-        for(int i = 0; i < shootParams.pulseCount; i++)
-        {
-            foreach(Vector2 point in points) {
-                entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), point, shootParams.movementFunc);
-            }
-            yield return new WaitForSeconds(shootParams.pulseInterval_s);
-        }
-
-        //float baseAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-
-        //for (int i = 0; i < shootParams.numBullets; i++)
+        //for(int i = 0; i < shootParams.pulseCount; i++)
         //{
-        //    float angleOffset = Mathf.Lerp(shootParams.spreadAngle / 2, shootParams.spreadAngle / 2, (float)i / (shootParams.numBullets - 1));
-        //    float bulletAngle = baseAngle + angleOffset;
-        //    Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
-
-        //    entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), bulletDir.normalized);
+        //    foreach(Vector2 point in points) {
+        //        entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), point, shootParams.movementFunc);
+        //    }
+        //    yield return new WaitForSeconds(shootParams.pulseInterval_s);
         //}
+
+        float baseAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+        for (int i = 0; i < shootParams.numBullets; i++)
+        {
+            float angleOffset = Mathf.Lerp(-shootParams.spreadAngle / 2, shootParams.spreadAngle / 2, (float)i / (shootParams.numBullets - 1));
+            float bulletAngle = baseAngle + angleOffset;
+            Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
+
+            entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), bulletDir.normalized, bulletDistance: shootParams.bulletDistance, bulletSpeed: shootParams.bulletSpeed);
+        }
         yield return new WaitForSeconds(shootParams.cooldown);
     }
 
@@ -73,7 +73,7 @@ public class AttackPatterns
         for (int i = 0; i < shootParams.numBullets; i++)
         {
             Vector3 directionToPlayer = (shootParams.destinationCalculation() - shootParams.originCalculation()).normalized;
-            entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), directionToPlayer);
+            entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), directionToPlayer, bulletDistance: shootParams.bulletDistance, bulletSpeed: shootParams.bulletSpeed);
 
             yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
@@ -89,7 +89,7 @@ public class AttackPatterns
         {
             foreach(Vector2 point in points)
             {
-                entityManager.FireBullet(typeof(StandardBullet), origin, (point - origin).normalized, shootParams.movementFunc);
+                entityManager.FireBullet(typeof(StandardBullet), origin, (point - origin).normalized, shootParams.movementFunc, shootParams.bulletDistance, shootParams.bulletSpeed);
             }
             yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
@@ -126,32 +126,10 @@ public class AttackPatterns
     {
         for (int i = 0; i < shootParams.pulseCount; i++)
         {
-            Vector2 target = shootParams.destinationCalculation();
-            entityManager.FireBullet(typeof(AerialBullet), target, shootParams.movementFunc);
+            entityManager.FireBullet(typeof(AerialBullet), shootParams.originCalculation(), shootParams.destinationCalculation(), shootParams.movementFunc);
 
             yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
         yield return new WaitForSeconds(shootParams.cooldown);
     }
-
-    // sorry bro, this shit is broke
-    //public IEnumerator WalkDaLineAerial(ShootParameters shootParams)
-    //{
-    //    Vector2 origin = shootParams.originCalculation();
-    //    Vector2 target = shootParams.destinationCalculation();
-
-    //    Vector2 dir = (target - origin).normalized;
-
-    //    Vector2 current = origin;
-
-    //    while (Vector2.Distance(current, target) > spacing)
-    //    {
-    //        entityManager.FireBullet(typeof(AerialBullet), current, current);
-    //        current = current + (dir * spacing);
-
-    //        yield return new WaitForSeconds(shootParams.pulseInterval_s);
-    //    }
-
-    //    yield return new WaitForSeconds(shootParams.cooldown);
-    //}
 }
