@@ -97,28 +97,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Barrel 1_0
+      name: Barrel_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.46903756, y: 0.10191075}
+      pivot: {x: 0.4375, y: 0.09375}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: deb2749a108d1aa489fd87cc28ea8aa3
-      internalID: -2006462926
+      spriteID: 57d929d3ede7c0c4f89265a3318dcf71
+      internalID: -789646353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Barrel 1_1
+      name: Barrel_1
       rect:
         serializedVersion: 2
         x: 64
@@ -126,14 +126,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.48938417, y: 0.7565463}
+      pivot: {x: 0.484375, y: 0.046875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b54aad375376c249acf0ebcea910ca2
-      internalID: -1818943234
+      spriteID: b3c09610e8e74a84cbf915fc6cebd490
+      internalID: 1702087755
       vertices: []
       indices: 
       edges: []
@@ -149,8 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Barrel 1_0: -2006462926
-      Barrel 1_1: -1818943234
+      Barrel_0: -789646353
+      Barrel_1: 1702087755
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
