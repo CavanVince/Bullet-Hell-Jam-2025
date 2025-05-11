@@ -11,22 +11,20 @@ public abstract class BaseBullet : MonoBehaviour
     [HideInInspector]
     public int damage;
 
-    public float baseMoveSpeed = 1f;
-
     [HideInInspector]
-    public float moveSpeed;
+    public float moveSpeed = 6f;
+
+    protected float startingMoveSpeed;
 
     protected virtual void Start()
     {
         damage = baseDamage;
         rb = GetComponent<Rigidbody2D>();
-        moveSpeed = baseMoveSpeed;
     }
 
     public virtual void ResetState()
     {
         damage = baseDamage;
-        moveSpeed = baseMoveSpeed;
     }
 
     public abstract void Fire(Vector2 start, Vector2 destination, float moveSpeed, Func<float, float> moveFunc=null);

@@ -11,14 +11,10 @@ public class AerialBullet : BaseBullet
     // We don't need to declare rb here since it's inherited from BaseBullet
     private SpriteRenderer telegraphRenderer;
 
-    [SerializeField] private float telegraphTime, activeTime, _unusedDamageRadius;
+    [SerializeField] private const float telegraphTime=2f, activeTime=.5f;
 
     void Awake()
     {
-        telegraphTime = telegraphTime != 0 ? telegraphTime : 2f;
-        activeTime = activeTime != 0 ? activeTime : .5f;
-
-
         if (telegraphObject == null)
             telegraphObject = transform.Find("Telegraph")?.gameObject;
 
@@ -43,10 +39,15 @@ public class AerialBullet : BaseBullet
     }
 
     // Override the abstract methods from BaseBullet
-    public override void Fire(Vector2 startPos, Vector2 _unused_destination, float moveSpeed, Func<float, float> moveFunc)
+    public void Fire(Vector2 startPos, Vector2 _unused_destination, float moveSpeed, Func<float, float> moveFunc, float telegraphTime=telegraphTime, float activeTime=activeTime)
     {
         // Start the telegraph animation
         StartCoroutine(TelegraphToBullet(startPos));
+    }
+
+    public override void Fire(Vector2 startPos, Vector2 _unused_destination, float moveSpeed, Func<float, float> moveFunc)
+    {
+        Fire(startPos, _unused_destination, moveSpeed, moveFunc);
     }
 
     private IEnumerator TelegraphToBullet(Vector2 origin)
@@ -62,7 +63,7 @@ public class AerialBullet : BaseBullet
         telegraphColor.a = 0f;
         telegraphRenderer.color = telegraphColor;
 
-        // Gradually increase alpha over the delay period
+        // gradually increase alpha over the delay period, replace with ani
         float elapsed = 0f;
         while (elapsed < telegraphTime)
         {
@@ -74,31 +75,27 @@ public class AerialBullet : BaseBullet
             yield return null;
         }
 
-        // Ensure telegraph is fully visible at the end
         telegraphColor.a = 1f;
         telegraphRenderer.color = telegraphColor;
 
-        // Hide telegraph, show bullet
+        // hide telegraph, show bullet
         telegraphObject.SetActive(false);
         bulletObject.SetActive(true);
         Debug.Log("Hiding telegraph, showing bullet");
-        // Activate the rigidbody
         if (rb != null)
         {
             rb.simulated = true;
-            Debug.Log("Activating rb2d of bullet");
-            // Calculate direction and set initial velocity
+            // calculate direction and set initial velocity
             if (origin != Vector2.zero)
             {
                 Vector2 direction = (origin - (Vector2)transform.position).normalized;
-                rb.velocity = direction * 10f; // You may want to adjust speed or make it configurable
+                rb.velocity = direction * 10f;
             }
         }
+
         Debug.Log($"Waiting for {activeTime} seconds before destroying aerial bullet");
-        // Wait for active time then destroy
         yield return new WaitForSeconds(activeTime);
 
-        // Optional: fade out the bullet before destroying
         SpriteRenderer bulletRenderer = bulletObject.GetComponent<SpriteRenderer>();
         if (bulletRenderer != null)
         {
@@ -110,7 +107,6 @@ public class AerialBullet : BaseBullet
             {
                 bulletColor.a = Mathf.Lerp(1f, 0f, fadeElapsed / fadeDuration);
                 bulletRenderer.color = bulletColor;
-                //Debug.Log($"Bullet color: {bulletColor}");
                 fadeElapsed += Time.deltaTime;
                 yield return null;
             }

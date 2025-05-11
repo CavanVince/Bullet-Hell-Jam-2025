@@ -10,7 +10,7 @@ public class StandardBullet : BaseBullet
     private Vector2 perpendicularDirection;
     private float timeAlive;
 
-    public float range = 10f;
+    public float bulletDistance = 10f;
     private SpriteRenderer spriteRenderer;
 
     
@@ -20,12 +20,11 @@ public class StandardBullet : BaseBullet
         base.Start();
         origin = transform.position;
         spriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        
     }
 
     private void FixedUpdate()
     {
-        if (range > 0 && Vector2.Distance(origin, transform.position) > range)
+        if (bulletDistance > 0 && Vector2.Distance(origin, transform.position) > bulletDistance)
         {
             // out of range and died
             EntityManager.instance.Repool(gameObject);
@@ -82,10 +81,10 @@ public class StandardBullet : BaseBullet
         
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    OnTriggerEnter2D(collision.collider);
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnTriggerEnter2D(collision.collider);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -94,6 +93,8 @@ public class StandardBullet : BaseBullet
 
         bool hitPlayer = collision.transform.parent.gameObject.tag == "Player" && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
         bool hitEnemy = collision.transform.parent.gameObject.tag == "Enemy" && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
+        bool hitWall = collision.transform.parent.gameObject.layer == BulletHellCommon.WALL_LAYER;
+
         if (hitEnemy || hitPlayer)
         {
             EntityManager.instance.Repool(gameObject);
