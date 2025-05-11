@@ -70,7 +70,7 @@ public class AttackPatterns
 
     public IEnumerator Shoot(ShootParameters shootParams)
     {
-        for (int i = 0; i < shootParams.numBullets; i++)
+        for (int i = 0; i < shootParams.pulseCount; i++)
         {
             Vector3 directionToPlayer = (shootParams.destinationCalculation() - shootParams.originCalculation()).normalized;
             entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), directionToPlayer, bulletDistance: shootParams.bulletDistance, bulletSpeed: shootParams.bulletSpeed);

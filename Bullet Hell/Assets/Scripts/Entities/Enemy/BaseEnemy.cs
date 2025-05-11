@@ -147,7 +147,10 @@ public class BaseEnemy : BaseEntity
             {
                 launchDestination = transform.position;
                 healthComponent.TakeDamage(3);
-                StartCoroutine(Dazed(dazeDurationS));
+                if (gameObject.activeInHierarchy)
+                {
+                    StartCoroutine(Dazed(dazeDurationS));
+                }
             }
             else if (enemyState == EnemyState.MOVING && currentPathCalcTime < pathCalcTime)
             {

@@ -15,7 +15,8 @@ public struct ShootParameters
         int offsetAngle = 0,
         bool predictPlayerMovement = false,
         float bulletDistance = 10f,
-        float bulletSpeed = 6f
+        float bulletSpeed = 6f,
+        bool bulletIsReflectable = true
     )
     {
         this.originCalculation = originCalculation;
@@ -30,6 +31,7 @@ public struct ShootParameters
         this.predictPlayerMovement = predictPlayerMovement;
         this.bulletDistance = bulletDistance;
         this.bulletSpeed = bulletSpeed;
+        this.bulletIsReflectable = bulletIsReflectable;
     }
     public Func<Vector2> originCalculation;
     public Func<Vector2> destinationCalculation;
@@ -43,4 +45,5 @@ public struct ShootParameters
     public bool predictPlayerMovement;
     public float bulletDistance;
     public float bulletSpeed;
+    public bool bulletIsReflectable;
 }

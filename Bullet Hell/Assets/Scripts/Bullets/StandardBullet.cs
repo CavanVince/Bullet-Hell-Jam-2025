@@ -1,6 +1,7 @@
-using System;
-using System.Runtime.Serialization.Json;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StandardBullet : BaseBullet
 {
@@ -13,6 +14,8 @@ public class StandardBullet : BaseBullet
     public float bulletDistance = 10f;
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    public bool isReflectable = true;
     
 
     protected new void Start()
@@ -89,12 +92,12 @@ public class StandardBullet : BaseBullet
     {
         if (collision == null | collision.transform.parent == null || collision.transform.parent.gameObject == null)
             return;
-
+        
         bool hitPlayer = collision.transform.parent.gameObject.tag == "Player" && transform.gameObject.layer == BulletHellCommon.BULLET_LAYER;
-        bool hitEnemy = collision.transform.parent.gameObject.tag == "Enemy" && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
+        bool hitEnemy = new List<string>() {"Enemy", "Boss"}.Contains(collision.transform.parent.gameObject.tag) && transform.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER;
         bool hitWall = collision.transform.parent.gameObject.layer == BulletHellCommon.WALL_LAYER;
 
-        if (hitEnemy || hitPlayer)
+        if (hitEnemy || hitPlayer || hitWall)
         {
             EntityManager.instance.Repool(gameObject);
         }

@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eab889ecfa8c3041b4cc76272ab2061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardBulletPrefab: {fileID: 3779985338521425694, guid: 67e275dd454f6f5498d42daeae5e8268, type: 3}
+  maxPoolSizePerInstance: 100
+  reflectableBulletPrefab: {fileID: 3779985338521425694, guid: 67e275dd454f6f5498d42daeae5e8268, type: 3}
+  nonReflectableBulletPrefab: {fileID: 3779985338521425694, guid: a825741260b0f4b4592e8d111d6446f8, type: 3}
   aerialBulletPrefab: {fileID: 2649368732903720990, guid: 4ac9505a0fc07ee4c838ac91cfc3655c, type: 3}
   basicEnemyPrefab: {fileID: 6562345963098122877, guid: 642768d490021df4298e5afb2df128b6, type: 3}
   bombEnemyPrefab: {fileID: 6562345963098122877, guid: a9c2a44c0356d76409e7d21d746bf67a, type: 3}

@@ -15,10 +15,10 @@ public class BaseEntity : MonoBehaviour
     protected float maxMoveSpeed;
     protected bool takesFriendlyFireAerialBulletDamage;
 
-    protected Dictionary<int, string> tagToFriendlyBulletLayerMap = new Dictionary<int, string>()
+    protected Dictionary<int, List<string>> tagToFriendlyBulletLayerMap = new Dictionary<int, List<string>>()
     {
-        { BulletHellCommon.PLAYER_PROJECTILE_LAYER, "Player" },
-        { BulletHellCommon.BULLET_LAYER , "Enemy" },
+        { BulletHellCommon.PLAYER_PROJECTILE_LAYER, new List<string> {"Player"} },
+        { BulletHellCommon.BULLET_LAYER , new List<string> { "Enemy", "Boss" } },
     };
 
     protected virtual void Start()
@@ -38,11 +38,15 @@ public class BaseEntity : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         Transform parent = collision.transform.parent;
-        if (parent == null) return;
+        if (parent == null)
+        {
+            Debug.Log("No parent");
+            return;
+        }
         BaseBullet bullet = parent.GetComponent<BaseBullet>();
         if (bullet == null) return;
 
-        bool isHostileBullet = transform.gameObject.tag != tagToFriendlyBulletLayerMap[bullet.gameObject.layer];
+        bool isHostileBullet = !tagToFriendlyBulletLayerMap[bullet.gameObject.layer].Contains(transform.gameObject.tag);
         if (isHostileBullet || (takesFriendlyFireAerialBulletDamage && bullet.GetType() == typeof(AerialBullet))) {
             Debug.Log($"Entity: {transform.name} collided with {collision.gameObject.name}");
             healthComponent?.TakeDamage(bullet.damage);
