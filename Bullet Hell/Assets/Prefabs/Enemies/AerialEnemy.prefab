@@ -222,6 +222,11 @@ MonoBehaviour:
   health: 0
   invulnerabilityDurationOnHit: 0
   heartContainer: {fileID: 699788543500851361, guid: eeca8f9b77295fd479734c6cdd20c201, type: 3}
+  deathClips:
+  - {fileID: 8300000, guid: c6c708089e721e144a103b1253d6ad21, type: 3}
+  - {fileID: 8300000, guid: d3d588c0e94f91c458253f56939eff93, type: 3}
+  - {fileID: 8300000, guid: 79125a18f33da3c48af3915b5fba62ea, type: 3}
+  - {fileID: 8300000, guid: e220b8ef6e504024fb580a65e9c6ff2e, type: 3}
 --- !u!120 &7348254081045029066
 LineRenderer:
   serializedVersion: 2

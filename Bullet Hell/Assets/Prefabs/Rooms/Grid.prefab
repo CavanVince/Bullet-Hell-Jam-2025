@@ -3742,6 +3742,13 @@ MonoBehaviour:
   fogOfWar: {fileID: 4416349306799432415}
   pathfindingTilemap: {fileID: 6192469621827535018}
   enemySpawnPoints: {fileID: 1421110213820153187}
+  deathClips:
+  - {fileID: 8300000, guid: c6c708089e721e144a103b1253d6ad21, type: 3}
+  - {fileID: 8300000, guid: d3d588c0e94f91c458253f56939eff93, type: 3}
+  - {fileID: 8300000, guid: 79125a18f33da3c48af3915b5fba62ea, type: 3}
+  - {fileID: 8300000, guid: e220b8ef6e504024fb580a65e9c6ff2e, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: cdfff93309e41e9479804c0bf63eea36, type: 3}
+  doorCloseClip: {fileID: 8300000, guid: cdfff93309e41e9479804c0bf63eea36, type: 3}
 --- !u!1 &1421110213820153187
 GameObject:
   m_ObjectHideFlags: 0

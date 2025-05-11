@@ -58,6 +58,13 @@ public class RoomGameObject : MonoBehaviour
     [SerializeField]
     private GameObject enemySpawnPoints;
 
+    private AudioSource audioSource;
+
+    [SerializeField]
+    private AudioClip doorOpenClip;
+    [SerializeField]
+    private AudioClip doorCloseClip;
+
     private void Awake()
     {
         // Populate array with walkable tiles
@@ -85,6 +92,7 @@ public class RoomGameObject : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         if (roomEntered == null)
             roomEntered = new UnityEvent();
 
@@ -116,6 +124,8 @@ public class RoomGameObject : MonoBehaviour
             doorAnim.Play("DoorOpen");
             door.transform.GetChild(0).gameObject.SetActive(false);
         }
+        audioSource.clip = doorOpenClip;
+        audioSource.Play();
     }
 
     /// <summary>
@@ -130,6 +140,8 @@ public class RoomGameObject : MonoBehaviour
             doorAnim.Play("DoorClose");
             door.transform.GetChild(0).gameObject.SetActive(true);
         }
+        audioSource.clip = doorCloseClip;
+        audioSource.Play();
     }
 
     /// <summary>
