@@ -46,6 +46,8 @@ public class BaseEnemy : BaseEntity
     public Func<IEnumerator> shootFunc;
     private Coroutine shootRoutine, shootFuncRoutine;
 
+    private Animator animator;
+
 
     protected override void Start()
     {
@@ -55,6 +57,7 @@ public class BaseEnemy : BaseEntity
         moveSpeed = 1f;
         path = new List<Vector2>();
         ap = new AttackPatterns(EntityManager.instance);
+        animator = GetComponentInChildren<Animator>();
 
         ResetState();
     }
@@ -83,6 +86,22 @@ public class BaseEnemy : BaseEntity
 
     protected virtual void Update()
     {
+        if (enemyState == EnemyState.MOVING)
+        {
+            // idk maybe just move around randomly or do nothin?
+            // or see if nearby friendlies are aggro'd and join in
+            if (pathCalcTime <= currentPathCalcTime)
+                PathToPlayer();
+            else
+                currentPathCalcTime += Time.deltaTime;
+        }
+        else 
+        {
+            animator.SetFloat("Input X", (player.transform.position - transform.GetChild(0).transform.position).normalized.x);
+            animator.SetFloat("Input Y", (player.transform.position - transform.GetChild(0).transform.position).normalized.y);
+            animator.SetBool("IsMoving", false);
+        }
+
         // was shooting but now out of range
         if (enemyState == EnemyState.SHOOTING && Vector2.Distance(player.transform.position, transform.position) > shootRange)
         {
@@ -110,16 +129,6 @@ public class BaseEnemy : BaseEntity
         else if ((enemyState == EnemyState.IDLE && Vector2.Distance(player.transform.position, transform.position) <= aggroRange))
         {
             enemyState = EnemyState.MOVING;
-        }
-
-        if (enemyState == EnemyState.MOVING)
-        {
-            // idk maybe just move around randomly or do nothin?
-            // or see if nearby friendlies are aggro'd and join in
-            if (pathCalcTime <= currentPathCalcTime)
-                PathToPlayer();
-            else
-                currentPathCalcTime += Time.deltaTime;
         }
     }
 
@@ -167,6 +176,11 @@ public class BaseEnemy : BaseEntity
             Vector2 newPos = ConvertToWorldSpace(new Vector3Int((int)path[0].x, (int)path[0].y, 0));
 
             rb.MovePosition(enemyPos + ((newPos - enemyPos).normalized * moveSpeed * Time.deltaTime));
+
+            // Have enemy face player
+            animator.SetFloat("Input X", (newPos - (Vector2)transform.GetChild(0).transform.position).normalized.x);
+            animator.SetFloat("Input Y", (newPos - (Vector2)transform.GetChild(0).transform.position).normalized.y);
+            animator.SetBool("IsMoving", true);
 
             if (Vector2.Distance(enemyPos, newPos) <= 0.25f)
             {
