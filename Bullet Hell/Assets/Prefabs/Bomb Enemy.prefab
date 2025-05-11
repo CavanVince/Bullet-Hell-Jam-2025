@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
-  health: 1
+  defaultStartingHealth: 3
   invulnerabilityDurationOnHit: 0
 --- !u!95 &4114375878203789848
 Animator:
@@ -300,11 +300,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 0}
-  maxLaunchDistance: 1
+  defaultMoveSpeed: 1
   moveSpeed: 1
+  maxLaunchDistance: 1
   isLaunchable: 1
+  OwningRoom: {fileID: 0}
   aggroRange: 7
+  shootRange: 0
+  player: {fileID: 0}
   distanceFromPlayerToExplode: 2
   timeToExplode_s: 1
-  bombRadius: 3
-  explosionDamage: 1
+  bombRadius: 5
+  explosionDamage: 10

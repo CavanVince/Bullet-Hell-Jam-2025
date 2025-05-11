@@ -11,34 +11,60 @@ public class AttackPatterns
         this.entityManager = entityManager;
     }
 
-    private List<Vector2> GetNRadialPointsAroundOrigin(Vector2 origin, int n, float radius)
+    private List<Vector2> GetNRadialPointsBetweenAngles(Vector2 origin, int n, float radius, float startRadian=0, float endRadian=2*Mathf.PI)
     {
         List<Vector2> points = new List<Vector2>();
 
         for (int i = 0; i < n; i++)
         {
+            float t = (float)i / n; // n-1 so start and end points are included
+            float angle = Mathf.Lerp(startRadian, endRadian, t);
+
             Vector2 v = new Vector2(
-                origin.x + radius * Mathf.Cos(2 * Mathf.PI * ((float) i / n)),
-                origin.y + radius * Mathf.Sin(2 * Mathf.PI * ((float) i / n))
+                origin.x + radius * Mathf.Cos(angle),
+                origin.y + radius * Mathf.Sin(angle)
             );
             points.Add(v);
         }
+
         return points;
+    }
+
+    float NormalizeRadian(float rad)
+    {
+        rad = rad % (2 * Mathf.PI);
+        if (rad < 0) rad += 2 * Mathf.PI;
+        return rad;
     }
 
     public IEnumerator ShotgunShot(ShootParameters shootParams)
     {
         Vector3 directionToTarget = (shootParams.destinationCalculation() - shootParams.originCalculation()).normalized;
-        float baseAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
-        for (int i = 0; i < shootParams.numBullets; i++)
+        float baseRad = Mathf.Atan2(directionToTarget.y, directionToTarget.x);
+        float lowerBoundRad = NormalizeRadian(baseRad - (shootParams.spreadAngle / 2)*Mathf.Deg2Rad);
+        float upperBoundRad = NormalizeRadian(baseRad + (shootParams.spreadAngle / 2)*Mathf.Deg2Rad);
+
+        List<Vector2> points = GetNRadialPointsBetweenAngles(shootParams.originCalculation(), shootParams.numBullets, shootParams.numBullets, lowerBoundRad, upperBoundRad);
+        
+        for(int i = 0; i < shootParams.pulseCount; i++)
         {
-            float angleOffset = Mathf.Lerp(shootParams.spreadAngle / 2, shootParams.spreadAngle / 2, (float)i / (shootParams.numBullets - 1));
-            float bulletAngle = baseAngle + angleOffset;
-            Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
-
-            entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), bulletDir.normalized);
+            foreach(Vector2 point in points) {
+                entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), shootParams.movementFunc);
+            }
+            yield return new WaitForSeconds(shootParams.pulseInterval_s);
         }
+
+        //float baseAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+        //for (int i = 0; i < shootParams.numBullets; i++)
+        //{
+        //    float angleOffset = Mathf.Lerp(shootParams.spreadAngle / 2, shootParams.spreadAngle / 2, (float)i / (shootParams.numBullets - 1));
+        //    float bulletAngle = baseAngle + angleOffset;
+        //    Vector3 bulletDir = new Vector3(Mathf.Cos(bulletAngle * Mathf.Deg2Rad), Mathf.Sin(bulletAngle * Mathf.Deg2Rad), 0);
+
+        //    entityManager.FireBullet(typeof(StandardBullet), shootParams.originCalculation(), bulletDir.normalized);
+        //}
         yield return new WaitForSeconds(shootParams.cooldown);
     }
 
@@ -58,7 +84,7 @@ public class AttackPatterns
     {
         Vector2 origin = shootParams.originCalculation();
 
-        List<Vector2> points = GetNRadialPointsAroundOrigin(origin, shootParams.numBullets, 1);
+        List<Vector2> points = GetNRadialPointsBetweenAngles(origin, shootParams.numBullets, 1);
         for (int i = 0; i < shootParams.pulseCount; i++)
         {
             foreach(Vector2 point in points)
@@ -83,7 +109,7 @@ public class AttackPatterns
         for (int r = shootParams.pulseCount; r > 0; r--)
         {
             Vector2 target = shootParams.destinationCalculation();
-            List<Vector2> points = GetNRadialPointsAroundOrigin(target, r * 2, r);
+            List<Vector2> points = GetNRadialPointsBetweenAngles(target, r * 2, r);
 
             foreach(Vector2 point in points)
             {

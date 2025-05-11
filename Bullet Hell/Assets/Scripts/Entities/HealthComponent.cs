@@ -10,7 +10,8 @@ public class HealthComponent : MonoBehaviour
 
     public int defaultStartingHealth = 3;
 
-    protected int health;
+    [HideInInspector]
+    public int health;
 
     protected bool invulnerable;
     

@@ -185,8 +185,18 @@ public class BatSwingController : MonoBehaviour
                 }
                 if (layer == BulletHellCommon.ENEMY_LAYER)
                 {
-                    BaseEnemy enemy = hit.transform.GetComponent<BaseEnemy>();
-                    enemy.Launch(reflectDir, ballReturnSpeedModifier * BulletHellCommon.BASE_ENEMY_LAUNCH_SPEED, 1);
+                    if (hit.transform.gameObject.tag == "Boss")
+                    {
+                        hit.transform.GetComponentInParent<HealthComponent>().TakeDamage(1);
+                    }
+                    else
+                    {
+                        BaseEnemy enemy = hit.transform.GetComponent<BaseEnemy>();
+                        if (enemy != null)
+                        {
+                            enemy.Launch(reflectDir, ballReturnSpeedModifier * BulletHellCommon.BASE_ENEMY_LAUNCH_SPEED, 1);
+                        }
+                    }
                 }
                 if (layer == BulletHellCommon.BREAKABLE_LAYER)
                 {

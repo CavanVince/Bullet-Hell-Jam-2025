@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseEntity : MonoBehaviour
 {
-
+    [HideInInspector]
     public HealthComponent healthComponent;
 
     public float defaultMoveSpeed = 1f;
@@ -45,7 +45,7 @@ public class BaseEntity : MonoBehaviour
         bool isHostileBullet = transform.gameObject.tag != tagToFriendlyBulletLayerMap[bullet.gameObject.layer];
         if (isHostileBullet || (takesFriendlyFireAerialBulletDamage && bullet.GetType() == typeof(AerialBullet))) {
             Debug.Log($"Entity: {transform.name} collided with {collision.gameObject.name}");
-            healthComponent.TakeDamage(bullet.damage);
+            healthComponent?.TakeDamage(bullet.damage);
         }
     }
 
