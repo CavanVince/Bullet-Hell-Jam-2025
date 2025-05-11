@@ -100,6 +100,7 @@ public class HealthComponent : MonoBehaviour
 
     public void ResetState()
     {
+        spr.color = originalColor;
         Start();
     }
 }

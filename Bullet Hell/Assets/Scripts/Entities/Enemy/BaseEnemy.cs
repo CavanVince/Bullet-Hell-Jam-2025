@@ -4,7 +4,6 @@ using Unity.Mathematics;
 using UnityEngine;
 using System;
 using System.Collections;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum EnemyState
 {
@@ -46,6 +45,7 @@ public class BaseEnemy : BaseEntity
     public Func<IEnumerator> shootFunc;
 
     private Coroutine shootRoutine, shootFuncRoutine;
+
 
     protected override void Start()
     {
