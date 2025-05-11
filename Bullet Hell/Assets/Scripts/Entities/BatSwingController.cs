@@ -190,7 +190,6 @@ public class BatSwingController : MonoBehaviour
                 if (hits.Contains(colliderParent)) continue;
 
                 characterToCollider = (collider.transform.position - origin).normalized;
-                Debug.Log(aimVector);
                 dot = Vector3.Dot(characterToCollider, aimVector);
                 if (dot >= Mathf.Cos(55))
                 {
