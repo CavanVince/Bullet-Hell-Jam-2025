@@ -20,6 +20,7 @@ public class HealthComponent : MonoBehaviour
 
     SpriteRenderer spr;
     Color originalColor;
+    public GameObject heartContainer;
 
     void Start()
     {
@@ -50,6 +51,7 @@ public class HealthComponent : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        float random = Random.Range(0f, 1f);
         if (invulnerable)
         {
             Debug.Log($"{transform.name} is Invulnerable. No Damage taken.");
@@ -68,6 +70,10 @@ public class HealthComponent : MonoBehaviour
             }
             else
             {
+                if (random < .33f)
+                {
+                    Instantiate(heartContainer, transform.position, transform.rotation);
+                }
                 GetComponent<BaseEnemy>()?.OwningRoom?.EnemyDied();
                 EntityManager.instance.Repool(gameObject);
                 return;

@@ -180,6 +180,7 @@ MonoBehaviour:
   defaultMoveSpeed: 1
   moveSpeed: 0
   sprites: []
+  heartContainer: {fileID: 699788543500851361, guid: eeca8f9b77295fd479734c6cdd20c201, type: 3}
 --- !u!114 &596246955477945668
 MonoBehaviour:
   m_ObjectHideFlags: 0

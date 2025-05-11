@@ -182,6 +182,9 @@ public class BatSwingController : MonoBehaviour
             float dot;
             foreach (Collider2D collider in cols)
             {
+                if(collider.transform.parent == null){
+                    continue;
+                }
                 GameObject colliderParent = collider.transform.parent.gameObject;
                 // If the collider isn't a bullet, enemy, or breakable, continue.
                 if (colliderParent.layer != BulletHellCommon.BULLET_LAYER && colliderParent.layer != BulletHellCommon.ENEMY_LAYER && colliderParent.layer != BulletHellCommon.BREAKABLE_LAYER) continue;

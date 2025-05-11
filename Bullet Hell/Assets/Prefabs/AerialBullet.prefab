@@ -130,11 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f0e05f14ab8ab45ad58daf8b3cbe62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: 1
+  damage: 0
+  moveSpeed: 6
   telegraphObject: {fileID: 2341582385526822124}
   bulletObject: {fileID: 7562259263882457747}
-  telegraphTime: 0
-  activeTime: 0
-  _unusedDamageRadius: 0
 --- !u!1 &7562259263882457747
 GameObject:
   m_ObjectHideFlags: 0

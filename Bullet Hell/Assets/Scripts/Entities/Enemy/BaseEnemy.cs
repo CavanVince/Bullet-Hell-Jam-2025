@@ -146,6 +146,7 @@ public class BaseEnemy : BaseEntity
             if (enemyState == EnemyState.LAUNCHED)
             {
                 launchDestination = transform.position;
+                healthComponent.TakeDamage(3);
                 StartCoroutine(Dazed(dazeDurationS));
             }
             else if (enemyState == EnemyState.MOVING && currentPathCalcTime < pathCalcTime)
