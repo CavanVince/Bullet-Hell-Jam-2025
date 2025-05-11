@@ -28,10 +28,8 @@ public class BreakableItem : BaseEntity
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == BulletHellCommon.BULLET_LAYER || collision.gameObject.layer == BulletHellCommon.PLAYER_PROJECTILE_LAYER || collision.gameObject.layer == BulletHellCommon.ENEMY_LAYER)
         {
-            Debug.Log("hit");
             Break();
         }
     }
