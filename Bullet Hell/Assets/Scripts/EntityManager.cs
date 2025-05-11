@@ -35,7 +35,7 @@ public class EntityManager : MonoBehaviour
     /// </summary>
     /// <param name="origin">Starting position of the bullet</param>
     /// <param name="direction">Direction the bullet is launched in</param>
-    public void FireBullet(Type bulletType, Vector2 origin, Vector2 destination, Func<float, float> movementFunc = null)
+    public void FireBullet(Type bulletType, Vector2 origin, Vector2 destination, Func<float, float> movementFunc = null, float bulletDistance=10f, float bulletSpeed=6f)
     {
         GameObject go = SummonEntity(bulletType);
         go.layer = BulletHellCommon.BULLET_LAYER;
@@ -43,6 +43,13 @@ public class EntityManager : MonoBehaviour
 
         BaseBullet bullet = go.GetComponent<BaseBullet>();
         bullet.damage = bullet.baseDamage;
+        bullet.moveSpeed = bulletSpeed;
+
+        if (bullet is StandardBullet)
+        {
+            StandardBullet sb = (StandardBullet)bullet;
+            sb.range = bulletDistance;
+        }
         go.SetActive(true);
         bullet.Fire(origin, destination, bullet.moveSpeed, movementFunc);
     }

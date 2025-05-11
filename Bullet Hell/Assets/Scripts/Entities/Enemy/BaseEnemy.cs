@@ -14,6 +14,7 @@ public enum EnemyState
     SHOOTING,
     EXPLODING // only used for BombEnemy
 }
+
 public class BaseEnemy : BaseEntity
 {
     public float maxLaunchDistance = .5f;
@@ -36,14 +37,13 @@ public class BaseEnemy : BaseEntity
     private Vector2 launchedFromPos;
     private Vector2 launchDestination;
     private Rigidbody2D rb;
-    private AttackPatterns ap;
+    protected AttackPatterns ap;
 
     private float pathCalcTime = 1;
     private float currentPathCalcTime;
 
     [HideInInspector]
     public Func<IEnumerator> shootFunc;
-
     private Coroutine shootRoutine, shootFuncRoutine;
 
 
@@ -59,16 +59,17 @@ public class BaseEnemy : BaseEntity
         ResetState();
     }
 
-    IEnumerator Shoot()
+    protected IEnumerator Shoot()
     {
         enemyState = EnemyState.SHOOTING;
         shootFuncRoutine = StartCoroutine(shootFunc());
         yield return shootFuncRoutine;
         enemyState = EnemyState.IDLE;
         shootRoutine = null;
+        shootFuncRoutine = null;
     }
 
-    void StopShooting()
+    protected void StopShooting()
     {
         if (shootFuncRoutine != null)
         {
@@ -122,7 +123,7 @@ public class BaseEnemy : BaseEntity
         }
     }
 
-    IEnumerator Dazed(float duration_s)
+    protected IEnumerator Dazed(float duration_s)
     {
         enemyState = EnemyState.DAZED;
         yield return new WaitForSeconds(duration_s);
@@ -146,7 +147,7 @@ public class BaseEnemy : BaseEntity
         base.OnTriggerEnter2D(collision);
     }
 
-    void FixedUpdate()
+    protected void FixedUpdate()
     {
         if (enemyState == EnemyState.LAUNCHED)
         {
@@ -249,7 +250,7 @@ public class BaseEnemy : BaseEntity
     /// </summary>
     /// <param name="pos">The position in room space</param>
     /// <returns></returns>
-    private Vector3Int ConvertToRoomSpace(Vector2 pos)
+    protected Vector3Int ConvertToRoomSpace(Vector2 pos)
     {
         return OwningRoom.GetComponentInParent<Grid>().WorldToCell(pos);
     }
@@ -259,7 +260,7 @@ public class BaseEnemy : BaseEntity
     /// </summary>
     /// <param name="pos">The position of the tile on the grid</param>
     /// <returns></returns>
-    private Vector3 ConvertToWorldSpace(Vector3Int pos)
+    protected Vector3 ConvertToWorldSpace(Vector3Int pos)
     {
         return OwningRoom.GetComponentInParent<Grid>().CellToWorld(pos);
     }
@@ -269,7 +270,5 @@ public class BaseEnemy : BaseEntity
         base.ResetState();
         currentPathCalcTime = pathCalcTime;
         enemyState = EnemyState.IDLE;
-        shootFunc = () => ap.Shoot(new ShootParameters(originCalculation: () => transform.position, destinationCalculation: () => player.transform.position));
-
     }
 }

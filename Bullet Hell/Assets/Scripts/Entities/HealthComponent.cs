@@ -18,8 +18,13 @@ public class HealthComponent : MonoBehaviour
     [SerializeField]
     private float invulnerabilityDurationOnHit;
 
+    SpriteRenderer spr;
+    Color originalColor;
+
     void Start()
     {
+        spr = GetComponentInChildren<SpriteRenderer>();
+        originalColor = spr.color;
         health = defaultStartingHealth;
         invulnerable = false;
     }
@@ -73,9 +78,6 @@ public class HealthComponent : MonoBehaviour
 
     IEnumerator StartInvulnerability()
     {
-        //Debug.Log($"Setting {transform.name} invulnerable for {invulnerabilityDurationOnHit}s");
-        SpriteRenderer spr = GetComponentInChildren<SpriteRenderer>();
-        Color originalColor = spr.color;
         Color invulnColor = Color.cyan;
 
         if (invulnerabilityDurationOnHit > 0)
@@ -100,7 +102,8 @@ public class HealthComponent : MonoBehaviour
 
     public void ResetState()
     {
-        spr.color = originalColor;
+        if (spr != null)
+            spr.color = originalColor;
         Start();
     }
 }

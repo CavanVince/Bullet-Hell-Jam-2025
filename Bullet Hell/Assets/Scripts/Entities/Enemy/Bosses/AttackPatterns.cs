@@ -122,6 +122,18 @@ public class AttackPatterns
         yield return new WaitForSeconds(shootParams.cooldown);
     }
 
+    public IEnumerator Aerial(ShootParameters shootParams)
+    {
+        for (int i = 0; i < shootParams.pulseCount; i++)
+        {
+            Vector2 target = shootParams.destinationCalculation();
+            entityManager.FireBullet(typeof(AerialBullet), target, shootParams.movementFunc);
+
+            yield return new WaitForSeconds(shootParams.pulseInterval_s);
+        }
+        yield return new WaitForSeconds(shootParams.cooldown);
+    }
+
     // sorry bro, this shit is broke
     //public IEnumerator WalkDaLineAerial(ShootParameters shootParams)
     //{
