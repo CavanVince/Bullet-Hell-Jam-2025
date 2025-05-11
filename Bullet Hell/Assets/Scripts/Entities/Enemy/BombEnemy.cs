@@ -54,7 +54,7 @@ public class BombEnemy : BaseEnemy
         BaseEntity entity = collision.gameObject.transform.parent.GetComponentInParent<BaseEntity>();
         if (entity != null)
         {
-            entity.healthComponent.TakeDamage(explosionDamage);
+            entity?.healthComponent?.TakeDamage(explosionDamage);
         }
     }
 
@@ -71,7 +71,7 @@ public class BombEnemy : BaseEnemy
 
         explosionObject.GetComponent<CircleCollider2D>().radius = bombRadius;
         yield return new WaitForFixedUpdate();
-        healthComponent.TakeDamage(999);
+        OwningRoom.EnemyDied();
         EntityManager.instance.Repool(gameObject);
     }
 
