@@ -20,15 +20,6 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField]
     private int poolSize;
-    public Sprite[] bulletSprites;
-    public Sprite[] deathSprites;
-
-    private void Start()
-    {
-        //SummonEnemy(typeof(BaseEnemy), new Vector2(0, 2), Quaternion.identity);
-        bulletSprites = Resources.LoadAll<Sprite>("Bullet");
-        deathSprites = Resources.LoadAll<Sprite>("Death");
-    }
 
     /// <summary>
     /// Grabs an available bullet from the pool and launches it in the specified direction
