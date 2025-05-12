@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1d95a64a1b6b2a64fa53437435451d99
+guid: 23eceab8af7753d4fb5fda1aca3b2070
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TallEmptyShelf-sheet_0
+      name: TallEmptyShelf_0
       rect:
         serializedVersion: 2
         x: 0
@@ -105,20 +105,20 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: 0.5224641, y: 0.73155344}
+      pivot: {x: 0.20760232, y: 0.32173175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b35b5dd01ff73fa44b71d0a7fca0e19e
-      internalID: -1204316331
+      spriteID: ca21d40d0f00b494991a9ce850ca51c2
+      internalID: -1660276988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TallEmptyShelf-sheet_1
+      name: TallEmptyShelf_1
       rect:
         serializedVersion: 2
         x: 64
@@ -126,14 +126,14 @@ TextureImporter:
         width: 64
         height: 128
       alignment: 9
-      pivot: {x: 0.38422334, y: 0.58553654}
+      pivot: {x: 0.3924731, y: 0.5933786}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5aff646e5a32bc42803b418eb7a4852
-      internalID: 1783960795
+      spriteID: 9d41b445a678db84981258a36154b550
+      internalID: -1878692812
       vertices: []
       indices: 
       edges: []
@@ -149,8 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TallEmptyShelf-sheet_0: -1204316331
-      TallEmptyShelf-sheet_1: 1783960795
+      TallEmptyShelf_0: -1660276988
+      TallEmptyShelf_1: -1878692812
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

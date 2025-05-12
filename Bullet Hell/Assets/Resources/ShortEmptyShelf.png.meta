@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 37dac8a355d29a341ae88c7ca7c026d7
+guid: 5035ff344982f404da391d80e18196b0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ShortEmptyShelf-sheet_0
+      name: ShortEmptyShelf_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 248b4a03fd0be4f42b1fc8a27a75d3ba
-      internalID: -1316307344
+      spriteID: c480c43606cca19479202f38b4456ff8
+      internalID: -1778215020
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ShortEmptyShelf-sheet_1
+      name: ShortEmptyShelf_1
       rect:
         serializedVersion: 2
         x: 64
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21807e729e7dca348a6973c772b522dd
-      internalID: -1690040732
+      spriteID: 31dacd03085a306489b94bed4fc1f312
+      internalID: 1647026179
       vertices: []
       indices: 
       edges: []
@@ -149,8 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ShortEmptyShelf-sheet_0: -1316307344
-      ShortEmptyShelf-sheet_1: -1690040732
+      ShortEmptyShelf_0: -1778215020
+      ShortEmptyShelf_1: 1647026179
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
