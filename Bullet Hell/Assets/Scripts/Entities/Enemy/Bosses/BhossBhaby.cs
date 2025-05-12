@@ -82,25 +82,26 @@ public class BhossBhaby : BaseEntity
 
         phaseOneMoveset = new Dictionary<Distance, AttackSet[]>
         {
-            { 
-                Distance.CLOSE, new AttackSet[] 
+            {
+                Distance.CLOSE, new AttackSet[]
                 { 
                     // IMPLEMENT ME
 
                     // shotgun burst for 6 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => ShotgunBurst() }, 6f, 1f) 
-                } 
+                    new AttackSet(new Func<IEnumerator>[] { () => ShotgunBurst() }, 6f, 1f),
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true) }, 3f, .3f),
+                }
             },
-            { 
-                Distance.MID, new AttackSet[] 
+            {
+                Distance.MID, new AttackSet[]
                 { 
                     // IMPLEMENT ME
 
                     // aerials on ground around player, radial from boss for 8 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss() }, 8f, 1f) 
-                } 
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss() }, 8f, 1f)
+                }
             },
-            { 
+            {
                 Distance.FAR, new AttackSet[] 
                 // aerials on ground, long range aerial, and rapid fire at player for 8 seconds
 
@@ -129,7 +130,7 @@ public class BhossBhaby : BaseEntity
         float rand = UnityEngine.Random.value;
         float currentProb = 0;
 
-        foreach(AttackSet attackSet in attackSets)
+        foreach (AttackSet attackSet in attackSets)
         {
             currentProb += attackSet.probability;
             if (rand <= currentProb)
@@ -160,25 +161,29 @@ public class BhossBhaby : BaseEntity
     }
 
     // note that this is a NESTED IEnumerator being returned
-    private IEnumerator SpawnEnemiesAfterDelay(GameObject spawnPoint, float delay, int enemies, float cooldown=6f)
+    private IEnumerator SpawnEnemiesAfterDelay(GameObject spawnPoint, float delay, int enemies, float cooldown = 6f)
     {
-        IEnumerator DoSpawn() {
+        transform.GetChild(0).GetComponent<Animator>().SetBool("IsAttacking", true);
+        IEnumerator DoSpawn()
+        {
             yield return new WaitForSeconds(delay);
             for (int i = 0; i < enemies; i++)
             {
-                GameObject enemy = EntityManager.instance.SummonEnemy(typeof(BaseEnemy), spawnPoint.transform.position, Quaternion.identity);
+                GameObject enemy = EntityManager.instance.SummonEnemy(typeof(ShotgunEnemy), spawnPoint.transform.position, Quaternion.identity);
                 enemy.GetComponent<BaseEnemy>().OwningRoom = OwningRoom;
                 enemy.GetComponent<BaseEnemy>().aggroRange = 30;
             }
             yield return new WaitForSeconds(cooldown);
         }
+
+        transform.GetChild(0).GetComponent<Animator>().SetBool("IsAttacking", false);
         yield return DoSpawn();
     }
 
     // Call this to stop shooting immediately
     void StopShooting()
     {
-        foreach(Coroutine co in activeShootCoroutines)
+        foreach (Coroutine co in activeShootCoroutines)
         {
             StopCoroutine(co);
         }
@@ -188,6 +193,10 @@ public class BhossBhaby : BaseEntity
     // Update is called once per frame
     void Update()
     {
+        Vector3 newPos = transform.GetChild(0).localPosition;
+        newPos.y = MathF.Sin(Time.time * 0.5f);
+        transform.GetChild(0).localPosition = newPos;
+
         if (!isAggroed)
         {
             if (Vector2.Distance(player.gameObject.transform.position, transform.position) <= aggroRange)
@@ -201,7 +210,7 @@ public class BhossBhaby : BaseEntity
                 return;
             }
         }
-        switch(bossPhase)
+        switch (bossPhase)
         {
             case BossPhase.ONE:
                 if (healthComponent.health <= phaseTwoHealthAmount)
@@ -226,7 +235,7 @@ public class BhossBhaby : BaseEntity
     /// <param name="shootFuncs"></param>
     /// <param name="duration"></param>
     /// <returns></returns>
-    IEnumerator Shoot(Func<IEnumerator>[] shootFuncs, float duration=10f)
+    IEnumerator Shoot(Func<IEnumerator>[] shootFuncs, float duration = 10f)
     {
         IEnumerator _ShootForDuration(Func<IEnumerator> f, float t)
         {
@@ -244,13 +253,13 @@ public class BhossBhaby : BaseEntity
         bossState = BossState.ATTACKING;
         List<Coroutine> activeShootFuncRoutines = new List<Coroutine>();
 
-        foreach(Func<IEnumerator> shootFunc in shootFuncs)
+        foreach (Func<IEnumerator> shootFunc in shootFuncs)
         {
             activeShootFuncRoutines.Add(StartCoroutine(_ShootForDuration(shootFunc, duration)));
         }
 
         // wait for all to complete (aka join the threads)
-        foreach(Coroutine routine in activeShootFuncRoutines)
+        foreach (Coroutine routine in activeShootFuncRoutines)
         {
             yield return routine;
         }
@@ -259,7 +268,7 @@ public class BhossBhaby : BaseEntity
         bossState = BossState.MOVING;
     }
 
-    IEnumerator AerialOnPlayer(bool randomScatterAfterSpawn=false, int shotsPerSecond=15)
+    IEnumerator AerialOnPlayer(bool randomScatterAfterSpawn = false, int shotsPerSecond = 15)
     {
         Vector2 randomOffset = new Vector2(
             UnityEngine.Random.Range(-1f, 1f),
@@ -285,7 +294,7 @@ public class BhossBhaby : BaseEntity
             movementFunc: null,
             numBullets: 1,
             pulseCount: shotsPerSecond,
-            pulseInterval_s: 1f/shotsPerSecond,
+            pulseInterval_s: 1f / shotsPerSecond,
             cooldown: 0f
         );
         yield return ap.Aerial(sp);
@@ -296,7 +305,7 @@ public class BhossBhaby : BaseEntity
         yield return null;
     }
 
-    IEnumerator ShotgunBurst(int shotsPerSecond=3, float cooldown=2f)
+    IEnumerator ShotgunBurst(int shotsPerSecond = 3, float cooldown = 2f)
     {
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
@@ -304,14 +313,14 @@ public class BhossBhaby : BaseEntity
             movementFunc: null,
             numBullets: 6,
             pulseCount: shotsPerSecond,
-            pulseInterval_s: 1f/shotsPerSecond,
+            pulseInterval_s: 1f / shotsPerSecond,
             cooldown: cooldown,
-            bulletSpeed:8f
+            bulletSpeed: 8f
         );
         yield return ap.ShotgunShot(sp);
     }
 
-    IEnumerator RadialFromBoss(int shotsPerSecond=3, float bulletSpeed=15f, float bulletDistance=10f, float cooldown=0f)
+    IEnumerator RadialFromBoss(int shotsPerSecond = 3, float bulletSpeed = 15f, float bulletDistance = 10f, float cooldown = 0f)
     {
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
@@ -319,7 +328,7 @@ public class BhossBhaby : BaseEntity
             movementFunc: null,
             numBullets: 8,
             pulseCount: shotsPerSecond,
-            pulseInterval_s: 1f/shotsPerSecond,
+            pulseInterval_s: 1f / shotsPerSecond,
             cooldown: cooldown,
             bulletSpeed: bulletSpeed,
             bulletDistance: bulletDistance
@@ -328,17 +337,17 @@ public class BhossBhaby : BaseEntity
 
     }
 
-    IEnumerator RapidShot(int shotsPerSecond=5, float bulletSpeed=15f, float cooldown=0f)
+    IEnumerator RapidShot(int shotsPerSecond = 5, float bulletSpeed = 15f, float cooldown = 0f)
     {
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
             destinationCalculation: () => player.transform.position,
             movementFunc: null,
             pulseCount: shotsPerSecond,
-            pulseInterval_s: 1f/shotsPerSecond,
+            pulseInterval_s: 1f / shotsPerSecond,
             cooldown: cooldown,
             bulletSpeed: bulletSpeed,
-            bulletDistance:40f
+            bulletDistance: 40f
         );
         yield return ap.Shoot(sp);
     }
@@ -368,24 +377,21 @@ public class BhossBhaby : BaseEntity
     {
         float distToPlayer = Vector2.Distance(player.transform.position, transform.position);
 
-        switch(bossState)
+        switch (bossState)
         {
             case BossState.MOVING:
                 AttackSet[] possibleAttacks;
                 AttackSet selectedAttackSet;
                 if (distToPlayer <= closeRangeShootDistance)
                 {
-                    sr.color = Color.yellow;
                     possibleAttacks = phaseOneMoveset[Distance.CLOSE];
                 }
                 else if (distToPlayer <= midRangeShootDistance)
                 {
-                    sr.color = Color.blue;
                     possibleAttacks = phaseOneMoveset[Distance.MID];
                 }
                 else
                 {
-                    sr.color = Color.red;
                     possibleAttacks = phaseOneMoveset[Distance.FAR];
                 }
                 // selects a random attack set being mindful of their probability weights.
@@ -398,7 +404,7 @@ public class BhossBhaby : BaseEntity
 
     void PhaseTwo()
     {
-
+        PhaseOne();
     }
 
 }
