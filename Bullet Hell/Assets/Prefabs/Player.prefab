@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 0}
-  defaultMoveSpeed: 10
+  defaultMoveSpeed: 7
   moveSpeed: 5
   moveDir: {x: 0, y: 0}
   dashAvailable: 1
@@ -523,8 +523,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.64, y: 1.25}
+  m_Offset: {x: 0, y: 0.14609894}
+  m_Size: {x: 0.64, y: 0.82952005}
   m_Direction: 0
 --- !u!1 &7210298001389973960
 GameObject:
@@ -636,6 +636,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4593920046464087667}
     m_Modifications:
+    - target: {fileID: 2349702927169021720, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4229916686873092496, guid: 1400ac13a29249c48b1e1cb1c915fa2a, type: 3}
       propertyPath: m_Name
       value: BatChargeBar

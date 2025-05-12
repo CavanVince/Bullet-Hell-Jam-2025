@@ -10796,7 +10796,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.5, y: 0.5, z: 0}
   m_MaxChunkCount: 16
@@ -49429,11 +49429,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (182)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49565,7 +49569,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -49763,7 +49767,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -49833,11 +49837,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (120)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49969,7 +49977,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -50105,11 +50113,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (139)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50175,11 +50187,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (133)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50245,11 +50261,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (175)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50315,11 +50335,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (191)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50385,11 +50409,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (180)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50456,6 +50484,10 @@ PrefabInstance:
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50583,11 +50615,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (185)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50719,11 +50755,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (135)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50851,7 +50891,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -50921,11 +50961,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (126)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51053,11 +51097,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (124)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51251,11 +51299,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (131)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51321,7 +51373,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -51519,7 +51571,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -51589,11 +51641,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (155)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51725,11 +51781,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (158)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51863,6 +51923,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (39)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.41
@@ -51993,11 +52057,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (160)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52063,11 +52131,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (188)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52201,6 +52273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4100001
@@ -52265,11 +52341,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (141)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52335,11 +52415,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (161)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52405,11 +52489,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (147)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52475,11 +52563,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (177)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52607,11 +52699,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (163)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52677,7 +52773,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -52871,11 +52967,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (129)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53007,7 +53107,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -53077,11 +53177,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (193)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53215,6 +53319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.71000004
@@ -53279,11 +53387,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (183)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53349,11 +53461,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (150)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53553,6 +53669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.71
@@ -53617,11 +53737,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (186)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53687,11 +53811,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (153)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53823,7 +53951,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -54025,11 +54153,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (142)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54097,6 +54229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.48
@@ -54161,7 +54297,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -54233,6 +54369,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.1200001
@@ -54297,11 +54437,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (165)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54367,11 +54511,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (194)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54503,11 +54651,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (122)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54639,11 +54791,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (145)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54709,11 +54865,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (152)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54781,6 +54941,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3000001
@@ -54845,11 +55009,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (174)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54915,7 +55083,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -54985,11 +55153,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (151)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55121,11 +55293,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (168)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55191,11 +55367,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (167)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55261,11 +55441,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (176)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55331,11 +55515,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (140)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55401,11 +55589,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (156)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55473,6 +55665,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (42)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.0900002
@@ -55537,11 +55733,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (137)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55669,11 +55869,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (123)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55739,11 +55943,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (132)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55809,7 +56017,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -55879,11 +56087,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (144)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55949,11 +56161,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (146)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56019,7 +56235,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -56089,11 +56305,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (171)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56159,11 +56379,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (162)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56229,7 +56453,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -56301,6 +56525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.40999985
@@ -56365,11 +56593,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (164)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56436,6 +56668,10 @@ PrefabInstance:
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56567,11 +56803,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (118)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56699,11 +56939,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (148)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56901,11 +57145,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (173)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57235,11 +57483,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (157)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57305,11 +57557,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (134)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57441,11 +57697,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (138)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57511,11 +57771,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (154)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57647,11 +57911,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (172)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57849,11 +58117,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (187)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57920,6 +58192,10 @@ PrefabInstance:
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58051,11 +58327,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (178)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58121,11 +58401,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (166)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58191,11 +58475,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (121)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58261,7 +58549,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -58397,11 +58685,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (125)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58535,6 +58827,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.28999996
@@ -58599,11 +58895,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (159)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58669,7 +58969,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -58739,11 +59039,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (127)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58809,11 +59113,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (169)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58879,11 +59187,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (143)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59015,7 +59327,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -59085,11 +59397,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (192)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59155,11 +59471,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (184)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59226,6 +59546,10 @@ PrefabInstance:
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59485,11 +59809,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (149)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59555,11 +59883,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (181)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59757,11 +60089,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (119)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59891,6 +60227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.75
@@ -59955,11 +60295,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (189)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60025,7 +60369,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -60095,11 +60439,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (130)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60165,11 +60513,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (136)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60235,7 +60587,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -60305,11 +60657,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (170)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60503,11 +60859,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (179)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60705,7 +61065,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -60777,6 +61137,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile of Flesh (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.50613713
@@ -60841,11 +61205,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (190)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60911,7 +61279,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -60981,7 +61349,7 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
@@ -61183,11 +61551,15 @@ PrefabInstance:
       objectReference: {fileID: 1312109865, guid: 32da79dad702e97438348c5a54391634, type: 3}
     - target: {fileID: 194936916524727080, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_Name
       value: Pile of Flesh (128)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737652419269842069, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8309267624470589469, guid: 5574016ccd4f7054c9326e0f4ed4449a, type: 3}
       propertyPath: m_LocalPosition.x
