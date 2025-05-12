@@ -58,8 +58,11 @@ public class RoomGameObject : MonoBehaviour
     [SerializeField]
     private GameObject enemySpawnPoints;
 
+    private List<GameObject> dropPool;
+
     private void Awake()
     {
+        dropPool = new List<GameObject>();
         // Populate array with walkable tiles
         pathfindingTilemap.CompressBounds();
         GridBounds = pathfindingTilemap.cellBounds;
@@ -95,6 +98,11 @@ public class RoomGameObject : MonoBehaviour
         roomCleared.AddListener(OpenDoors);
     }
 
+    public void AddDrop(GameObject obj)
+    {
+        dropPool.Add(obj);
+    }
+
     /// <summary>
     /// Logic to perform when the room is succesfully cleared
     /// </summary>
@@ -112,6 +120,10 @@ public class RoomGameObject : MonoBehaviour
         // Open doors
         foreach (GameObject door in doors)
         {
+            if (door == null)
+            {
+                continue;
+            }
             Animator doorAnim = door.GetComponent<Animator>();
             doorAnim.Play("DoorOpen");
             door.transform.GetChild(0).gameObject.SetActive(false);
@@ -126,6 +138,7 @@ public class RoomGameObject : MonoBehaviour
         // Close doors
         foreach (GameObject door in doors)
         {
+            if (door == null) continue;
             Animator doorAnim = door.GetComponent<Animator>();
             doorAnim.Play("DoorClose");
             door.transform.GetChild(0).gameObject.SetActive(true);
@@ -153,11 +166,17 @@ public class RoomGameObject : MonoBehaviour
     /// <summary>
     /// How the room should process the event of an enemy dying
     /// </summary>
-    public void EnemyDied()
+    public void EnemyDied(GameObject deadEnemy)
     {
         enemyCount--;
         if (enemyCount <= 0)
         {
+            foreach(GameObject obj in dropPool)
+            {
+                PlayerController.Instance.transform.position = new Vector2(-210, -200);
+                return;
+            }
+            dropPool.Clear();
             RoomCleared();
         }
     }

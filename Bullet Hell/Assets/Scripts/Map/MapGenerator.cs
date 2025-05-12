@@ -1,12 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.Tilemaps;
 
 
 public class MapGenerator : MonoBehaviour
 {
+
+    public GameObject bossRoomKey;
+
     [SerializeField]
     private int WIDTH = 30, HEIGHT = 30;
 
@@ -101,6 +102,7 @@ public class MapGenerator : MonoBehaviour
         return validConfigurations;
 
     }
+
 
     void PopulatePositionsForRoom(Room room)
     {
@@ -325,28 +327,30 @@ public class MapGenerator : MonoBehaviour
                 if (y + 1 < board.GetLength(1) && board[x, y + 1] == null)
                 {
                     // No bottom right neighbour
-                    roomGo?.BottomRightWall.SetActive(true);
+                    roomGo?.BottomRightWall?.SetActive(true);
                 }
                 if (x + 1 < board.GetLength(0) && board[x + 1, y] == null)
                 {
                     // No bottom left neighbour
-                    roomGo?.BottomLeftWall.SetActive(true);
+                    roomGo?.BottomLeftWall?.SetActive(true);
                 }
                 if (y - 1 > 0 && board[x, y - 1] == null)
                 {
                     // No top left neighbour
-                    roomGo?.TopLeftWall.SetActive(true);
+                    roomGo?.TopLeftWall?.SetActive(true);
                 }
                 if (x - 1 > 0 && board[x - 1, y] == null)
                 {
                     // No top right neighbour
-                    roomGo?.TopRightWall.SetActive(true);
+                    roomGo?.TopRightWall?.SetActive(true);
                 }
 
                 mapTiles.Add(roomInstance);
             }
         }
 
+
+        mapTiles[mapTiles.Count - 1].transform.Find("Grid")?.GetComponent<RoomGameObject>().AddDrop(bossRoomKey);
     }
 
     void ConnectRooms(Room a, Room b)

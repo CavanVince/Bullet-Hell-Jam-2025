@@ -70,7 +70,7 @@ public class BombEnemy : BaseEnemy
 
         explosionObject.GetComponent<CircleCollider2D>().radius = bombRadius;
         yield return new WaitForFixedUpdate();
-        OwningRoom.EnemyDied();
+        OwningRoom.EnemyDied(gameObject);
         EntityManager.instance.Repool(gameObject);
     }
 

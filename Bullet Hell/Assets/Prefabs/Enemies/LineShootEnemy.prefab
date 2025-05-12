@@ -302,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1054173c66420a94d96a03207a236507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  defaultStartingHealth: 10
+  maxHealth: 15
+  defaultStartingHealth: 15
   health: 0
   invulnerabilityDurationOnHit: 0
   heartContainer: {fileID: 699788543500851361, guid: eeca8f9b77295fd479734c6cdd20c201, type: 3}
@@ -332,10 +332,11 @@ MonoBehaviour:
   gunDR: {fileID: 21300000, guid: cd471d405685ca64a9007a79358838d4, type: 3}
   gunUL: {fileID: 21300000, guid: eca907ada0c6bcc469d2e4f8aaf28a4c, type: 3}
   gunUR: {fileID: 21300000, guid: 6ea7dac28965d104da14318feb8dfe91, type: 3}
-  pulseInterval_s: 0.25
-  aftershotCooldown: 3
+  hitWallSound1: {fileID: 0}
+  pulseInterval_s: 0.2
+  aftershotCooldown: 2
   numBullets: 5
-  bulletDistance: 10
+  bulletDistance: 30
 --- !u!82 &799381335010032697
 AudioSource:
   m_ObjectHideFlags: 0

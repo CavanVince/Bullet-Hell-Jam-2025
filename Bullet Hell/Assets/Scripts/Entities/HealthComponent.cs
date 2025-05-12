@@ -96,9 +96,17 @@ public class HealthComponent : MonoBehaviour
         if (gameObject.CompareTag("Player"))
         {
             //Render stuff
-            FullScreenPassRendererFeature renderFeature = Camera.main.GetComponent<FollowCamera>().RenderFeature;
-            renderFeature.passMaterial = new Material(renderFeature.passMaterial);
+            if (false)
+            {
+                FullScreenPassRendererFeature renderFeature = Camera.main.GetComponent<FollowCamera>().RenderFeature;
+                renderFeature.passMaterial = new Material(renderFeature.passMaterial);
+                float distortVal = (defaultStartingHealth - health) / (float)defaultStartingHealth * 0.25f;
+                distortVal = Mathf.Clamp(distortVal, 0f, 0.25f);
+                renderFeature.passMaterial.SetFloat("_Distort_Intensity", distortVal);
 
+            }
+
+<<<<<<< Updated upstream
             float distortVal = (maxHealth - health) / (float)maxHealth * 0.25f;
             distortVal = Mathf.Clamp(distortVal, 0f, 0.25f);
             renderFeature.passMaterial.SetFloat("_Distort_Intensity", distortVal);
@@ -106,10 +114,16 @@ public class HealthComponent : MonoBehaviour
             float ghostVal = (maxHealth - health) / (float)maxHealth * 0.5f;
             ghostVal = Mathf.Clamp(ghostVal, 0f, 0.5f);
             renderFeature.passMaterial.SetFloat("_GhostingIntensity", ghostVal);
+=======
+>>>>>>> Stashed changes
         }
         if (gameObject.layer == BulletHellCommon.ENEMY_LAYER)
         {
-            StartCoroutine(PlayHitSound());
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(PlayHitSound());
+
+            }
         }
 
 
@@ -129,7 +143,7 @@ public class HealthComponent : MonoBehaviour
                 {
                     Instantiate(heartContainer, transform.position, transform.rotation);
                 }
-                GetComponent<BaseEnemy>()?.OwningRoom?.EnemyDied();
+                GetComponent<BaseEnemy>()?.OwningRoom?.EnemyDied(gameObject);
                 EntityManager.instance.Repool(gameObject);
                 return;
             }
