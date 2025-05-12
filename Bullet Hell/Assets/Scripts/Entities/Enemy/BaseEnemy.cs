@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 
 public enum EnemyState
 {
@@ -33,6 +34,7 @@ public class BaseEnemy : BaseEntity
     protected List<Vector2> path;
     [HideInInspector]
     public PlayerController player;
+    private float startingMoveSpeed;
 
     private Vector2 launchedFromPos;
     private Vector2 launchDestination;
@@ -47,6 +49,17 @@ public class BaseEnemy : BaseEntity
     private Coroutine shootRoutine, shootFuncRoutine;
 
     private Animator animator;
+    private GameObject gun;
+
+    [Header("Gun Sprites")]
+    [SerializeField]
+    private Sprite gunDL;
+    [SerializeField]
+    private Sprite gunDR;
+    [SerializeField]
+    private Sprite gunUL;
+    [SerializeField]
+    private Sprite gunUR;
 
 
     protected override void Start()
@@ -54,7 +67,9 @@ public class BaseEnemy : BaseEntity
         base.Start();
         player = PlayerController.Instance;
         rb = GetComponent<Rigidbody2D>();
+        gun = transform.Find("Sprite/Gun").gameObject;
         moveSpeed = 1f;
+        startingMoveSpeed = moveSpeed;
         path = new List<Vector2>();
         ap = new AttackPatterns(EntityManager.instance);
         animator = GetComponentInChildren<Animator>();
@@ -86,6 +101,29 @@ public class BaseEnemy : BaseEntity
 
     protected virtual void Update()
     {
+        // Update gun positioning
+        // We hardcoding this sucker cause I got NO time
+        if (player.transform.position.x - transform.GetChild(0).transform.position.x >= 0 && player.transform.position.y - transform.GetChild(0).position.y <= 0)
+        {
+            // DR
+            gun.GetComponent<SpriteRenderer>().sprite = gunDR;
+        }
+        else if (player.transform.position.x - transform.GetChild(0).transform.position.x < 0 && player.transform.position.y - transform.GetChild(0).position.y <= 0)
+        {
+            // DL
+            gun.GetComponent<SpriteRenderer>().sprite = gunDL;
+        }
+        else if (player.transform.position.x - transform.GetChild(0).transform.position.x < 0 && player.transform.position.y - transform.GetChild(0).position.y > 0)
+        {
+            // UL
+            gun.GetComponent<SpriteRenderer>().sprite = gunUL;
+        }
+        else 
+        {
+            // UR
+            gun.GetComponent<SpriteRenderer>().sprite = gunUR;
+        }
+
         if (enemyState == EnemyState.MOVING)
         {
             // idk maybe just move around randomly or do nothin?
@@ -95,7 +133,7 @@ public class BaseEnemy : BaseEntity
             else
                 currentPathCalcTime += Time.deltaTime;
         }
-        else 
+        else
         {
             animator.SetFloat("Input X", (player.transform.position - transform.GetChild(0).transform.position).normalized.x);
             animator.SetFloat("Input Y", (player.transform.position - transform.GetChild(0).transform.position).normalized.y);
@@ -134,6 +172,7 @@ public class BaseEnemy : BaseEntity
 
     protected IEnumerator Dazed(float duration_s)
     {
+        moveSpeed = startingMoveSpeed;
         enemyState = EnemyState.DAZED;
         yield return new WaitForSeconds(duration_s);
         enemyState = EnemyState.IDLE;
@@ -158,6 +197,20 @@ public class BaseEnemy : BaseEntity
             }
         }
         base.OnTriggerEnter2D(collision);
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+        if (enemyState == EnemyState.LAUNCHED && collision.gameObject.layer == BulletHellCommon.ENEMY_LAYER)
+        {
+            launchDestination = transform.position;
+            healthComponent.TakeDamage(3);
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(Dazed(dazeDurationS));
+            }
+        }
     }
 
     protected void FixedUpdate()
@@ -220,9 +273,9 @@ public class BaseEnemy : BaseEntity
     /// </summary>
     protected virtual void ShootPlayer()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) < aggroRange)
+        if (Vector2.Distance(player.transform.position, transform.GetChild(0).position) < aggroRange)
         {
-            EntityManager.instance.FireBullet(typeof(StandardBullet), transform.position, (player.transform.position - transform.position).normalized);
+            EntityManager.instance.FireBullet(typeof(StandardBullet), transform.GetChild(0).position, (player.transform.position - transform.GetChild(0).position).normalized);
         }
     }
 
@@ -252,13 +305,9 @@ public class BaseEnemy : BaseEntity
     /// <param name="newPath"></param>
     public void SetPath(NativeList<int2> newPath)
     {
-        LineRenderer lr = GetComponent<LineRenderer>();
-        lr.positionCount = 0;
-        lr.positionCount = newPath.Length - 1;
         for (int i = 1; i < newPath.Length; i++) // Exclude first point (starting point)
         {
             path.Add(new Vector2(newPath[i].x, newPath[i].y));
-            lr.SetPosition(i - 1, ConvertToWorldSpace(new Vector3Int(newPath[i].x, newPath[i].y)));
         }
         newPath.Dispose();
     }

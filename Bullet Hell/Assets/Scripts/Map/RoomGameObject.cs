@@ -179,7 +179,7 @@ public class RoomGameObject : MonoBehaviour
     /// <returns></returns>
     private Type GetRandomEnemyType()
     {
-        int val = UnityEngine.Random.Range(0, 6);
+        int val = UnityEngine.Random.Range(0, 5);
         switch (val)
         {
             case 0:
@@ -192,8 +192,8 @@ public class RoomGameObject : MonoBehaviour
                 return typeof(OctopusShooterEnemy);
             case 4:
                 return typeof(RadialShooterEnemy);
-                case 5:
-                return typeof(BombEnemy);
+            /*case 5:
+                return typeof(BombEnemy);*/
         }
         return typeof(BaseEnemy);
     }

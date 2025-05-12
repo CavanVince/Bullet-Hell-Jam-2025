@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -83,6 +84,7 @@ public class HealthComponent : MonoBehaviour
             if (gameObject.tag == "Player")
             {
                 //Debug.Log("YOU DIED. GAME OVER SCREEN WOULD GO HERE");
+                SceneManager.LoadScene("Map Generation");
             }
             else
             {

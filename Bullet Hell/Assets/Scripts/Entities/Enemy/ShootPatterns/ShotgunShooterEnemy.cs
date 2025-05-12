@@ -23,10 +23,10 @@ public class ShotgunShooterEnemy : BaseEnemy
     {
         base.Start();
         ShootParameters sp = new ShootParameters(
-            originCalculation: () => transform.position,
+            originCalculation: () => transform.GetChild(0).position,
             destinationCalculation: () => player.transform.position,
             movementFunc: null,
-            numBullets: 1,
+            numBullets: 5,
             pulseCount: pulseCount,
             pulseInterval_s: pulseInterval_s,
             cooldown: aftershotCooldown,
