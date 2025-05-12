@@ -88,7 +88,7 @@ public class BhossBhaby : BaseEntity
                     // IMPLEMENT ME
 
                     // shotgun burst for 6 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 8) }, 8f, 1f),
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true, shotsPerSecond: 8), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 8) }, 8f, 1f),
                 }
             },
             {
@@ -97,7 +97,7 @@ public class BhossBhaby : BaseEntity
                     // IMPLEMENT ME
 
                     // aerials on ground around player, radial from boss for 8 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 8) }, 8f, 1f),
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true, shotsPerSecond: 8), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 8) }, 8f, 1f),
                 }
             },
             {
