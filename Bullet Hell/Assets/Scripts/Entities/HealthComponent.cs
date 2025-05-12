@@ -45,6 +45,18 @@ public class HealthComponent : MonoBehaviour
         if (health + amount > maxHealth)
             return false;
 
+        //Render stuff
+        FullScreenPassRendererFeature renderFeature = Camera.main.GetComponent<FollowCamera>().RenderFeature;
+        renderFeature.passMaterial = new Material(renderFeature.passMaterial);
+
+        float distortVal = (maxHealth - health) / (float)maxHealth * 0.25f;
+        distortVal = Mathf.Clamp(distortVal, 0f, 0.25f);
+        renderFeature.passMaterial.SetFloat("_Distort_Intensity", distortVal);
+
+        float ghostVal = (maxHealth - health) / (float)maxHealth * 0.5f;
+        ghostVal = Mathf.Clamp(ghostVal, 0f, 0.5f);
+        renderFeature.passMaterial.SetFloat("_GhostingIntensity", ghostVal);
+
         health += amount;
         return true;
     }
@@ -87,9 +99,13 @@ public class HealthComponent : MonoBehaviour
             FullScreenPassRendererFeature renderFeature = Camera.main.GetComponent<FollowCamera>().RenderFeature;
             renderFeature.passMaterial = new Material(renderFeature.passMaterial);
 
-            float distortVal = (defaultStartingHealth - health) / (float)defaultStartingHealth * 0.25f;
+            float distortVal = (maxHealth - health) / (float)maxHealth * 0.25f;
             distortVal = Mathf.Clamp(distortVal, 0f, 0.25f);
             renderFeature.passMaterial.SetFloat("_Distort_Intensity", distortVal);
+
+            float ghostVal = (maxHealth - health) / (float)maxHealth * 0.5f;
+            ghostVal = Mathf.Clamp(ghostVal, 0f, 0.5f);
+            renderFeature.passMaterial.SetFloat("_GhostingIntensity", ghostVal);
         }
         if (gameObject.layer == BulletHellCommon.ENEMY_LAYER)
         {
