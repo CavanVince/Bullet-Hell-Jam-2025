@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : BaseEntity
 {
@@ -86,6 +88,7 @@ public class PlayerController : BaseEntity
             animator.SetFloat("Input Y", PreviousDir.y);
             animator.SetBool("IsMoving", false);
         }
+        transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.GetComponent<HealthComponent>().health.ToString();
     }
 
     void MovePlayer()
