@@ -153,12 +153,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1935097088, guid: 65db54a7243ac5145a68a8f7597d9ded, type: 3}
+  m_Sprite: {fileID: 294962147, guid: bfbf39f22a36ca9458b4266e56605091, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.64, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -180,7 +180,7 @@ MonoBehaviour:
   defaultMoveSpeed: 1
   moveSpeed: 0
   sprites: []
-  heartContainer: {fileID: 0}
+  heartContainer: {fileID: 699788543500851361, guid: eeca8f9b77295fd479734c6cdd20c201, type: 3}
 --- !u!114 &596246955477945668
 MonoBehaviour:
   m_ObjectHideFlags: 0
