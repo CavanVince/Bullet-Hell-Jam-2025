@@ -775,9 +775,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -3478476148869050184, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
-      propertyPath: defaultMoveSpeed
-      value: 10
+    - target: {fileID: 166047350311404924, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 166047350311404924, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 166047350311404924, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 166047350311404924, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 166047350311404924, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 151.91998
+      objectReference: {fileID: 0}
+    - target: {fileID: 166047350311404924, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 55.1
       objectReference: {fileID: 0}
     - target: {fileID: 1077596012872309678, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: m_Controller
@@ -835,14 +855,6 @@ PrefabInstance:
       propertyPath: defaultStartingHealth
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 6337664355752066506, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
-      propertyPath: m_Size.y
-      value: 0.82952005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6337664355752066506, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.14609894
-      objectReference: {fileID: 0}
     - target: {fileID: 7558736749234336095, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
       propertyPath: batTrans
       value: 
@@ -855,6 +867,18 @@ PrefabInstance:
       propertyPath: batTrailPrefab
       value: 
       objectReference: {fileID: 547921097282786831, guid: fcf65e1d138852943b1b1cc5f472206b, type: 3}
+    - target: {fileID: 8242716880120198977, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 9dedf8a33870599428ad87b448d1f96c, type: 2}
+    - target: {fileID: 8242716880120198977, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7253994257005230311, guid: 9dedf8a33870599428ad87b448d1f96c, type: 2}
+    - target: {fileID: 8242716880120198977, guid: bde086acd6cf1d344a3fb95783c39697, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
