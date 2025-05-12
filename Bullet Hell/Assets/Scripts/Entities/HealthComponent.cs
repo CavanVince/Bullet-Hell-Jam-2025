@@ -25,6 +25,7 @@ public class HealthComponent : MonoBehaviour
     SpriteRenderer spr;
     Color originalColor;
     public GameObject heartContainer;
+    
 
     void Start()
     {
@@ -52,7 +53,23 @@ public class HealthComponent : MonoBehaviour
     {
         TakeDamage(1);
     }
-
+    IEnumerator PlayHitSound()
+    {
+        AudioClip hitSound;
+        AudioClip hitsound1 = Resources.Load<AudioClip>("Sounds/WallHitOrc1");
+        AudioClip hitsound2 = Resources.Load<AudioClip>("Sounds/WallHitOrc2");
+        float rand = Random.Range(0f, 1f);
+        if (rand < .5f)
+        {
+            hitSound = hitsound1;
+        }
+        else
+        {
+            hitSound = hitsound2;
+        }
+        GetComponent<AudioSource>().PlayOneShot(hitSound);
+        yield return new WaitForSeconds(hitSound.length);
+    }
     public void TakeDamage(int damage)
     {
         float random = Random.Range(0f, 1f);
@@ -73,6 +90,10 @@ public class HealthComponent : MonoBehaviour
             float distortVal = (defaultStartingHealth - health) / (float)defaultStartingHealth * 0.25f;
             distortVal = Mathf.Clamp(distortVal, 0f, 0.25f);
             renderFeature.passMaterial.SetFloat("_Distort_Intensity", distortVal);
+        }
+        if (gameObject.layer == BulletHellCommon.ENEMY_LAYER)
+        {
+            StartCoroutine(PlayHitSound());
         }
 
 

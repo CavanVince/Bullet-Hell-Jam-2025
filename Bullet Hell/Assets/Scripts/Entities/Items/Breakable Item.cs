@@ -20,17 +20,17 @@ public class BreakableItem : BaseEntity
     public void Break()
     {
         float random = UnityEngine.Random.Range(0f, 1f);
-        
+
         index++;
         GetComponent<SpriteRenderer>().sprite = sprites[index];
+        transform.GetComponent<AudioSource>().Play();
         if (index == sprites.Length - 1)
         {
             GetComponentInChildren<Collider2D>().enabled = false;
         }
-        if (random < .33f)
+        if (random < .5f)
         {
             Instantiate(heartContainer, transform.position, transform.rotation);
-            Destroy(gameObject);
         }
     
     }

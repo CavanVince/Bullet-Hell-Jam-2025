@@ -60,6 +60,8 @@ public class BaseEnemy : BaseEntity
     private Sprite gunUL;
     [SerializeField]
     private Sprite gunUR;
+    public AudioClip hitWallSound1;
+    private AudioClip hitWallSound2;
 
 
     protected override void Start()
@@ -73,6 +75,8 @@ public class BaseEnemy : BaseEntity
         path = new List<Vector2>();
         ap = new AttackPatterns(EntityManager.instance);
         animator = GetComponentInChildren<Animator>();
+        hitWallSound1 = Resources.Load<AudioClip>("Sounds/WallHitOrc1");
+        hitWallSound2 = Resources.Load<AudioClip>("Sounds/WallHitOrc2");
 
         ResetState();
     }
@@ -184,6 +188,7 @@ public class BaseEnemy : BaseEntity
         {
             if (enemyState == EnemyState.LAUNCHED)
             {
+                StartCoroutine(HitWallSounds());
                 launchDestination = transform.position;
                 healthComponent.TakeDamage(3);
                 if (gameObject.activeInHierarchy)
@@ -197,6 +202,22 @@ public class BaseEnemy : BaseEntity
             }
         }
         base.OnTriggerEnter2D(collision);
+    }
+    protected IEnumerator HitWallSounds()
+    {
+        float rand = UnityEngine.Random.Range(0f, 1f);
+        AudioClip sound;
+        if (rand < .5f)
+        {
+            sound = hitWallSound1;
+        }
+        else
+        {
+            sound = hitWallSound2;
+        }
+        GetComponent<AudioSource>().PlayOneShot(sound);
+       
+        yield return new WaitForSeconds(sound.length);
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)

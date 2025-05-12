@@ -210,6 +210,7 @@ public class BatSwingController : MonoBehaviour
 
                     if (layer == BulletHellCommon.BULLET_LAYER && bullet != null && bullet.GetType() == typeof(StandardBullet))
                     {
+                        StartCoroutine(PlayHitSound());
                         StandardBullet sb = bullet as StandardBullet;
                         if (!sb.isReflectable)
                         {
@@ -259,6 +260,12 @@ public class BatSwingController : MonoBehaviour
 
         playerController.dashAvailable = true;
         swingState = SwingState.NONE;
+    }
+    IEnumerator PlayHitSound()
+    {
+        GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
+        GetComponent<AudioSource>().Stop();
     }
 
     private void Update()
