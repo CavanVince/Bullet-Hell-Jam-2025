@@ -88,8 +88,7 @@ public class BhossBhaby : BaseEntity
                     // IMPLEMENT ME
 
                     // shotgun burst for 6 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => ShotgunBurst() }, 6f, 1f),
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true) }, 3f, .3f),
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 8) }, 8f, 1f),
                 }
             },
             {
@@ -98,7 +97,7 @@ public class BhossBhaby : BaseEntity
                     // IMPLEMENT ME
 
                     // aerials on ground around player, radial from boss for 8 seconds
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss() }, 8f, 1f)
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 8) }, 8f, 1f),
                 }
             },
             {
@@ -109,14 +108,15 @@ public class BhossBhaby : BaseEntity
                 // note that each IEnumerator 'shoot function' has its own set of optional parameters, like setting the number of bullets per sec, bullet speed, bullet distance, cooldown after completion, etc
                 {
                     // FIX ME
+                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true, shotsPerSecond: 8), () => RadialFromBoss(bulletDistance: 100f, bulletSpeed: 8), () => RandomTargetRapidShot(10, bulletSpeed:5f), () => ShotgunBurst(bulletDistance: 100f), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 6) }, 8f, 1f),
+                    //new AttackSet(new Func<IEnumerator>[] { () => ShotgunBurst() }, 6f, 1f),
+                    //new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true) }, 3f, .3f),
+                    //new AttackSet(new Func<IEnumerator>[] { () => RadialFromBoss(3, bulletSpeed:25f, bulletDistance:30f)}, 3f, .5f),
+                    //new AttackSet(new Func<IEnumerator>[] { () => RapidShot(10, bulletSpeed:25f) }, 3f, 0f),
+                  // new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(3, bulletSpeed: 25f, bulletDistance:20f), () => RapidShot(10, bulletSpeed:25f) }, 8f, 0f),
+                    //new AttackSet(new Func<IEnumerator>[] { () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 0f, 4) }, 1f, .2f )
 
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true) }, 3f, .3f),
-                    new AttackSet(new Func<IEnumerator>[] { () => RadialFromBoss(3, bulletSpeed:25f, bulletDistance:30f)}, 3f, .5f),
-                    new AttackSet(new Func<IEnumerator>[] { () => RapidShot(10, bulletSpeed:25f) }, 3f, 0f),
-                    new AttackSet(new Func<IEnumerator>[] { () => AerialOnPlayer(true), () => RadialFromBoss(3, bulletSpeed: 25f, bulletDistance:20f), () => RapidShot(10, bulletSpeed:25f) }, 8f, 0f),
-                    new AttackSet(new Func<IEnumerator>[] { () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 0f, 4) }, 1f, .2f )
-
-                    //new AttackSet(new Func<IEnumerator>[] { () => LockemUp(), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 4), () => RapidShot() }, 10f),
+                   // new AttackSet(new Func<IEnumerator>[] { () => LockemUp(), () => SpawnEnemiesAfterDelay(NearestSpawnPoint(player.transform.position), 4f, 4), () => RapidShot() }, 10f, .3f),
                 }
             }
         };
@@ -305,7 +305,7 @@ public class BhossBhaby : BaseEntity
         yield return null;
     }
 
-    IEnumerator ShotgunBurst(int shotsPerSecond = 3, float cooldown = 2f)
+    IEnumerator ShotgunBurst(int shotsPerSecond = 3, float cooldown = 2f, float bulletDistance = 30, float bulletSpeed = 8f)
     {
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
@@ -315,7 +315,9 @@ public class BhossBhaby : BaseEntity
             pulseCount: shotsPerSecond,
             pulseInterval_s: 1f / shotsPerSecond,
             cooldown: cooldown,
-            bulletSpeed: 8f
+            bulletSpeed: 8f,
+            bulletDistance: bulletDistance
+
         );
         yield return ap.ShotgunShot(sp);
     }
@@ -333,7 +335,7 @@ public class BhossBhaby : BaseEntity
             bulletSpeed: bulletSpeed,
             bulletDistance: bulletDistance
         );
-        yield return ap.DivergingRadial(sp);
+        yield return ap.DaOctopus(sp);
 
     }
 
@@ -362,7 +364,16 @@ public class BhossBhaby : BaseEntity
         // FIXME
         ShootParameters sp = new ShootParameters(
             originCalculation: () => transform.position,
-            destinationCalculation: () => player.transform.position,
+            destinationCalculation: () => 
+            {
+
+                Vector2 randomOffset = new Vector2(
+                    UnityEngine.Random.Range(-1f, 1f),
+                    UnityEngine.Random.Range(-1f, 1f)
+                ).normalized * UnityEngine.Random.Range(0f, 6f);
+                Vector2 randomDropAroundPlayer = (Vector2)player.transform.position + randomOffset + (player.moveDir * 2);
+                return randomDropAroundPlayer;
+            },
             movementFunc: null,
             pulseCount: shotsPerSecond,
             pulseInterval_s: 1f / shotsPerSecond,

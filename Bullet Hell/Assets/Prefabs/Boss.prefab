@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1054173c66420a94d96a03207a236507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
-  defaultStartingHealth: 30
+  maxHealth: 100
+  defaultStartingHealth: 100
   health: 0
   invulnerabilityDurationOnHit: 0
   heartContainer: {fileID: 0}
